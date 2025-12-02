@@ -1,303 +1,295 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
-  description: >-
-    REST API for the User Management Service
+  description: REST API for the User Management Service
   version: "1"
-  title: "User Management"
-  termsOfService: "Experimental, no SLA"
+  title: User Management
   contact:
-    email: "development@bbgo.org"
+    email: development@bbgo.org
   license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-# host: "localhost"
-basePath: "/user-service/v1"
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
 tags:
-- name: User
-  description: "User"
-
-- name: Token
-  description: "Token"
-
-schemes:
-- "https"
-- "http"
+  - name: User
+    description: User
+  - name: Token
+    description: Token
 paths:
   /users:
     post:
       tags:
-      - User
-      summary: "an operation to register a new user"
-      description: >-
-        Registers a new user
-      operationId: "registerUser"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - name: payload
-        in: body
-        description: >-
-          Data for the user to be registered
-        schema:
-          $ref: "./Data.yaml"
+        - User
+      summary: an operation to register a new user
+      description: Registers a new user
+      operationId: registerUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./Data.yaml
+        description: Data for the user to be registered
         required: true
       responses:
-        201:
+        "201":
           description: Created
           headers:
             Location:
               description: URI of the registered resource
-              type: string
-              #format: uri
+              schema:
+                type: string
             ETag:
-              description: >-
-                Fingerprint of the created resource
-              type: string
-          schema:
-            $ref: "./User.yaml"
-        400:
-          $ref: "./responses.yaml#/400"
-        401:
-          $ref: "./responses.yaml#/401"
-        403:
-          $ref: "./responses.yaml#/403"
-        500:
-          $ref: "./responses.yaml#/500"
-
+              description: Fingerprint of the created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: ./User.yaml
+        "400":
+          $ref: ./responses.yaml#/400
+        "401":
+          $ref: ./responses.yaml#/401
+        "403":
+          $ref: ./responses.yaml#/403
+        "500":
+          $ref: ./responses.yaml#/500
     get:
       tags:
-      - User
+        - User
       summary: Get all users
-      description: >-
-        Get all users
-      operationId: "getUsers"
-      produces:
-      - "application/json"
+      description: Get all users
+      operationId: getUsers
       parameters:
-      - $ref: "./parameters.yaml#/filter"
-      - $ref: "./parameters.yaml#/top"
-      - $ref: "./parameters.yaml#/skip"
-      - $ref: "./parameters.yaml#/search"
+        - $ref: ./parameters.yaml#/filter
+        - $ref: ./parameters.yaml#/top
+        - $ref: ./parameters.yaml#/skip
+        - $ref: ./parameters.yaml#/search
       responses:
-        200:
+        "200":
           description: OK
-          schema:
-            $ref: "./Users.yaml"
-        400:
-          $ref: "./responses.yaml#/400"
-        401:
-          $ref: "./responses.yaml#/401"
-        403:
-          $ref: "./responses.yaml#/403"
-        404:
-          $ref: "./responses.yaml#/404"
-        500:
-          $ref: "./responses.yaml#/500"
+          content:
+            application/json:
+              schema:
+                $ref: ./Users.yaml
+        "400":
+          $ref: ./responses.yaml#/400
+        "401":
+          $ref: ./responses.yaml#/401
+        "403":
+          $ref: ./responses.yaml#/403
+        "404":
+          $ref: ./responses.yaml#/404
+        "500":
+          $ref: ./responses.yaml#/500
       security:
-      - tokenAuth: [ADMIN, USER]
-
-  /users/{id}:
+        - tokenAuth:
+            - ADMIN
+            - USER
+  "/users/{id}":
     get:
       tags:
-      - User
-      summary: "Retrieve a user by ID"
-      description: >-
-        Returns user
-      operationId: "getUser"
-      produces:
-      - "application/json"
+        - User
+      summary: Retrieve a user by ID
+      description: Returns user
+      operationId: getUser
       parameters:
-      - in: path
-        name: "id"
-        description: "User ID"
-        type: string
-        required: true
+        - in: path
+          name: id
+          description: User ID
+          required: true
+          schema:
+            type: string
       responses:
-        200:
+        "200":
           description: OK
           headers:
             ETag:
-              description: >-
-                Fingerprint of the user object retrieved
-              type: string
-          schema:
-            $ref: "./User.yaml"
-        400:
-          $ref: "./responses.yaml#/400"
-        401:
-          $ref: "./responses.yaml#/401"
-        403:
-          $ref: "./responses.yaml#/403"
-        404:
-          $ref: "./responses.yaml#/404"
-        500:
-          $ref: "./responses.yaml#/500"
+              description: Fingerprint of the user object retrieved
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: ./User.yaml
+        "400":
+          $ref: ./responses.yaml#/400
+        "401":
+          $ref: ./responses.yaml#/401
+        "403":
+          $ref: ./responses.yaml#/403
+        "404":
+          $ref: ./responses.yaml#/404
+        "500":
+          $ref: ./responses.yaml#/500
       security:
-      - tokenAuth: [ADMIN, USER]
-
+        - tokenAuth:
+            - ADMIN
+            - USER
     delete:
       tags:
-      - User
+        - User
       summary: Deletes a user
-      description: >-
-        Deletes a user
+      description: Deletes a user
       operationId: deleteUser
       parameters:
-      - name: id
-        in: path
-        description: ID of a user to delete
-        required: true
-        type: "string"
+        - name: id
+          in: path
+          description: ID of a user to delete
+          required: true
+          schema:
+            type: string
       responses:
-        204:
-          $ref: "./responses.yaml#/204"
-        400:
-          $ref: "./responses.yaml#/400"
-        401:
-          $ref: "./responses.yaml#/401"
-        403:
-          $ref: "./responses.yaml#/403"
-        404:
-          $ref: "./responses.yaml#/404"
-        500:
-          $ref: "./responses.yaml#/500"
+        "204":
+          $ref: ./responses.yaml#/204
+        "400":
+          $ref: ./responses.yaml#/400
+        "401":
+          $ref: ./responses.yaml#/401
+        "403":
+          $ref: ./responses.yaml#/403
+        "404":
+          $ref: ./responses.yaml#/404
+        "500":
+          $ref: ./responses.yaml#/500
       security:
-      - tokenAuth: [ADMIN, USER]
-
-  /users/{id}/data:
+        - tokenAuth:
+            - ADMIN
+            - USER
+  "/users/{id}/data":
     put:
       tags:
-      - User
+        - User
       summary: Update an existing user data
-      description: >-
-        Updates data for an existing user
+      description: Updates data for an existing user
       operationId: updateData
-      consumes:
-      - application/json
-      produces:
-      - application/json
       parameters:
-      - in: path
-        name: id
-        description: ID of the user to update
-        type: string
-        required: true
-      - in: body
-        name: payload
+        - in: path
+          name: id
+          description: ID of the user to update
+          required: true
+          schema:
+            type: string
+        - $ref: ./parameters.yaml#/ifmatch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./Data.yaml
         description: User data to be updated
         required: true
-        schema:
-          $ref: "./Data.yaml"
-      - $ref: "./parameters.yaml#/ifmatch"
       responses:
-        200:
+        "200":
           description: OK
           headers:
             ETag:
-              description: "Fingerprint of the user object updated"
-              type: string
-          schema:
-            $ref: "./User.yaml"
-        400:
-          $ref: "./responses.yaml#/400"
-        401:
-          $ref: "./responses.yaml#/401"
-        403:
-          $ref: "./responses.yaml#/403"
-        404:
-          $ref: "./responses.yaml#/404"
-        412:
-          $ref: "./responses.yaml#/412"
-        500:
-          $ref: "./responses.yaml#/500"
+              description: Fingerprint of the user object updated
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: ./User.yaml
+        "400":
+          $ref: ./responses.yaml#/400
+        "401":
+          $ref: ./responses.yaml#/401
+        "403":
+          $ref: ./responses.yaml#/403
+        "404":
+          $ref: ./responses.yaml#/404
+        "412":
+          $ref: ./responses.yaml#/412
+        "500":
+          $ref: ./responses.yaml#/500
       security:
-      - tokenAuth: [ADMIN, USER]
-
-  /users/{id}/roles:
+        - tokenAuth:
+            - ADMIN
+            - USER
+  "/users/{id}/roles":
     put:
       tags:
-      - User
+        - User
       summary: Update roles for an existing user
-      description: >-
-        Updates roles for an existing user
+      description: Updates roles for an existing user
       operationId: updateRoles
-      consumes:
-      - application/json
-      produces:
-      - application/json
       parameters:
-      - in: path
-        name: id
-        description: ID of the user to update
-        type: string
-        required: true
-      - in: body
-        name: payload
+        - in: path
+          name: id
+          description: ID of the user to update
+          required: true
+          schema:
+            type: string
+        - $ref: ./parameters.yaml#/ifmatch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./Roles.yaml
         description: User roles to be updated
         required: true
-        schema:
-          $ref: "./Roles.yaml"
-      - $ref: "./parameters.yaml#/ifmatch"
       responses:
-        200:
+        "200":
           description: OK
           headers:
             ETag:
-              description: "Fingerprint of the user object updated"
-              type: string
-          schema:
-            $ref: "./User.yaml"
-        400:
-          $ref: "./responses.yaml#/400"
-        401:
-          $ref: "./responses.yaml#/401"
-        403:
-          $ref: "./responses.yaml#/403"
-        404:
-          $ref: "./responses.yaml#/404"
-        412:
-          $ref: "./responses.yaml#/412"
-        500:
-          $ref: "./responses.yaml#/500"
+              description: Fingerprint of the user object updated
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: ./User.yaml
+        "400":
+          $ref: ./responses.yaml#/400
+        "401":
+          $ref: ./responses.yaml#/401
+        "403":
+          $ref: ./responses.yaml#/403
+        "404":
+          $ref: ./responses.yaml#/404
+        "412":
+          $ref: ./responses.yaml#/412
+        "500":
+          $ref: ./responses.yaml#/500
       security:
-      - tokenAuth: [ADMIN, USER]
-
+        - tokenAuth:
+            - ADMIN
+            - USER
   /token:
     post:
       tags:
-      - Token
+        - Token
       summary: Issues a token for an authenticated user
-      description: >-
-        Issues a token for an authenticated user
+      description: Issues a token for an authenticated user
       operationId: issueToken
-      produces:
-      - application/json
       responses:
-        200:
+        "200":
           description: OK
-          schema:
-            $ref: "./AccessToken.yaml"
-        400:
-          $ref: "./responses.yaml#/400"
-        401:
-          $ref: "./responses.yaml#/401"
-        403:
-          $ref: "./responses.yaml#/403"
-        404:
-          $ref: "./responses.yaml#/404"
-        412:
-          $ref: "./responses.yaml#/412"
-        500:
-          $ref: "./responses.yaml#/500"
+          content:
+            application/json:
+              schema:
+                $ref: ./AccessToken.yaml
+        "400":
+          $ref: ./responses.yaml#/400
+        "401":
+          $ref: ./responses.yaml#/401
+        "403":
+          $ref: ./responses.yaml#/403
+        "404":
+          $ref: ./responses.yaml#/404
+        "412":
+          $ref: ./responses.yaml#/412
+        "500":
+          $ref: ./responses.yaml#/500
       security:
-      - basicAuth: []
-
-securityDefinitions:
-  basicAuth:
-    type: basic
-  tokenAuth:
-    type: apiKey
-    in: header
-    name: Authorization
+        - basicAuth: []
+servers:
+  - url: /user-service/v1
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization

@@ -1,34 +1,38 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: polymorphic type containing an array of the base type
   description: codegen fails to produce code that builds
+  version: ""
 paths:
   /execute:
     post:
       responses:
-        200:
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Value"
-
-definitions:
-  Value:
-    type: "object"
-    discriminator: "ValueType"
-    required:
-      - "ValueType"
-    properties:
-      ValueType:
-        type: "string"
-
-  ValueArray:
-    allOf:
-      - $ref: "#/definitions/Value"
-      - required:
-          - "Values"
-        properties:
-          Values:
-            type: "array"
-            items:
-              $ref: "#/definitions/Value"
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Value"
+components:
+  schemas:
+    Value:
+      type: object
+      discriminator:
+        propertyName: ValueType
+      required:
+        - ValueType
+      properties:
+        ValueType:
+          type: string
+    ValueArray:
+      allOf:
+        - $ref: "#/components/schemas/Value"
+        - required:
+            - Values
+          properties:
+            Values:
+              type: array
+              items:
+                $ref: "#/components/schemas/Value"

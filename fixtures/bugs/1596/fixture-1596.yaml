@@ -1,21 +1,22 @@
-swagger: '2.0'
-
+openapi: 3.0.0
 info:
   version: 1.0.0
   title: MyApp
   description: (Description pending)
-  
 paths:
   /hello:
     get:
       summary: Simple Hello World endpoint
-      tags: ['Hello']
+      tags:
+        - Hello
       responses:
-        '200':
+        "200":
           description: service is saying hello
-          schema:
-            $ref: '#/definitions/somethingEndingInWindows'
-
-definitions:
-  somethingEndingInWindows:
-    type: object
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/somethingEndingInWindows"
+components:
+  schemas:
+    somethingEndingInWindows:
+      type: object

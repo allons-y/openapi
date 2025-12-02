@@ -1,80 +1,66 @@
-swagger: "2.0"
-
+openapi: 3.0.0
 info:
   title: allOf
   description: allOf bug example
   version: 0.0.1
-
-schemes:
-  - http
-
-consumes:
-  - application/json
-produces:
-  - application/json
-
-definitions:
-
-  Lol:
-    type: object
-    required:
-      - xxx
-      - yyy
-      - zzz
-    properties:
-      xxx:
-        type: string
-      yyy:
-        type: integer
-      zzz:
-        type: boolean
-
-  Foo:
-    type: object
-    properties:
-      fauna:
-        $ref: "#/definitions/Lol"
-      flora:
-        $ref: "#/definitions/Lol"
-      fungi:
-        $ref: "#/definitions/Lol"
-
-  Bar:
-    type: object
-    allOf:
-      - $ref: "#/definitions/Foo"
-
-  Baz:
-    type: object
-    properties:
-      squirrel:
-        type: string
-      owl:
-        type: string
-      fox:
-        type: string
-
-  Awol:
-    type: object
-    allOf:
-      - $ref: "#/definitions/Bar"
-      - $ref: "#/definitions/Baz"
-
 paths:
-
   /awol:
     put:
       operationId: setAwol
       summary: Set Awol
-      parameters:
-        - name: awol
-          in: body
-          required: true
-          description: Awol
-          schema:
-            $ref: "#/definitions/Awol"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Awol"
+        description: Awol
+        required: true
       responses:
-        201:
+        "201":
           description: Awol set
-          schema:
-            $ref: "#/definitions/Awol"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Awol"
+components:
+  schemas:
+    Lol:
+      type: object
+      required:
+        - xxx
+        - yyy
+        - zzz
+      properties:
+        xxx:
+          type: string
+        yyy:
+          type: integer
+        zzz:
+          type: boolean
+    Foo:
+      type: object
+      properties:
+        fauna:
+          $ref: "#/components/schemas/Lol"
+        flora:
+          $ref: "#/components/schemas/Lol"
+        fungi:
+          $ref: "#/components/schemas/Lol"
+    Bar:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Foo"
+    Baz:
+      type: object
+      properties:
+        squirrel:
+          type: string
+        owl:
+          type: string
+        fox:
+          type: string
+    Awol:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Bar"
+        - $ref: "#/components/schemas/Baz"

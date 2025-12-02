@@ -278,8 +278,8 @@ func BytesToYAMLv2Doc(data []byte) (any, error) {
 func applyDefaultSwagger(doc *loads.Document) (*loads.Document, error) {
 	// bake a minimal swagger spec to pass validation
 	swspec := doc.Spec()
-	if swspec.Swagger == "" {
-		swspec.Swagger = "2.0"
+	if swspec.OpenAPI == "" {
+		swspec.OpenAPI = "3.0.0"
 	}
 	if swspec.Info == nil {
 		info := new(spec.Info)
@@ -295,5 +295,5 @@ func applyDefaultSwagger(doc *loads.Document) (*loads.Document, error) {
 	if err != nil {
 		return nil, err
 	}
-	return loads.Analyzed(jazon, swspec.Swagger)
+	return loads.Analyzed(jazon, swspec.OpenAPI)
 }

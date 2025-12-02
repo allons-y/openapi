@@ -1,39 +1,35 @@
-swagger: '2.0'
-
+openapi: 3.0.0
 info:
-  version: "1.0.0"
+  version: 1.0.0
   title: Simple Search API
-  description: |
-    A very simple api description that makes a x-www-form-urlencoded only API to submit searches.
-
+  description: >
+    A very simple api description that makes a x-www-form-urlencoded only API to
+    submit searches.
 tags:
   - name: search
   - name: tasks
-
-produces:
-  - application/json
-
-consumes:
-  - application/json
-
 paths:
   /search:
     post:
       operationId: search
       summary: searches tasks
       description: searches the task titles and descriptions for a match
-      consumes:
-        - application/x-www-form-urlencoded
       tags:
         - search
-      parameters:
-        - name: q
-          in: formData
-          type: string
-          description: the search string
-          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                q:
+                  description: the search string
+                  type: string
+              required:
+                - q
+        required: true
       responses:
-        default:  
+        default:
           description: Generic Error
   /tasks:
     get:
@@ -48,71 +44,80 @@ paths:
         - name: size
           in: query
           description: Size of task list
-          type: integer
-          format: int32
-          default: 20
+          schema:
+            type: integer
+            format: int32
+            default: 20
         - name: completed
           in: query
           description: when true shows completed tasks
-          type: boolean
-
+          schema:
+            type: boolean
       responses:
-        default:
-          description: Generic Error
-        200:
+        "200":
           description: Successful response
           headers:
             X-Rate-Limit:
-              type: integer
-              format: int32
+              schema:
+                type: integer
+                format: int32
             X-Rate-Limit-Remaining:
-              type: integer
-              format: int32
-              default: 42
+              schema:
+                type: integer
+                format: int32
+                default: 42
             X-Rate-Limit-Reset:
-              type: integer
-              format: int32
-              default: 1449875311
+              schema:
+                type: integer
+                format: int32
+                default: 1449875311
             X-Rate-Limit-Reset-Human:
-              type: string
-              default: 3 days
+              schema:
+                type: string
+                default: 3 days
             X-Rate-Limit-Reset-Human-Number:
-              type: string
-              default: "3"
+              schema:
+                type: string
+                default: "3"
             Access-Control-Allow-Origin:
-              type: string
-              default: "*"
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Task"
+              schema:
+                type: string
+                default: "*"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+        default:
+          description: Generic Error
     post:
       operationId: createTask
       summary: Creates a 'Task' object.
       description: |
         Validates the content property for length etc.
-      parameters:
-        - name: body
-          in: body
-          schema:
-            $ref: "#/definitions/Task"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
       tags:
         - tasks
       responses:
+        "201":
+          description: Task Created
         default:
           description: Generic Error
-        201:
-          description: Task Created
-
-  /tasks/{id}:
+  "/tasks/{id}":
     parameters:
       - name: id
         in: path
-        type: integer
-        format: int32
         description: The id of the task
         required: true
-        minimum: 1
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
     put:
       operationId: updateTask
       summary: updates a task.
@@ -120,19 +125,21 @@ paths:
         Validates the content property for length etc.
       tags:
         - tasks
-      parameters:
-        - name: body
-          in: body
-          description: the updated task
-          schema:
-            $ref: "#/definitions/Task"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+        description: the updated task
       responses:
+        "200":
+          description: Task updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
         default:
           description: Generic Error
-        200:
-          description: Task updated
-          schema:
-            $ref: "#/definitions/Task"
     delete:
       operationId: deleteTask
       summary: deletes a task
@@ -141,43 +148,43 @@ paths:
       tags:
         - tasks
       responses:
+        "204":
+          description: Task Deleted
         default:
           description: Generic Error
-        204:
-          description: Task Deleted
-
-
-definitions:
-  Task:
-    title: A Task object
-    description: |
-      This describes a task. Tasks require a content property to be set.
-    required:
-      - content
-    type: object
-    properties:
-      id:
-        title: the unique id of the task
-        description: |
-          This id property is autogenerated when a task is created.
-        type: integer
-        format: int64
-        readOnly: true
-      content:
-        title: The content of the task
-        description: |
-          Task content can contain [GFM](https://help.github.com/articles/github-flavored-markdown/).
-        type: string
-        minLength: 5
-      completed:
-        title: when true this task is completed
-        type: boolean
-      creditcard:
-        title: the credit card format usage
-        type: string
-        format: creditcard
-      createdAt:
-        title: task creation time
-        type: string
-        format: date-time
-        readOnly: true
+components:
+  schemas:
+    Task:
+      title: A Task object
+      description: |
+        This describes a task. Tasks require a content property to be set.
+      required:
+        - content
+      type: object
+      properties:
+        id:
+          title: the unique id of the task
+          description: |
+            This id property is autogenerated when a task is created.
+          type: integer
+          format: int64
+          readOnly: true
+        content:
+          title: The content of the task
+          description: >
+            Task content can contain
+            [GFM](https://help.github.com/articles/github-flavored-markdown/).
+          type: string
+          minLength: 5
+        completed:
+          title: when true this task is completed
+          type: boolean
+        creditcard:
+          title: the credit card format usage
+          type: string
+          format: creditcard
+        createdAt:
+          title: task creation time
+          type: string
+          format: date-time
+          readOnly: true

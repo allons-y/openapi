@@ -1,127 +1,169 @@
-swagger: '2.0'
-basePath: /
-host: localhost
+openapi: 3.0.0
 info:
-  title: 'reproduce #1894'
+  title: "reproduce #1894"
   version: 0.1.0
-consumes:
-  - '*/*'
-  - application/io.swagger.examples.todo-list.v1+json
-produces:
-  - '*/*'
-  - application/io.swagger.examples.todo-list.v1+json
-schemes:
-  - http
-  - https
 paths:
   /:
     get:
-      tags: ["todos"]
+      tags:
+        - todos
       operationId: find
       parameters:
-        - name: limit
-          in: formData
-          type: integer
-          format: int32
-          required: true
-          allowEmptyValue: true
-        - name: "X-Rate-Limit"
+        - name: X-Rate-Limit
           in: header
-          type: integer
-          format: int32
           required: true
-        - name: tags
-          in: formData
-          type: array
-          collectionFormat: multi
-          allowEmptyValue: true
-          items:
+          schema:
             type: integer
             format: int32
-          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                limit:
+                  type: integer
+                  format: int32
+                tags:
+                  type: array
+                  items:
+                    type: integer
+                    format: int32
+              required:
+                - limit
+                - tags
+        required: true
       responses:
-        '200':
+        "200":
           description: OK
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/item"
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/item"
+            application/io.swagger.examples.todo-list.v1+json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/item"
         default:
           description: error
-          schema:
-            $ref: "#/definitions/error"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/error"
+            application/io.swagger.examples.todo-list.v1+json:
+              schema:
+                $ref: "#/components/schemas/error"
     post:
-      tags: ["todos"]
+      tags:
+        - todos
       operationId: addOne
-      parameters:
-        - name: body
-          in: body
-          schema:
-            $ref: "#/definitions/item"
+      requestBody:
+        $ref: "#/components/requestBodies/item"
       responses:
-        '201':
+        "201":
           description: Created
-          schema:
-            $ref: "#/definitions/item"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/item"
+            application/io.swagger.examples.todo-list.v1+json:
+              schema:
+                $ref: "#/components/schemas/item"
         default:
           description: error
-          schema:
-            $ref: "#/definitions/error"
-  /{id}:
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/error"
+            application/io.swagger.examples.todo-list.v1+json:
+              schema:
+                $ref: "#/components/schemas/error"
+  "/{id}":
     parameters:
-      - type: string
-        name: id
+      - name: id
         in: path
         required: true
+        schema:
+          type: string
     put:
-      tags: ["todos"]
+      tags:
+        - todos
       operationId: updateOne
-      parameters:
-        - name: body
-          in: body
-          schema:
-            $ref: "#/definitions/item"
+      requestBody:
+        $ref: "#/components/requestBodies/item"
       responses:
-        '200':
+        "200":
           description: OK
-          schema:
-            $ref: "#/definitions/item"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/item"
+            application/io.swagger.examples.todo-list.v1+json:
+              schema:
+                $ref: "#/components/schemas/item"
         default:
           description: error
-          schema:
-            $ref: "#/definitions/error"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/error"
+            application/io.swagger.examples.todo-list.v1+json:
+              schema:
+                $ref: "#/components/schemas/error"
     delete:
-      tags: ["todos"]
+      tags:
+        - todos
       operationId: destroyOne
       responses:
-        '204':
+        "204":
           description: Deleted
         default:
           description: error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/error"
+            application/io.swagger.examples.todo-list.v1+json:
+              schema:
+                $ref: "#/components/schemas/error"
+servers:
+  - url: http://localhost
+  - url: https://localhost
+components:
+  requestBodies:
+    item:
+      content:
+        "*/*":
           schema:
-            $ref: "#/definitions/error"
-definitions:
-  item:
-    type: object
-    required:
-      - description
-    properties:
-      id:
-        type: integer
-        format: int64
-        readOnly: true
-      description:
-        type: string
-        minLength: 1
-      completed:
-        type: boolean
-  error:
-    type: object
-    required:
-      - message
-    properties:
-      code:
-        type: integer
-        format: int64
-      message:
-        type: string
+            $ref: "#/components/schemas/item"
+        application/io.swagger.examples.todo-list.v1+json:
+          schema:
+            $ref: "#/components/schemas/item"
+  schemas:
+    item:
+      type: object
+      required:
+        - description
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        description:
+          type: string
+          minLength: 1
+        completed:
+          type: boolean
+    error:
+      type: object
+      required:
+        - message
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string

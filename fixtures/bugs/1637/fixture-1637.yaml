@@ -1,44 +1,41 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
-  version: '0.0.1'
+  version: 0.0.1
   title: Test
-schemes:
-  - http
-basePath: /v1
-produces:
-  - application/json
-consumes:
-  - application/json
 paths:
   /test:
     put:
       operationId: test
-      parameters:
-      - name: payload
-        in: body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Value"
         required: true
-        schema:
-          type: array
-          items:
-            $ref: '#/definitions/Value'
       tags:
         - Test
       responses:
         default:
-          description: "successful operation"
-definitions:
-  Value:
-    type: object
-    discriminator: ValueType
-    required:
-    - ValueType
-    properties:
-      ValueType:
-        type: string
-  StringValue:
-    allOf:
-    - $ref: '#/definitions/Value'
-    - type: object
+          description: successful operation
+servers:
+  - url: /v1
+components:
+  schemas:
+    Value:
+      type: object
+      discriminator:
+        propertyName: ValueType
+      required:
+        - ValueType
       properties:
-        foobar:
+        ValueType:
           type: string
+    StringValue:
+      allOf:
+        - $ref: "#/components/schemas/Value"
+        - type: object
+          properties:
+            foobar:
+              type: string

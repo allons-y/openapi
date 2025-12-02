@@ -1117,7 +1117,29 @@ func gatherURISchemes(swsp *spec.Swagger, operation spec.Operation) ([]string, [
 	extraSchemes = concatUnique(getExtraSchemes(swsp.Extensions), extraSchemes)
 	sort.Strings(extraSchemes)
 
-	schemes := concatUnique(swsp.Schemes, operation.Schemes)
+	// In OpenAPI v3, schemes are extracted from server URLs
+	// First check operation-level servers, then root-level servers
+	var schemes []string
+	servers := operation.Servers
+	if len(servers) == 0 {
+		servers = swsp.Servers
+	}
+	for _, server := range servers {
+		if strings.HasPrefix(server.URL, "https://") || strings.HasPrefix(server.URL, "https:") {
+			schemes = append(schemes, "https")
+		} else if strings.HasPrefix(server.URL, "http://") || strings.HasPrefix(server.URL, "http:") {
+			schemes = append(schemes, "http")
+		} else if strings.HasPrefix(server.URL, "wss://") || strings.HasPrefix(server.URL, "wss:") {
+			schemes = append(schemes, "wss")
+		} else if strings.HasPrefix(server.URL, "ws://") || strings.HasPrefix(server.URL, "ws:") {
+			schemes = append(schemes, "ws")
+		}
+	}
+	// Fall back to deprecated v2 Schemes field for backward compatibility
+	if len(schemes) == 0 {
+		schemes = swsp.Schemes
+	}
+	schemes = concatUnique(schemes)
 	sort.Strings(schemes)
 
 	return schemes, extraSchemes

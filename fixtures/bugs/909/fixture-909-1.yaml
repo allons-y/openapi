@@ -1,60 +1,67 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: fixture for issue#909
-  version: '1.0.0'
-host: localhost
-basePath: /
-produces:
-  - application/json
-schemes:
-  - http
+  version: 1.0.0
 paths:
   /optional:
     get:
       operationId: getOptional
       parameters:
-      - name: notAnOption0
-        in: query
-        type: string
-        required: true
-      - name: notAnOption1
-        in: query
-        type: string
-        format: date-time
-        required: false
-      - name: notAnOption2
-        in: query
-        type: string
-        format: uuid
-        required: false
-      - name: notAnOption3
-        in: body
-        required: false
-        schema:
-          $ref: '#/definitions/ContainerConfig'
-      responses:
-        200:
-          description: simple type
+        - name: notAnOption0
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: notAnOption1
+          in: query
+          required: false
           schema:
             type: string
             format: date-time
-        201:
-          description: simple type
+        - name: notAnOption2
+          in: query
+          required: false
           schema:
             type: string
             format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContainerConfig"
+      responses:
+        "200":
+          description: simple type
+          content:
+            application/json:
+              schema:
+                type: string
+                format: date-time
+        "201":
+          description: simple type
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
         default:
           description: schema type
-          schema:
-            $ref: '#/definitions/ContainerConfig'
-definitions:
-  ContainerConfig:
-    type: object
-    required: [config1]
-    properties:
-      config1:
-        type: string
-        format: date-time
-      config2:
-        type: string
-        format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContainerConfig"
+servers:
+  - url: http://localhost
+components:
+  schemas:
+    ContainerConfig:
+      type: object
+      required:
+        - config1
+      properties:
+        config1:
+          type: string
+          format: date-time
+        config2:
+          type: string
+          format: uuid

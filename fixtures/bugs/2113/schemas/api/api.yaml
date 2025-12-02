@@ -1,19 +1,23 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
   version: "1"
-  title: "sub api"
+  title: sub api
 paths:
   /dummy:
     get:
       responses:
-        200:
+        "200":
           description: OK
-          schema:
-            $ref: ../dummy/dummy.yaml
+          content:
+            "*/*":
+              schema:
+                $ref: ../dummy/dummy.yaml
   /example:
     get:
       responses:
-        200:
+        "200":
           description: OK
-          schema:
-            $ref: ../example/example.yaml
+          content:
+            "*/*":
+              schema:
+                $ref: ../example/example.yaml

@@ -1,53 +1,46 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   version: 0.1.1
   title: test 1
   description: recursively following JSON references
   contact:
     name: Fred
-
-schemes:
-  - http
-
-consumes:
-  - application/json
-produces:
-  - application/json
-
 paths:
   /getAll:
     get:
       operationId: getAll
-      parameters:
-        - name: a
-          in: body
-          description: max number of results
-          required: false
-          schema:
-            $ref: '#/definitions/a'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/a"
+        description: max number of results
       responses:
-        '200':
+        "200":
           description: Success
-          schema:
-            $ref: '#/definitions/b1'
-        '201':
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/b1"
+        "201":
           description: Success
-          schema:
-            $ref: '#/definitions/b2'
-        '203':
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/b2"
+        "203":
           description: Success
-          schema:
-            $ref: '#/definitions/b3'
-
-definitions:
-  a:
-    type: string
-  b1:
-    $ref: './test3-ter-model-schema.json#/definitions/b1'
-  b2:
-    $ref: './test3-ter-model-schema.json#/definitions/b2'
-  b3:
-    $ref: './test3-ter-model-schema.json#/definitions/b3'
-
-
-
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/b3"
+components:
+  schemas:
+    a:
+      type: string
+    b1:
+      $ref: ./test3-ter-model-schema.json#/definitions/b1
+    b2:
+      $ref: ./test3-ter-model-schema.json#/definitions/b2
+    b3:
+      $ref: ./test3-ter-model-schema.json#/definitions/b3

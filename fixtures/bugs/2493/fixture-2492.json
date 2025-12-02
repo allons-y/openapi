@@ -1,1 +1,48 @@
-{"swagger":"2.0","info":{"version":"1.0.0","title":"Project"},"host":"127.0.0.1:8080","basePath":"/api/v1","schemes":["http"],"consumes":["application/json"],"produces":["application/json"],"paths":{"/_version":{"get":{"operationId":"getBuildInfo","responses":{"200":{"description":"Successful operation","schema":{"$ref":"#/definitions/BuildInfo"}}}}}},"definitions":{"BuildInfo":{"properties":{"Version":{"type":"string"},"CommitHash":{"type":"string"},"BuildTime":{"type":"string"}}}}}
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Project"
+    },
+    "paths": {
+        "/_version": {
+            "get": {
+                "operationId": "getBuildInfo",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BuildInfo"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8080/api/v1"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "BuildInfo": {
+                "properties": {
+                    "Version": {
+                        "type": "string"
+                    },
+                    "CommitHash": {
+                        "type": "string"
+                    },
+                    "BuildTime": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

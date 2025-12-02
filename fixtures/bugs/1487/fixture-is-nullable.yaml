@@ -1,13 +1,8 @@
-swagger: '2.0'
-
+openapi: 3.0.0
 info:
-  version: "1.0.0"
+  version: 1.0.0
   title: fixture for x-nullable flag
   description: just an elementary check with the x-nullable tag
-produces:
-  - application/json
-consumes:
-  - application/json
 paths:
   /models:
     get:
@@ -19,14 +14,15 @@ paths:
       responses:
         default:
           description: Generic Out
-definitions:
-  thingWithNullableDates:
-    type: object
-    properties:
-      prop1: 
-        type: string
-        format: date
-      prop2: 
-        type: string
-        format: date
-        x-nullable: true
+components:
+  schemas:
+    thingWithNullableDates:
+      type: object
+      properties:
+        prop1:
+          type: string
+          format: date
+        prop2:
+          type: string
+          format: date
+          nullable: true

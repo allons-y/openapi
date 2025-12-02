@@ -1,4 +1,4 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
   title: ""
   version: ""
@@ -7,117 +7,102 @@ paths:
     get:
       description: ""
       responses:
-        200:
+        "200":
           description: ""
-definitions:
-  Case-1--Fail--omitempty-false-not-hoisted-by-ref:
-    type: object
-    properties:
-      Body:
-        $ref: '#/definitions/Object-with-omitempty-false'
-
-  Case-2--Fail--omitempty-false-not-overridden-by-ref-sibling:
-    type: object
-    properties:
-      Body:
-        $ref: '#/definitions/Object-with-omitempty-true'
-        x-omitempty: false
-
-  Case-3--Pass--object-nullable-false-hoisted-by-ref:
-    type: object
-    properties:
-      Body:
-        $ref: '#/definitions/Object-with-nullable-false'
-
-  Case-4--Pass--object-nullable-false-overridden-by-ref-sibling:
-    type: object
-    properties:
-      Body:
-        $ref: '#/definitions/Object-with-nullable-true'
-        x-nullable: false
-
-  Object-with-omitempty-true:
-    type: object
-    properties:
-      Data:
-        type: object
-
-  Object-with-omitempty-false:
-    type: object
-    properties:
-      Data:
-        type: object
-    x-omitempty: false
-
-  Object-with-nullable-true:
-    type: object
-    properties:
-      Data:
-        type: object
-    x-nullable: true
-
-  Object-with-nullable-false:
-    type: object
-    properties:
-      Data:
-        type: object
-    x-nullable: false
-
-  arrayWithNullable:
-    type: array
-    items:
-      type: string
-    x-nullable: true
-
-  arrayWithNullableItems:
-    type: array
-    items:
-      type: string
-      x-nullable: true
-
-  arrayWithDefault:
-    type: array
-    items:
-      type: string
-
-  arrayWithOmitEmpty:
-    type: array
-    items:
-      type: string
-    x-omitempty: true
-
-  arrayWithNoOmitEmpty:
-    type: array
-    items:
-      type: string
-    x-omitempty: false
-
-  arrayWithOmitEmptyItems:
-    type: array
-    items:
-      type: string
+components:
+  schemas:
+    Case-1--Fail--omitempty-false-not-hoisted-by-ref:
+      type: object
+      properties:
+        Body:
+          $ref: "#/components/schemas/Object-with-omitempty-false"
+    Case-2--Fail--omitempty-false-not-overridden-by-ref-sibling:
+      type: object
+      properties:
+        Body:
+          $ref: "#/components/schemas/Object-with-omitempty-true"
+    Case-3--Pass--object-nullable-false-hoisted-by-ref:
+      type: object
+      properties:
+        Body:
+          $ref: "#/components/schemas/Object-with-nullable-false"
+    Case-4--Pass--object-nullable-false-overridden-by-ref-sibling:
+      type: object
+      properties:
+        Body:
+          $ref: "#/components/schemas/Object-with-nullable-true"
+    Object-with-omitempty-true:
+      type: object
+      properties:
+        Data:
+          type: object
+    Object-with-omitempty-false:
+      type: object
+      properties:
+        Data:
+          type: object
       x-omitempty: false
-
-  objectWithArrays:
-    type: object
-    properties:
-      array0: # <- expect property to be omit empty
-        $ref: '#/definitions/arrayWithDefault'
-      array1: # <- expect property to be no omit empty
-        type: array
-        items:
-          type: string
+    Object-with-nullable-true:
+      type: object
+      properties:
+        Data:
+          type: object
+      nullable: true
+    Object-with-nullable-false:
+      type: object
+      properties:
+        Data:
+          type: object
+      nullable: false
+    arrayWithNullable:
+      type: array
+      items:
+        type: string
+      nullable: true
+    arrayWithNullableItems:
+      type: array
+      items:
+        type: string
+        nullable: true
+    arrayWithDefault:
+      type: array
+      items:
+        type: string
+    arrayWithOmitEmpty:
+      type: array
+      items:
+        type: string
+      x-omitempty: true
+    arrayWithNoOmitEmpty:
+      type: array
+      items:
+        type: string
+      x-omitempty: false
+    arrayWithOmitEmptyItems:
+      type: array
+      items:
+        type: string
         x-omitempty: false
-      array11: # <- expect property to be omit empty
-        type: array
-        items:
-          type: string
-        x-omitempty: true
-      array12: # <- expect property to be no omit empty
-        type: array
-        items:
-          type: string
-      array2: # <- expect property to be omit empty
-        $ref: '#/definitions/arrayWithOmitEmpty'
-      array3: # <- expect property to be no omit empty
-        $ref: '#/definitions/arrayWithNoOmitEmpty'
+    objectWithArrays:
+      type: object
+      properties:
+        array0:
+          $ref: "#/components/schemas/arrayWithDefault"
+        array1:
+          type: array
+          items:
+            type: string
+          x-omitempty: false
+        array11:
+          type: array
+          items:
+            type: string
+          x-omitempty: true
+        array12:
+          type: array
+          items:
+            type: string
+        array2:
+          $ref: "#/components/schemas/arrayWithOmitEmpty"
+        array3:
+          $ref: "#/components/schemas/arrayWithNoOmitEmpty"

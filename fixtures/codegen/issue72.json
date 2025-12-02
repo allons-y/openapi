@@ -1,548 +1,5 @@
 {
-    "basePath": "/",
-    "definitions": {
-        "BuildTriggerActivateRequest": {
-            "properties": {
-                "config": {
-                    "description": "Arbitrary json.",
-                    "type": "object"
-                },
-                "pull_robot": {
-                    "description": "The name of the robot that will be used to pull images.",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "config"
-            ],
-            "type": "object"
-        },
-        "ChangeVisibility": {
-            "description": "Change the visibility for the repository.",
-            "properties": {
-                "visibility": {
-                    "description": "Visibility which the repository will start with",
-                    "enum": [
-                        "public",
-                        "private"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "visibility"
-            ],
-            "type": "object"
-        },
-        "MoveTag": {
-            "description": "Description of to which image a new or existing tag should point",
-            "properties": {
-                "image": {
-                    "description": "Image identifier to which the tag should point",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "image"
-            ],
-            "type": "object"
-        },
-        "NewApp": {
-            "description": "Description of a new organization application.",
-            "properties": {
-                "application_uri": {
-                    "description": "The URI for the application's homepage",
-                    "type": "string"
-                },
-                "avatar_email": {
-                    "description": "The e-mail address of the avatar to use for the application",
-                    "type": "string"
-                },
-                "description": {
-                    "description": "The human-readable description for the application",
-                    "type": "string"
-                },
-                "name": {
-                    "description": "The name of the application",
-                    "type": "string"
-                },
-                "redirect_uri": {
-                    "description": "The URI for the application's OAuth redirect",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "name"
-            ],
-            "type": "object"
-        },
-        "NewPrototype": {
-            "description": "Description of a new prototype",
-            "properties": {
-                "activating_user": {
-                    "description": "Repository creating user to whom the rule should apply",
-                    "properties": {
-                        "name": {
-                            "description": "The username for the activating_user",
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "name"
-                    ],
-                    "type": "object"
-                },
-                "delegate": {
-                    "description": "Information about the user or team to which the rule grants access",
-                    "properties": {
-                        "kind": {
-                            "description": "Whether the delegate is a user or a team",
-                            "enum": [
-                                "user",
-                                "team"
-                            ],
-                            "type": "string"
-                        },
-                        "name": {
-                            "description": "The name for the delegate team or user",
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "name",
-                        "kind"
-                    ],
-                    "type": "object"
-                },
-                "role": {
-                    "description": "Role that should be applied to the delegate",
-                    "enum": [
-                        "read",
-                        "write",
-                        "admin"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "role",
-                "delegate"
-            ],
-            "type": "object"
-        },
-        "NewRepo": {
-            "description": "Description of a new repository",
-            "properties": {
-                "description": {
-                    "description": "Markdown encoded description for the repository",
-                    "type": "string"
-                },
-                "namespace": {
-                    "description": "Namespace in which the repository should be created. If omitted, the username of the caller is used",
-                    "type": "string"
-                },
-                "repository": {
-                    "description": "Repository name",
-                    "type": "string"
-                },
-                "visibility": {
-                    "description": "Visibility which the repository will start with",
-                    "enum": [
-                        "public",
-                        "private"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "repository",
-                "visibility",
-                "description"
-            ],
-            "type": "object"
-        },
-        "NewStarredRepository": {
-            "properties": {
-                "namespace": {
-                    "description": "Namespace in which the repository belongs",
-                    "type": "string"
-                },
-                "repository": {
-                    "description": "Repository name",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "namespace",
-                "repository"
-            ],
-            "type": "object"
-        },
-        "NewToken": {
-            "description": "Description of a new token.",
-            "properties": {
-                "friendlyName": {
-                    "description": "Friendly name to help identify the token",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "friendlyName"
-            ],
-            "type": "object"
-        },
-        "NewUser": {
-            "description": "Fields which must be specified for a new user.",
-            "properties": {
-                "email": {
-                    "description": "The user's email address",
-                    "type": "string"
-                },
-                "invite_code": {
-                    "description": "The optional invite code",
-                    "type": "string"
-                },
-                "password": {
-                    "description": "The user's password",
-                    "type": "string"
-                },
-                "username": {
-                    "description": "The user's username",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "username",
-                "password",
-                "email"
-            ],
-            "type": "object"
-        },
-        "NotificationCreateRequest": {
-            "description": "Information for creating a notification on a repository",
-            "properties": {
-                "config": {
-                    "description": "JSON config information for the specific method of notification",
-                    "type": "object"
-                },
-                "event": {
-                    "description": "The event on which the notification will respond",
-                    "type": "string"
-                },
-                "method": {
-                    "description": "The method of notification (such as email or web callback)",
-                    "type": "string"
-                },
-                "title": {
-                    "description": "The human-readable title of the notification",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "event",
-                "method",
-                "config"
-            ],
-            "type": "object"
-        },
-        "PrototypeUpdate": {
-            "description": "Description of a the new prototype role",
-            "properties": {
-                "role": {
-                    "description": "Role that should be applied to the permission",
-                    "enum": [
-                        "read",
-                        "write",
-                        "admin"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "role"
-            ],
-            "type": "object"
-        },
-        "RepoUpdate": {
-            "description": "Fields which can be updated in a repository.",
-            "properties": {
-                "description": {
-                    "description": "Markdown encoded description for the repository",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "description"
-            ],
-            "type": "object"
-        },
-        "RepositoryBuildRequest": {
-            "description": "Description of a new repository build.",
-            "properties": {
-                "archive_url": {
-                    "description": "The URL of the .tar.gz to build. Must start with \"http\" or \"https\".",
-                    "type": "string"
-                },
-                "docker_tags": {
-                    "description": "The tags to which the built images will be pushed. If none specified, \"latest\" is used.",
-                    "items": {
-                        "type": "string"
-                    },
-                    "minItems": 1,
-                    "type": "array",
-                    "uniqueItems": true
-                },
-                "file_id": {
-                    "description": "The file id that was generated when the build spec was uploaded",
-                    "type": "string"
-                },
-                "pull_robot": {
-                    "description": "Username of a Quay robot account to use as pull credentials",
-                    "type": "string"
-                },
-                "subdirectory": {
-                    "description": "Subdirectory in which the Dockerfile can be found",
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "RevertTag": {
-            "description": "Reverts a tag to a specific image",
-            "properties": {
-                "image": {
-                    "description": "Image identifier to which the tag should point",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "image"
-            ],
-            "type": "object"
-        },
-        "RunParameters": {
-            "additionalProperties": false,
-            "description": "Optional run parameters for activating the build trigger",
-            "properties": {
-                "branch_name": {
-                    "description": "(SCM only) If specified, the name of the branch to build.",
-                    "type": "string"
-                },
-                "commit_sha": {
-                    "description": "(Custom Only) If specified, the ref/SHA1 used to checkout a git repository.",
-                    "type": "string"
-                },
-                "refs": {
-                    "description": "(SCM Only) If specified, the ref to build.",
-                    "type": "object"
-                }
-            },
-            "type": "object"
-        },
-        "TeamDescription": {
-            "description": "Description of a team",
-            "properties": {
-                "description": {
-                    "description": "Markdown description for the team",
-                    "type": "string"
-                },
-                "role": {
-                    "description": "Org wide permissions that should apply to the team",
-                    "enum": [
-                        "member",
-                        "creator",
-                        "admin"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "role"
-            ],
-            "type": "object"
-        },
-        "TeamPermission": {
-            "description": "Description of a team permission.",
-            "properties": {
-                "role": {
-                    "description": "Role to use for the team",
-                    "enum": [
-                        "read",
-                        "write",
-                        "admin"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "role"
-            ],
-            "type": "object"
-        },
-        "TokenPermission": {
-            "description": "Description of a token permission",
-            "properties": {
-                "role": {
-                    "description": "Role to use for the token",
-                    "enum": [
-                        "read",
-                        "write",
-                        "admin"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "role"
-            ],
-            "type": "object"
-        },
-        "UpdateApp": {
-            "description": "Description of an updated application.",
-            "properties": {
-                "application_uri": {
-                    "description": "The URI for the application's homepage",
-                    "type": "string"
-                },
-                "avatar_email": {
-                    "description": "The e-mail address of the avatar to use for the application",
-                    "type": "string"
-                },
-                "description": {
-                    "description": "The human-readable description for the application",
-                    "type": "string"
-                },
-                "name": {
-                    "description": "The name of the application",
-                    "type": "string"
-                },
-                "redirect_uri": {
-                    "description": "The URI for the application's OAuth redirect",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "name",
-                "redirect_uri",
-                "application_uri"
-            ],
-            "type": "object"
-        },
-        "UpdateOrg": {
-            "description": "Description of updates for an existing organization",
-            "properties": {
-                "email": {
-                    "description": "Organization contact email",
-                    "type": "string"
-                },
-                "invoice_email": {
-                    "description": "Whether the organization desires to receive emails for invoices",
-                    "type": "boolean"
-                },
-                "tag_expiration": {
-                    "maximum": 2592000,
-                    "minimum": 0,
-                    "type": "integer"
-                }
-            },
-            "type": "object"
-        },
-        "UpdateUser": {
-            "description": "Fields which can be updated in a user.",
-            "properties": {
-                "email": {
-                    "description": "The user's email address",
-                    "type": "string"
-                },
-                "invoice_email": {
-                    "description": "Whether the user desires to receive an invoice email.",
-                    "type": "boolean"
-                },
-                "password": {
-                    "description": "The user's password",
-                    "type": "string"
-                },
-                "tag_expiration": {
-                    "maximum": 2592000,
-                    "minimum": 0,
-                    "type": "integer"
-                },
-                "username": {
-                    "description": "The user's username",
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "UserPermission": {
-            "description": "Description of a user permission.",
-            "properties": {
-                "role": {
-                    "description": "Role to use for the user",
-                    "enum": [
-                        "read",
-                        "write",
-                        "admin"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "role"
-            ],
-            "type": "object"
-        },
-        "UserView": {
-            "description": "Describes a user",
-            "properties": {
-                "anonymous": {
-                    "description": "true if this user data represents a guest user",
-                    "type": "boolean"
-                },
-                "avatar": {
-                    "description": "Avatar data representing the user's icon",
-                    "type": "object"
-                },
-                "can_create_repo": {
-                    "description": "Whether the user has permission to create repositories",
-                    "type": "boolean"
-                },
-                "email": {
-                    "description": "The user's email address",
-                    "type": "string"
-                },
-                "logins": {
-                    "description": "The list of external login providers against which the user has authenticated",
-                    "items": {
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "organizations": {
-                    "description": "Information about the organizations in which the user is a member",
-                    "items": {
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "preferred_namespace": {
-                    "description": "If true, the user's namespace is the preferred namespace to display",
-                    "type": "boolean"
-                },
-                "verified": {
-                    "description": "Whether the user's email address has been verified",
-                    "type": "boolean"
-                }
-            },
-            "required": [
-                "verified",
-                "anonymous",
-                "avatar"
-            ],
-            "type": "object"
-        }
-    },
-    "host": "quay.io",
+    "openapi": "3.0.0",
     "info": {
         "contact": {
             "email": "support@quay.io"
@@ -563,7 +20,9 @@
                         "in": "path",
                         "name": "client_id",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -593,7 +52,9 @@
                     "in": "path",
                     "name": "client_id",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.organization.ApplicationInformation",
@@ -610,7 +71,9 @@
                         "in": "query",
                         "name": "internal",
                         "required": false,
-                        "type": "boolean"
+                        "schema": {
+                            "type": "boolean"
+                        }
                     }
                 ],
                 "responses": {
@@ -648,28 +111,36 @@
                         "in": "path",
                         "name": "prefix",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Whether to include orgs names.",
                         "in": "query",
                         "name": "includeOrgs",
                         "required": false,
-                        "type": "boolean"
+                        "schema": {
+                            "type": "boolean"
+                        }
                     },
                     {
                         "description": "Whether to include team names.",
                         "in": "query",
                         "name": "includeTeams",
                         "required": false,
-                        "type": "boolean"
+                        "schema": {
+                            "type": "boolean"
+                        }
                     },
                     {
                         "description": "Namespace to use when querying for org entities.",
                         "in": "query",
                         "name": "namespace",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -707,7 +178,9 @@
                         "in": "query",
                         "name": "query",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -752,7 +225,9 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -789,7 +264,9 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "put": {
@@ -801,18 +278,22 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/UpdateOrg"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateOrg"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -855,28 +336,36 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Username for which to filter logs.",
                         "in": "query",
                         "name": "performer",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Latest time to which to get logs. (%m/%d/%Y %Z)",
                         "in": "query",
                         "name": "endtime",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Earliest time from which to get logs. (%m/%d/%Y %Z)",
                         "in": "query",
                         "name": "starttime",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -913,7 +402,9 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.logs.OrgAggregateLogs",
@@ -930,7 +421,9 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -967,7 +460,9 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "post": {
@@ -979,18 +474,22 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/NewApp"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewApp"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -1033,14 +532,18 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The OAuth client ID",
                         "in": "path",
                         "name": "client_id",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1080,14 +583,18 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The OAuth client ID",
                         "in": "path",
                         "name": "client_id",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1124,14 +631,18 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The OAuth client ID",
                     "in": "path",
                     "name": "client_id",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "put": {
@@ -1143,25 +654,31 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The OAuth client ID",
                         "in": "path",
                         "name": "client_id",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/UpdateApp"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateApp"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -1204,7 +721,9 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1241,7 +760,9 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.billing.OrganizationInvoiceList",
@@ -1258,35 +779,45 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The page number for the logs",
                         "in": "query",
                         "name": "page",
                         "required": false,
-                        "type": "integer"
+                        "schema": {
+                            "type": "integer"
+                        }
                     },
                     {
                         "description": "Username for which to filter logs.",
                         "in": "query",
                         "name": "performer",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Latest time to which to get logs. (%m/%d/%Y %Z)",
                         "in": "query",
                         "name": "endtime",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Earliest time from which to get logs. (%m/%d/%Y %Z)",
                         "in": "query",
                         "name": "starttime",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1323,7 +854,9 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.logs.OrgLogs",
@@ -1340,7 +873,9 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1377,7 +912,9 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.organization.OrganizationMemberList",
@@ -1394,14 +931,18 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The username of the organization member",
                         "in": "path",
                         "name": "membername",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1441,14 +982,18 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The username of the organization member",
                         "in": "path",
                         "name": "membername",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1485,14 +1030,18 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The username of the organization member",
                     "in": "path",
                     "name": "membername",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.organization.OrganizationMember",
@@ -1509,7 +1058,9 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1546,7 +1097,9 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "post": {
@@ -1558,18 +1111,22 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/NewPrototype"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewPrototype"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -1612,14 +1169,18 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The ID of the prototype",
                         "in": "path",
                         "name": "prototypeid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1656,14 +1217,18 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The ID of the prototype",
                     "in": "path",
                     "name": "prototypeid",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "put": {
@@ -1675,25 +1240,31 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The ID of the prototype",
                         "in": "path",
                         "name": "prototypeid",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/PrototypeUpdate"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PrototypeUpdate"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -1736,14 +1307,18 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Whether to include repostories and teams in which the robots have permission.",
                         "in": "query",
                         "name": "permissions",
                         "required": false,
-                        "type": "boolean"
+                        "schema": {
+                            "type": "boolean"
+                        }
                     }
                 ],
                 "responses": {
@@ -1780,7 +1355,9 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.robot.OrgRobotList",
@@ -1797,14 +1374,18 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The short name for the robot, without any user or organization prefix",
                         "in": "path",
                         "name": "robot_shortname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1844,14 +1425,18 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The short name for the robot, without any user or organization prefix",
                         "in": "path",
                         "name": "robot_shortname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1888,14 +1473,18 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The short name for the robot, without any user or organization prefix",
                     "in": "path",
                     "name": "robot_shortname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "put": {
@@ -1907,14 +1496,18 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The short name for the robot, without any user or organization prefix",
                         "in": "path",
                         "name": "robot_shortname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1959,14 +1552,18 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The short name for the robot, without any user or organization prefix",
                         "in": "path",
                         "name": "robot_shortname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1996,14 +1593,18 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The short name for the robot, without any user or organization prefix",
                     "in": "path",
                     "name": "robot_shortname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.robot.OrgRobotPermissions",
@@ -2017,14 +1618,18 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The short name for the robot, without any user or organization prefix",
                     "in": "path",
                     "name": "robot_shortname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "post": {
@@ -2036,14 +1641,18 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The short name for the robot, without any user or organization prefix",
                         "in": "path",
                         "name": "robot_shortname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2088,14 +1697,18 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The name of the team",
                         "in": "path",
                         "name": "teamname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2132,14 +1745,18 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The name of the team",
                     "in": "path",
                     "name": "teamname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "put": {
@@ -2151,25 +1768,31 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The name of the team",
                         "in": "path",
                         "name": "teamname",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/TeamDescription"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TeamDescription"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -2212,21 +1835,27 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "",
                         "in": "path",
                         "name": "email",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "",
                         "in": "path",
                         "name": "teamname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2266,21 +1895,27 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "",
                         "in": "path",
                         "name": "email",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "",
                         "in": "path",
                         "name": "teamname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2325,21 +1960,27 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The name of the team",
                         "in": "path",
                         "name": "teamname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Whether to include pending members",
                         "in": "query",
                         "name": "includePending",
                         "required": false,
-                        "type": "boolean"
+                        "schema": {
+                            "type": "boolean"
+                        }
                     }
                 ],
                 "responses": {
@@ -2376,14 +2017,18 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The name of the team",
                     "in": "path",
                     "name": "teamname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.team.TeamMemberList",
@@ -2400,21 +2045,27 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The username of the team member",
                         "in": "path",
                         "name": "membername",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The name of the team",
                         "in": "path",
                         "name": "teamname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2451,21 +2102,27 @@
                     "in": "path",
                     "name": "orgname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The username of the team member",
                     "in": "path",
                     "name": "membername",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The name of the team",
                     "in": "path",
                     "name": "teamname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "put": {
@@ -2477,21 +2134,27 @@
                         "in": "path",
                         "name": "orgname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The username of the team member",
                         "in": "path",
                         "name": "membername",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The name of the team",
                         "in": "path",
                         "name": "teamname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2530,7 +2193,6 @@
             "get": {
                 "description": "List the avaialble plans.",
                 "operationId": "listPlans",
-                "parameters": [],
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -2566,49 +2228,63 @@
                         "in": "query",
                         "name": "popularity",
                         "required": false,
-                        "type": "boolean"
+                        "schema": {
+                            "type": "boolean"
+                        }
                     },
                     {
                         "description": "Whether to include when the repository was last modified.",
                         "in": "query",
                         "name": "last_modified",
                         "required": false,
-                        "type": "boolean"
+                        "schema": {
+                            "type": "boolean"
+                        }
                     },
                     {
                         "description": "Adds any repositories visible to the user by virtue of being public",
                         "in": "query",
                         "name": "public",
                         "required": false,
-                        "type": "boolean"
+                        "schema": {
+                            "type": "boolean"
+                        }
                     },
                     {
                         "description": "Filters the repositories returned to those starred by the user",
                         "in": "query",
                         "name": "starred",
                         "required": false,
-                        "type": "boolean"
+                        "schema": {
+                            "type": "boolean"
+                        }
                     },
                     {
                         "description": "Filters the repositories returned to this namespace",
                         "in": "query",
                         "name": "namespace",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Limit on the number of results (int)",
                         "in": "query",
                         "name": "limit",
                         "required": false,
-                        "type": "integer"
+                        "schema": {
+                            "type": "integer"
+                        }
                     },
                     {
                         "description": "Offset page number. (int)",
                         "in": "query",
                         "name": "page",
                         "required": false,
-                        "type": "integer"
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -2642,17 +2318,17 @@
             "post": {
                 "description": "Create a new repository.",
                 "operationId": "createRepo",
-                "parameters": [
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/NewRepo"
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewRepo"
+                            }
                         }
-                    }
-                ],
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -2695,7 +2371,9 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2735,7 +2413,9 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2772,7 +2452,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "put": {
@@ -2784,18 +2466,22 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/RepoUpdate"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RepoUpdate"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -2838,21 +2524,27 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Latest time to which to get logs (%m/%d/%Y %Z)",
                         "in": "query",
                         "name": "endtime",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Earliest time from which to get logs (%m/%d/%Y %Z)",
                         "in": "query",
                         "name": "starttime",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2889,7 +2581,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.logs.RepositoryAggregateLogs",
@@ -2906,21 +2600,27 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Returns all builds since the given unix timecode",
                         "in": "query",
                         "name": "since",
                         "required": false,
-                        "type": "integer"
+                        "schema": {
+                            "type": "integer"
+                        }
                     },
                     {
                         "description": "The maximum number of builds to return",
                         "in": "query",
                         "name": "limit",
                         "required": false,
-                        "type": "integer"
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -2957,7 +2657,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "post": {
@@ -2969,18 +2671,22 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/RepositoryBuildRequest"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RepositoryBuildRequest"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -3023,14 +2729,18 @@
                         "in": "path",
                         "name": "build_uuid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3070,14 +2780,18 @@
                         "in": "path",
                         "name": "build_uuid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3114,14 +2828,18 @@
                     "in": "path",
                     "name": "build_uuid",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.build.RepositoryBuildResource",
@@ -3138,14 +2856,18 @@
                         "in": "path",
                         "name": "build_uuid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3182,14 +2904,18 @@
                     "in": "path",
                     "name": "build_uuid",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.build.RepositoryBuildLogs",
@@ -3206,14 +2932,18 @@
                         "in": "path",
                         "name": "build_uuid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3250,14 +2980,18 @@
                     "in": "path",
                     "name": "build_uuid",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.build.RepositoryBuildStatus",
@@ -3271,7 +3005,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "post": {
@@ -3283,18 +3019,22 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ChangeVisibility"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChangeVisibility"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -3337,7 +3077,9 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3374,7 +3116,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.image.RepositoryImageList",
@@ -3391,14 +3135,18 @@
                         "in": "path",
                         "name": "image_id",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3435,14 +3183,18 @@
                     "in": "path",
                     "name": "image_id",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.image.RepositoryImage",
@@ -3459,14 +3211,18 @@
                         "in": "path",
                         "name": "image_id",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3503,14 +3259,18 @@
                     "in": "path",
                     "name": "image_id",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.image.RepositoryImageChanges",
@@ -3527,28 +3287,36 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The page number for the logs",
                         "in": "query",
                         "name": "page",
                         "required": false,
-                        "type": "integer"
+                        "schema": {
+                            "type": "integer"
+                        }
                     },
                     {
                         "description": "Latest time to which to get logs (%m/%d/%Y %Z)",
                         "in": "query",
                         "name": "endtime",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Earliest time from which to get logs (%m/%d/%Y %Z)",
                         "in": "query",
                         "name": "starttime",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3585,7 +3353,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.logs.RepositoryLogs",
@@ -3602,7 +3372,9 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3639,7 +3411,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "post": {
@@ -3651,18 +3425,22 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/NotificationCreateRequest"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NotificationCreateRequest"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -3705,14 +3483,18 @@
                         "in": "path",
                         "name": "uuid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3752,14 +3534,18 @@
                         "in": "path",
                         "name": "uuid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3796,14 +3582,18 @@
                     "in": "path",
                     "name": "uuid",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.repositorynotification.RepositoryNotification",
@@ -3817,14 +3607,18 @@
                     "in": "path",
                     "name": "uuid",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "post": {
@@ -3836,14 +3630,18 @@
                         "in": "path",
                         "name": "uuid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3888,7 +3686,9 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3925,7 +3725,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.permission.RepositoryTeamPermissionList",
@@ -3942,14 +3744,18 @@
                         "in": "path",
                         "name": "teamname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3989,14 +3795,18 @@
                         "in": "path",
                         "name": "teamname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4033,14 +3843,18 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The name of the team to which the permission applies",
                     "in": "path",
                     "name": "teamname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "put": {
@@ -4052,25 +3866,31 @@
                         "in": "path",
                         "name": "teamname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/TeamPermission"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TeamPermission"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -4113,7 +3933,9 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4150,7 +3972,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.permission.RepositoryUserPermissionList",
@@ -4167,14 +3991,18 @@
                         "in": "path",
                         "name": "username",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4214,14 +4042,18 @@
                         "in": "path",
                         "name": "username",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4258,14 +4090,18 @@
                     "in": "path",
                     "name": "username",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "put": {
@@ -4277,25 +4113,31 @@
                         "in": "path",
                         "name": "username",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/UserPermission"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserPermission"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -4338,14 +4180,18 @@
                         "in": "path",
                         "name": "username",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4382,14 +4228,18 @@
                     "in": "path",
                     "name": "username",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.permission.RepositoryUserTransitivePermission",
@@ -4406,28 +4256,36 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "Page index for the results. Default 1.",
                         "in": "query",
                         "name": "page",
                         "required": false,
-                        "type": "integer"
+                        "schema": {
+                            "type": "integer"
+                        }
                     },
                     {
                         "description": "Limit to the number of results to return per page. Max 100.",
                         "in": "query",
                         "name": "limit",
                         "required": false,
-                        "type": "integer"
+                        "schema": {
+                            "type": "integer"
+                        }
                     },
                     {
                         "description": "Filters the tags to the specific tag.",
                         "in": "query",
                         "name": "specificTag",
                         "required": false,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4464,7 +4322,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.tag.ListRepositoryTags",
@@ -4481,14 +4341,18 @@
                         "in": "path",
                         "name": "tag",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4525,14 +4389,18 @@
                     "in": "path",
                     "name": "tag",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "put": {
@@ -4544,25 +4412,31 @@
                         "in": "path",
                         "name": "tag",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/MoveTag"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MoveTag"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -4605,14 +4479,18 @@
                         "in": "path",
                         "name": "tag",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4649,14 +4527,18 @@
                     "in": "path",
                     "name": "tag",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.tag.RepositoryTagImages",
@@ -4670,14 +4552,18 @@
                     "in": "path",
                     "name": "tag",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "post": {
@@ -4689,25 +4575,31 @@
                         "in": "path",
                         "name": "tag",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/RevertTag"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RevertTag"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -4750,7 +4642,9 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4787,7 +4681,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "post": {
@@ -4799,18 +4695,22 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/NewToken"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewToken"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -4853,14 +4753,18 @@
                         "in": "path",
                         "name": "code",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4900,14 +4804,18 @@
                         "in": "path",
                         "name": "code",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4944,14 +4852,18 @@
                     "in": "path",
                     "name": "code",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The full path of the repository. e.g. namespace/name",
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "put": {
@@ -4963,25 +4875,31 @@
                         "in": "path",
                         "name": "code",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/TokenPermission"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TokenPermission"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -5024,7 +4942,9 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5061,7 +4981,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.trigger.BuildTriggerList",
@@ -5078,14 +5000,18 @@
                         "in": "path",
                         "name": "trigger_uuid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5125,14 +5051,18 @@
                         "in": "path",
                         "name": "trigger_uuid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5169,14 +5099,18 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The UUID of the build trigger",
                     "in": "path",
                     "name": "trigger_uuid",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.trigger.BuildTrigger",
@@ -5190,14 +5124,18 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The UUID of the build trigger",
                     "in": "path",
                     "name": "trigger_uuid",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "post": {
@@ -5209,25 +5147,31 @@
                         "in": "path",
                         "name": "trigger_uuid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/BuildTriggerActivateRequest"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BuildTriggerActivateRequest"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -5270,21 +5214,27 @@
                         "in": "path",
                         "name": "trigger_uuid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The maximum number of builds to return",
                         "in": "query",
                         "name": "limit",
                         "required": false,
-                        "type": "integer"
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -5321,14 +5271,18 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The UUID of the build trigger",
                     "in": "path",
                     "name": "trigger_uuid",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.trigger.TriggerBuildList",
@@ -5342,14 +5296,18 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 },
                 {
                     "description": "The UUID of the build trigger",
                     "in": "path",
                     "name": "trigger_uuid",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "post": {
@@ -5361,25 +5319,31 @@
                         "in": "path",
                         "name": "trigger_uuid",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "description": "The full path of the repository. e.g. namespace/name",
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/RunParameters"
+                            "type": "string"
                         }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RunParameters"
+                            }
+                        }
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -5416,12 +5380,15 @@
             "get": {
                 "description": "Get user information for the authenticated user.",
                 "operationId": "getLoggedInUser",
-                "parameters": [],
                 "responses": {
                     "200": {
                         "description": "Successful invocation",
-                        "schema": {
-                            "$ref": "#/definitions/UserView"
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserView"
+                                }
+                            }
                         }
                     },
                     "400": {
@@ -5462,7 +5429,9 @@
                         "in": "query",
                         "name": "permissions",
                         "required": false,
-                        "type": "boolean"
+                        "schema": {
+                            "type": "boolean"
+                        }
                     }
                 ],
                 "responses": {
@@ -5500,7 +5469,9 @@
                         "in": "path",
                         "name": "robot_shortname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5533,7 +5504,9 @@
                         "in": "path",
                         "name": "robot_shortname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5563,7 +5536,9 @@
                     "in": "path",
                     "name": "robot_shortname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "put": {
@@ -5575,7 +5550,9 @@
                         "in": "path",
                         "name": "robot_shortname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5613,7 +5590,9 @@
                         "in": "path",
                         "name": "robot_shortname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5643,7 +5622,9 @@
                     "in": "path",
                     "name": "robot_shortname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.robot.UserRobotPermissions",
@@ -5657,7 +5638,9 @@
                     "in": "path",
                     "name": "robot_shortname",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "post": {
@@ -5669,7 +5652,9 @@
                         "in": "path",
                         "name": "robot_shortname",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5707,14 +5692,18 @@
                         "in": "query",
                         "name": "limit",
                         "required": false,
-                        "type": "integer"
+                        "schema": {
+                            "type": "integer"
+                        }
                     },
                     {
                         "description": "Offset page number. (int)",
                         "in": "query",
                         "name": "page",
                         "required": false,
-                        "type": "integer"
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -5741,17 +5730,17 @@
             "post": {
                 "description": "Star a repository.",
                 "operationId": "createStar",
-                "parameters": [
-                    {
-                        "description": "Request body contents.",
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/NewStarredRepository"
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewStarredRepository"
+                            }
                         }
-                    }
-                ],
+                    },
+                    "description": "Request body contents.",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Successful invocation"
@@ -5794,7 +5783,9 @@
                         "in": "path",
                         "name": "repository",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5824,7 +5815,9 @@
                     "in": "path",
                     "name": "repository",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }
             ],
             "x-name": "endpoints.api.user.StarredRepository",
@@ -5841,7 +5834,9 @@
                         "in": "path",
                         "name": "username",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5879,7 +5874,9 @@
                         "in": "path",
                         "name": "file_id",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5912,7 +5909,9 @@
                         "in": "path",
                         "name": "file_id",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5950,7 +5949,9 @@
                         "in": "path",
                         "name": "file_id",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -5983,7 +5984,9 @@
                         "in": "path",
                         "name": "file_id",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -6012,25 +6015,6 @@
             "x-tag": "userfiles"
         }
     },
-    "schemes": [
-        "https"
-    ],
-    "securityDefinitions": {
-        "oauth2_implicit": {
-            "authorizationUrl": "https://quay.io/oauth/authorize",
-            "flow": "implicit",
-            "scopes": {
-                "org:admin": "This application will be able to administer your organizations including creating robots, creating teams, adjusting team membership, and changing billing settings. You should have absolute trust in the requesting application before granting this permission.",
-                "repo:admin": "This application will have administrator access to all repositories to which the granting user or robot account has access",
-                "repo:create": "This application will be able to create repositories in to any namespaces that the granting user or robot account is allowed to create repositories",
-                "repo:read": "This application will be able to view and pull all repositories visible to the granting user or robot account",
-                "repo:write": "This application will be able to view, push and pull to all repositories to which the granting user or robot account has write access",
-                "user:read": "This application will be able to read user information such as username and email address."
-            },
-            "type": "oauth2"
-        }
-    },
-    "swagger": "2.0",
     "tags": [
         {
             "description": "",
@@ -6108,5 +6092,572 @@
             "description": "",
             "name": "userfiles"
         }
-    ]
+    ],
+    "servers": [
+        {
+            "url": "https://quay.io"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "oauth2_implicit": {
+                "type": "oauth2",
+                "flows": {
+                    "implicit": {
+                        "authorizationUrl": "https://quay.io/oauth/authorize",
+                        "scopes": {
+                            "org:admin": "This application will be able to administer your organizations including creating robots, creating teams, adjusting team membership, and changing billing settings. You should have absolute trust in the requesting application before granting this permission.",
+                            "repo:admin": "This application will have administrator access to all repositories to which the granting user or robot account has access",
+                            "repo:create": "This application will be able to create repositories in to any namespaces that the granting user or robot account is allowed to create repositories",
+                            "repo:read": "This application will be able to view and pull all repositories visible to the granting user or robot account",
+                            "repo:write": "This application will be able to view, push and pull to all repositories to which the granting user or robot account has write access",
+                            "user:read": "This application will be able to read user information such as username and email address."
+                        }
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "BuildTriggerActivateRequest": {
+                "properties": {
+                    "config": {
+                        "description": "Arbitrary json.",
+                        "type": "object"
+                    },
+                    "pull_robot": {
+                        "description": "The name of the robot that will be used to pull images.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "config"
+                ],
+                "type": "object"
+            },
+            "ChangeVisibility": {
+                "description": "Change the visibility for the repository.",
+                "properties": {
+                    "visibility": {
+                        "description": "Visibility which the repository will start with",
+                        "enum": [
+                            "public",
+                            "private"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "visibility"
+                ],
+                "type": "object"
+            },
+            "MoveTag": {
+                "description": "Description of to which image a new or existing tag should point",
+                "properties": {
+                    "image": {
+                        "description": "Image identifier to which the tag should point",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "image"
+                ],
+                "type": "object"
+            },
+            "NewApp": {
+                "description": "Description of a new organization application.",
+                "properties": {
+                    "application_uri": {
+                        "description": "The URI for the application's homepage",
+                        "type": "string"
+                    },
+                    "avatar_email": {
+                        "description": "The e-mail address of the avatar to use for the application",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "The human-readable description for the application",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The name of the application",
+                        "type": "string"
+                    },
+                    "redirect_uri": {
+                        "description": "The URI for the application's OAuth redirect",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ],
+                "type": "object"
+            },
+            "NewPrototype": {
+                "description": "Description of a new prototype",
+                "properties": {
+                    "activating_user": {
+                        "description": "Repository creating user to whom the rule should apply",
+                        "properties": {
+                            "name": {
+                                "description": "The username for the activating_user",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "name"
+                        ],
+                        "type": "object"
+                    },
+                    "delegate": {
+                        "description": "Information about the user or team to which the rule grants access",
+                        "properties": {
+                            "kind": {
+                                "description": "Whether the delegate is a user or a team",
+                                "enum": [
+                                    "user",
+                                    "team"
+                                ],
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "The name for the delegate team or user",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "name",
+                            "kind"
+                        ],
+                        "type": "object"
+                    },
+                    "role": {
+                        "description": "Role that should be applied to the delegate",
+                        "enum": [
+                            "read",
+                            "write",
+                            "admin"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "role",
+                    "delegate"
+                ],
+                "type": "object"
+            },
+            "NewRepo": {
+                "description": "Description of a new repository",
+                "properties": {
+                    "description": {
+                        "description": "Markdown encoded description for the repository",
+                        "type": "string"
+                    },
+                    "namespace": {
+                        "description": "Namespace in which the repository should be created. If omitted, the username of the caller is used",
+                        "type": "string"
+                    },
+                    "repository": {
+                        "description": "Repository name",
+                        "type": "string"
+                    },
+                    "visibility": {
+                        "description": "Visibility which the repository will start with",
+                        "enum": [
+                            "public",
+                            "private"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "repository",
+                    "visibility",
+                    "description"
+                ],
+                "type": "object"
+            },
+            "NewStarredRepository": {
+                "properties": {
+                    "namespace": {
+                        "description": "Namespace in which the repository belongs",
+                        "type": "string"
+                    },
+                    "repository": {
+                        "description": "Repository name",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "namespace",
+                    "repository"
+                ],
+                "type": "object"
+            },
+            "NewToken": {
+                "description": "Description of a new token.",
+                "properties": {
+                    "friendlyName": {
+                        "description": "Friendly name to help identify the token",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "friendlyName"
+                ],
+                "type": "object"
+            },
+            "NewUser": {
+                "description": "Fields which must be specified for a new user.",
+                "properties": {
+                    "email": {
+                        "description": "The user's email address",
+                        "type": "string"
+                    },
+                    "invite_code": {
+                        "description": "The optional invite code",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "The user's password",
+                        "type": "string"
+                    },
+                    "username": {
+                        "description": "The user's username",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "username",
+                    "password",
+                    "email"
+                ],
+                "type": "object"
+            },
+            "NotificationCreateRequest": {
+                "description": "Information for creating a notification on a repository",
+                "properties": {
+                    "config": {
+                        "description": "JSON config information for the specific method of notification",
+                        "type": "object"
+                    },
+                    "event": {
+                        "description": "The event on which the notification will respond",
+                        "type": "string"
+                    },
+                    "method": {
+                        "description": "The method of notification (such as email or web callback)",
+                        "type": "string"
+                    },
+                    "title": {
+                        "description": "The human-readable title of the notification",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "event",
+                    "method",
+                    "config"
+                ],
+                "type": "object"
+            },
+            "PrototypeUpdate": {
+                "description": "Description of a the new prototype role",
+                "properties": {
+                    "role": {
+                        "description": "Role that should be applied to the permission",
+                        "enum": [
+                            "read",
+                            "write",
+                            "admin"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "role"
+                ],
+                "type": "object"
+            },
+            "RepoUpdate": {
+                "description": "Fields which can be updated in a repository.",
+                "properties": {
+                    "description": {
+                        "description": "Markdown encoded description for the repository",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "description"
+                ],
+                "type": "object"
+            },
+            "RepositoryBuildRequest": {
+                "description": "Description of a new repository build.",
+                "properties": {
+                    "archive_url": {
+                        "description": "The URL of the .tar.gz to build. Must start with \"http\" or \"https\".",
+                        "type": "string"
+                    },
+                    "docker_tags": {
+                        "description": "The tags to which the built images will be pushed. If none specified, \"latest\" is used.",
+                        "items": {
+                            "type": "string"
+                        },
+                        "minItems": 1,
+                        "type": "array",
+                        "uniqueItems": true
+                    },
+                    "file_id": {
+                        "description": "The file id that was generated when the build spec was uploaded",
+                        "type": "string"
+                    },
+                    "pull_robot": {
+                        "description": "Username of a Quay robot account to use as pull credentials",
+                        "type": "string"
+                    },
+                    "subdirectory": {
+                        "description": "Subdirectory in which the Dockerfile can be found",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "RevertTag": {
+                "description": "Reverts a tag to a specific image",
+                "properties": {
+                    "image": {
+                        "description": "Image identifier to which the tag should point",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "image"
+                ],
+                "type": "object"
+            },
+            "RunParameters": {
+                "additionalProperties": false,
+                "description": "Optional run parameters for activating the build trigger",
+                "properties": {
+                    "branch_name": {
+                        "description": "(SCM only) If specified, the name of the branch to build.",
+                        "type": "string"
+                    },
+                    "commit_sha": {
+                        "description": "(Custom Only) If specified, the ref/SHA1 used to checkout a git repository.",
+                        "type": "string"
+                    },
+                    "refs": {
+                        "description": "(SCM Only) If specified, the ref to build.",
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "TeamDescription": {
+                "description": "Description of a team",
+                "properties": {
+                    "description": {
+                        "description": "Markdown description for the team",
+                        "type": "string"
+                    },
+                    "role": {
+                        "description": "Org wide permissions that should apply to the team",
+                        "enum": [
+                            "member",
+                            "creator",
+                            "admin"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "role"
+                ],
+                "type": "object"
+            },
+            "TeamPermission": {
+                "description": "Description of a team permission.",
+                "properties": {
+                    "role": {
+                        "description": "Role to use for the team",
+                        "enum": [
+                            "read",
+                            "write",
+                            "admin"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "role"
+                ],
+                "type": "object"
+            },
+            "TokenPermission": {
+                "description": "Description of a token permission",
+                "properties": {
+                    "role": {
+                        "description": "Role to use for the token",
+                        "enum": [
+                            "read",
+                            "write",
+                            "admin"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "role"
+                ],
+                "type": "object"
+            },
+            "UpdateApp": {
+                "description": "Description of an updated application.",
+                "properties": {
+                    "application_uri": {
+                        "description": "The URI for the application's homepage",
+                        "type": "string"
+                    },
+                    "avatar_email": {
+                        "description": "The e-mail address of the avatar to use for the application",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "The human-readable description for the application",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The name of the application",
+                        "type": "string"
+                    },
+                    "redirect_uri": {
+                        "description": "The URI for the application's OAuth redirect",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "redirect_uri",
+                    "application_uri"
+                ],
+                "type": "object"
+            },
+            "UpdateOrg": {
+                "description": "Description of updates for an existing organization",
+                "properties": {
+                    "email": {
+                        "description": "Organization contact email",
+                        "type": "string"
+                    },
+                    "invoice_email": {
+                        "description": "Whether the organization desires to receive emails for invoices",
+                        "type": "boolean"
+                    },
+                    "tag_expiration": {
+                        "maximum": 2592000,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUser": {
+                "description": "Fields which can be updated in a user.",
+                "properties": {
+                    "email": {
+                        "description": "The user's email address",
+                        "type": "string"
+                    },
+                    "invoice_email": {
+                        "description": "Whether the user desires to receive an invoice email.",
+                        "type": "boolean"
+                    },
+                    "password": {
+                        "description": "The user's password",
+                        "type": "string"
+                    },
+                    "tag_expiration": {
+                        "maximum": 2592000,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "username": {
+                        "description": "The user's username",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UserPermission": {
+                "description": "Description of a user permission.",
+                "properties": {
+                    "role": {
+                        "description": "Role to use for the user",
+                        "enum": [
+                            "read",
+                            "write",
+                            "admin"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "role"
+                ],
+                "type": "object"
+            },
+            "UserView": {
+                "description": "Describes a user",
+                "properties": {
+                    "anonymous": {
+                        "description": "true if this user data represents a guest user",
+                        "type": "boolean"
+                    },
+                    "avatar": {
+                        "description": "Avatar data representing the user's icon",
+                        "type": "object"
+                    },
+                    "can_create_repo": {
+                        "description": "Whether the user has permission to create repositories",
+                        "type": "boolean"
+                    },
+                    "email": {
+                        "description": "The user's email address",
+                        "type": "string"
+                    },
+                    "logins": {
+                        "description": "The list of external login providers against which the user has authenticated",
+                        "items": {
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "organizations": {
+                        "description": "Information about the organizations in which the user is a member",
+                        "items": {
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "preferred_namespace": {
+                        "description": "If true, the user's namespace is the preferred namespace to display",
+                        "type": "boolean"
+                    },
+                    "verified": {
+                        "description": "Whether the user's email address has been verified",
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "verified",
+                    "anonymous",
+                    "avatar"
+                ],
+                "type": "object"
+            }
+        }
+    }
 }

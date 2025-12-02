@@ -229,7 +229,7 @@ func TestParseResponses(t *testing.T) {
 	assert.InDelta(t, 10.00, *iprop.Minimum, epsilon)
 	assert.True(t, iprop.ExclusiveMinimum, "'id' should have had an exclusive minimum")
 
-	assertRef(t, itprop, "pet", "Pet", "#/definitions/pet")
+	assertRef(t, itprop, "pet", "Pet", "#/components/schemas/pet")
 	_, ok = itprop.Properties["pet"]
 	assert.True(t, ok)
 	// if itprop.Ref.String() == "" {
@@ -253,7 +253,7 @@ func TestParseResponses(t *testing.T) {
 	res, ok = responses["resp"]
 	assert.True(t, ok)
 	assert.NotNil(t, res.Schema)
-	assert.Equal(t, "#/definitions/user", res.Schema.Ref.String())
+	assert.Equal(t, "#/components/schemas/user", res.Schema.Ref.String())
 }
 
 func TestParseResponses_TransparentAliases(t *testing.T) {

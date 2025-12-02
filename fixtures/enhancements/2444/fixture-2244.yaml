@@ -1,192 +1,172 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
-  title: "minProperties and maxProperties validations"
-  version: "0.0.1"
+  title: minProperties and maxProperties validations
+  version: 0.0.1
 paths:
-  "/":
+  /:
     post:
       tags:
-      - hotspot
+        - hotspot
       summary: Create a Hotspot
-      operationId: "CreateHotspot"
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - in: body
-        name: Hotspot
-        required: false
-        schema:
-          $ref: '#/definitions/hasMinProperties'
+      operationId: CreateHotspot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/hasMinProperties"
       responses:
-        201:
+        "201":
           description: Hotspot created.
-          schema:
-            $ref: '#/definitions/hasMaxProperties'
-        400:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/hasMaxProperties"
+        "400":
           description: Bad request.
-          schema:
-            $ref: '#/definitions/hasMinMaxProperties'
-        422:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/hasMinMaxProperties"
+        "422":
           description: Unprocessable entity
-          schema:
-            $ref: '#/definitions/mapWithMinMaxProperties'
-        500:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/mapWithMinMaxProperties"
+        "500":
           description: Unexpected error.
-          schema:
-            $ref: '#/definitions/mapOfIntegersWithMinMaxProperties'
-        502:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/mapOfIntegersWithMinMaxProperties"
+        "502":
           description: Unexpected error.
-          schema:
-            $ref: '#/definitions/arrayItemsWithMinMaxProperties'
-
-  "/embedded":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/arrayItemsWithMinMaxProperties"
+  /embedded:
     get:
       tags:
-      - embedded
+        - embedded
       responses:
-        201:
+        "201":
           description: minmax
-          schema:
-            type: object
-            additionalProperties: true
-            minProperties: 5
-            maxProperties: 10
-
-definitions:
-  hasMinProperties:
-    properties:
-      a:
-        type: string
-        minLength: 10
-    additionalProperties: true
-    minProperties: 2
-
-  hasMaxProperties:
-    properties:
-      b:
-        type: string
-    additionalProperties: true
-    maxProperties: 2
-
-  hasMinMaxProperties:
-    properties:
-      c:
-        type: string
-    additionalProperties: true
-    minProperties: 3
-    maxProperties: 5
-
-  mapWithMinMaxProperties:
-    type: object
-    additionalProperties: true
-    minProperties: 3
-    maxProperties: 5
-
-  untypedWithMinMaxProperties:
-    additionalProperties: true
-    minProperties: 3
-    maxProperties: 5
-
-  mapOfIntegersWithMinMaxProperties:
-    type: object
-    minProperties: 3
-    maxProperties: 5
-    additionalProperties:
-      type: integer
-
-  nestedMap:
-    type: object
-    minProperties: 3
-    maxProperties: 5
-    additionalProperties: # <- TODO: doesn't work
-      type: object
-      additionalProperties: true
-      minProperties: 4
-      maxProperties: 6
-
-  deeperNestedMap:
-    type: object
-    minProperties: 3
-    maxProperties: 5
-    additionalProperties: # <- TODO: doesn't work
-      type: object
-      additionalProperties:
-        type: object
-        additionalProperties: true
-        minProperties: 5
-        maxProperties: 7
-      minProperties: 4
-      maxProperties: 6
-
-  arrayItemsWithMinMaxProperties:
-    type: array
-    items:
-      minProperties: 3
-      maxProperties: 5
-
-  mapOfObjectsWithMinMaxProperties:
-    type: object
-    minProperties: 3
-    maxProperties: 5
-    additionalProperties:
-      $ref: '#/definitions/hasMaxProperties'
-
-  mapOfArraysWithMinMaxProperties:
-    type: object
-    minProperties: 3
-    maxProperties: 5
-    additionalProperties:
-      type: array
-      items:
-        $ref: '#/definitions/hasMaxProperties'
-
-  objectWithMinMaxProperties:
-    type: object
-    required: [b]
-    properties:
-      id:
-        type: string
-        format: uuid
-      b:
-        type: string
-        minLength: 5
-    minProperties: 3
-    maxProperties: 5
-    additionalProperties:
-      $ref: '#/definitions/hasMaxProperties'
-
-  allOfWithMinMaxProperties:
-    allOf:
-    - type: object
-      minProperties: 3
-      maxProperties: 5
+          content:
+            "*/*":
+              schema:
+                type: object
+                additionalProperties: true
+                minProperties: 5
+                maxProperties: 10
+components:
+  schemas:
+    hasMinProperties:
       properties:
-        uid:
+        a:
           type: string
-          format: uuid
-      additionalProperties:
-        type: integer
-        format: uint32
-        maximum: 100
-
-    - type: object
+          minLength: 10
+      additionalProperties: true
+      minProperties: 2
+    hasMaxProperties:
+      properties:
+        b:
+          type: string
+      additionalProperties: true
+      maxProperties: 2
+    hasMinMaxProperties:
       properties:
         c:
           type: string
-          format: date
-  # The following definitions don't work properly (generate interface{})
-  #allOfWithValidationOnly:
-  #  allOf:
-  #  - type: object
-  #    additionalProperties: true
-  #  - minProperties: 1
-  #allOfObjectWithValidationOnly:
-  #  allOf:
-  #  - type: object
-  #    properties:
-  #      a:
-  #        type: string
-  #    additionalProperties: true
-  #  - minProperties: 1
+      additionalProperties: true
+      minProperties: 3
+      maxProperties: 5
+    mapWithMinMaxProperties:
+      type: object
+      additionalProperties: true
+      minProperties: 3
+      maxProperties: 5
+    untypedWithMinMaxProperties:
+      additionalProperties: true
+      minProperties: 3
+      maxProperties: 5
+    mapOfIntegersWithMinMaxProperties:
+      type: object
+      minProperties: 3
+      maxProperties: 5
+      additionalProperties:
+        type: integer
+    nestedMap:
+      type: object
+      minProperties: 3
+      maxProperties: 5
+      additionalProperties:
+        type: object
+        additionalProperties: true
+        minProperties: 4
+        maxProperties: 6
+    deeperNestedMap:
+      type: object
+      minProperties: 3
+      maxProperties: 5
+      additionalProperties:
+        type: object
+        additionalProperties:
+          type: object
+          additionalProperties: true
+          minProperties: 5
+          maxProperties: 7
+        minProperties: 4
+        maxProperties: 6
+    arrayItemsWithMinMaxProperties:
+      type: array
+      items:
+        minProperties: 3
+        maxProperties: 5
+    mapOfObjectsWithMinMaxProperties:
+      type: object
+      minProperties: 3
+      maxProperties: 5
+      additionalProperties:
+        $ref: "#/components/schemas/hasMaxProperties"
+    mapOfArraysWithMinMaxProperties:
+      type: object
+      minProperties: 3
+      maxProperties: 5
+      additionalProperties:
+        type: array
+        items:
+          $ref: "#/components/schemas/hasMaxProperties"
+    objectWithMinMaxProperties:
+      type: object
+      required:
+        - b
+      properties:
+        id:
+          type: string
+          format: uuid
+        b:
+          type: string
+          minLength: 5
+      minProperties: 3
+      maxProperties: 5
+      additionalProperties:
+        $ref: "#/components/schemas/hasMaxProperties"
+    allOfWithMinMaxProperties:
+      allOf:
+        - type: object
+          minProperties: 3
+          maxProperties: 5
+          properties:
+            uid:
+              type: string
+              format: uuid
+          additionalProperties:
+            type: integer
+            format: uint32
+            maximum: 100
+        - type: object
+          properties:
+            c:
+              type: string
+              format: date

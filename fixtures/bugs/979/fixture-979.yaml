@@ -1,13 +1,8 @@
-swagger: '2.0'
-
+openapi: 3.0.0
 info:
-  version: "1.0.0"
+  version: 1.0.0
   title: allOf without the explicit type object
   description: checking that properties is enough to figure out an object schema
-produces:
-  - application/json
-consumes:
-  - application/json
 paths:
   /models:
     get:
@@ -19,20 +14,21 @@ paths:
       responses:
         default:
           description: Generic Out
-definitions:
-  Cluster:
-    type: object 
-    allOf:
-      - $ref: '#/definitions/NewCluster'
-      - properties:
-          result: 
-            description: results of cluster creation 
-            type: string  
-          status:
-            description: status of cluster created|updated|running|deleted 
-            type: string
-  NewCluster:
-    type: object
-    properties: 
-      dummyProp1:
-        type: integer
+components:
+  schemas:
+    Cluster:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/NewCluster"
+        - properties:
+            result:
+              description: results of cluster creation
+              type: string
+            status:
+              description: status of cluster created|updated|running|deleted
+              type: string
+    NewCluster:
+      type: object
+      properties:
+        dummyProp1:
+          type: integer

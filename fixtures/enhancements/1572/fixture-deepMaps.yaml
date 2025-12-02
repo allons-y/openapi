@@ -1,61 +1,60 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
-  version: "1.0.0"
-  title: 'issue 1232'
+  version: 1.0.0
+  title: issue 1232
   description: verifies marshalling code on discriminated type
-produces:
-  - application/json
-consumes:
-  - application/json
 paths:
   /sanity:
     get:
       operationId: getSanity
       description: no description
-      parameters:
-      - name: sanityParam
-        in: body
-        schema:
-          $ref: '#/definitions/ModelObjectVanilla'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModelObjectVanilla"
       responses:
         default:
           description: Generic Out
-          schema:
-            $ref: '#/definitions/ModelObjectVanilla'
-definitions:
-  ModelObjectVanilla:
-    type: object
-    required:
-      - prop1
-    properties:
-      prop0:
-        $ref: '#/definitions/ModelSanity'
-      prop1:
-        $ref: '#/definitions/ModelSanity'
-      prop2:
-        type: array
-        items:
-          $ref: '#/definitions/ModelSanity'
-      prop3:
-        $ref: '#/definitions/ModelSanity'
-      prop4:
-        type: object
-        additionalProperties:
-          $ref: '#/definitions/ModelSanity'
-      prop5:
-        type: integer
-    additionalProperties:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelObjectVanilla"
+components:
+  schemas:
+    ModelObjectVanilla:
       type: object
+      required:
+        - prop1
+      properties:
+        prop0:
+          $ref: "#/components/schemas/ModelSanity"
+        prop1:
+          $ref: "#/components/schemas/ModelSanity"
+        prop2:
+          type: array
+          items:
+            $ref: "#/components/schemas/ModelSanity"
+        prop3:
+          $ref: "#/components/schemas/ModelSanity"
+        prop4:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/ModelSanity"
+        prop5:
+          type: integer
       additionalProperties:
         type: object
         additionalProperties:
-          $ref: '#/definitions/ModelSanity'
-  ModelSanity:
-    type: object
-    required:
-    - propB
-    properties:
-      propA:
-        type: string
-      propB:
-        type: string
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/ModelSanity"
+    ModelSanity:
+      type: object
+      required:
+        - propB
+      properties:
+        propA:
+          type: string
+        propB:
+          type: string

@@ -1,13 +1,25 @@
----
-  swagger: "2.0"
-  info: 
-    title: "param body required with array of aliased items"
-    version: "0.0.1"
-    description: "repro issue 1537"
-    license: 
-      name: "Apache 2.0"
-      url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-  definitions: 
+openapi: 3.0.0
+info:
+  title: param body required with array of aliased items
+  version: 0.0.1
+  description: repro issue 1537
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /getProfiles:
+    get:
+      operationId: getProfiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Profiles"
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
     profileCfg:
       type: object
       properties:
@@ -22,30 +34,17 @@
       x-omitempty: true
       maxItems: 10
       items:
-        $ref: '#/definitions/profileCfg'
+        $ref: "#/components/schemas/profileCfg"
     profileCfgsNoValidation:
       type: array
       x-omitempty: true
       items:
-        $ref: '#/definitions/profileCfg'
+        $ref: "#/components/schemas/profileCfg"
     Profiles:
       type: array
       items:
-        $ref: '#/definitions/profileCfgs'
+        $ref: "#/components/schemas/profileCfgs"
     ProfilesNoValidation:
       type: array
       items:
-        $ref: '#/definitions/profileCfgsNoValidation'
-  paths: 
-    /getProfiles: 
-      get: 
-        operationId: getProfiles
-        parameters:
-          - name: profilesInBody
-            in: body
-            required: false
-            schema:
-              $ref: '#/definitions/Profiles'
-        responses: 
-          200: 
-            description: "OK"
+        $ref: "#/components/schemas/profileCfgsNoValidation"

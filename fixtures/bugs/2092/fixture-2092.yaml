@@ -1,11 +1,4 @@
-consumes:
-- application/json
-produces:
-- application/json
-schemes:
-- http
-- https
-swagger: "2.0"
+openapi: 3.0.0
 info:
   description: Descr
   title: Titl
@@ -17,12 +10,15 @@ paths:
       responses:
         "200":
           description: (empty)
-          schema:
-            $ref: '#/definitions/user'
-definitions:
-  ok:
-    $ref: ./definitions/response.yaml#/ok
-  teamupdate:
-    $ref: ./definitions/teams.yaml#/teamupdate
-  user:
-    $ref: ./definitions/user.yaml#/user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+components:
+  schemas:
+    ok:
+      $ref: ./definitions/response.yaml#/ok
+    teamupdate:
+      $ref: ./definitions/teams.yaml#/teamupdate
+    user:
+      $ref: ./definitions/user.yaml#/user

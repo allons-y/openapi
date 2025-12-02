@@ -1,25 +1,26 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   version: 0.0.0
-  title: 'simple array parameter'
+  title: simple array parameter
 paths:
-  /resource//{IDs}:
+  "/resource//{IDs}":
     get:
       parameters:
-      - $ref: '#/parameters/IDs'
+        - $ref: "#/components/parameters/IDs"
       responses:
         default:
           description: ok
-
-parameters:
-  IDs:
-    name: IDs
-    in: path
-    description: A singele object ID or a comma seperated list of objects IDs.
-    type: array
-    items:
-      type: string
-    collectionFormat: csv
-    minItems: 1
-    uniqueItems: true
-    required: true
+components:
+  parameters:
+    IDs:
+      name: IDs
+      in: path
+      description: A singele object ID or a comma seperated list of objects IDs.
+      required: true
+      style: simple
+      schema:
+        type: array
+        items:
+          type: string
+        minItems: 1
+        uniqueItems: true

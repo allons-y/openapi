@@ -140,7 +140,7 @@ func (sv paramValidations) SetEnum(val string) {
 	sv.current.Enum = parseEnum(val, &spec.SimpleSchema{Type: sv.current.Type, Format: sv.current.Format})
 }
 func (sv paramValidations) SetDefault(val any) { sv.current.Default = val }
-func (sv paramValidations) SetExample(val any) { sv.current.Example = val }
+func (sv paramValidations) SetExample(val any) { sv.current.ParamProps.Example = val }
 
 type itemsValidations struct {
 	current *spec.Items
@@ -706,7 +706,8 @@ func (p *parameterBuilder) buildFromStruct(decl *entityDecl, tpe *types.Struct, 
 
 func (p *parameterBuilder) makeRef(decl *entityDecl, prop swaggerTypable) error {
 	nm, _ := decl.Names()
-	ref, err := spec.NewRef("#/definitions/" + nm)
+	// Use OpenAPI v3 reference path format
+	ref, err := spec.NewRef("#/components/schemas/" + nm)
 	if err != nil {
 		return err
 	}

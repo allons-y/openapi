@@ -1,15 +1,8 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: MyAPI
   description: some description
-  version: "1.0.0"
-schemes:
-  - http
-basePath: /v1
-consumes:
-  - application/json
-produces:
-  - application/json
+  version: 1.0.0
 paths:
   /models:
     post:
@@ -19,34 +12,44 @@ paths:
         Creates a model.....
       tags:
         - Deployment
-      consumes:
-        - multipart/form-data
-      parameters:
-        - name: slugFile
-          in: formData
-          description: Payload with the model configuration.
-          required: true
-          type: file
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                slugFile:
+                  description: Payload with the model configuration.
+                  type: string
+                  format: binary
+              required:
+                - slugFile
+        required: true
       responses:
-        201:
+        "201":
           description: Model successfully accepted.
           headers:
             Location:
               description: Location header for the model
-              type: string
+              schema:
+                type: string
         default:
           description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-
-definitions:
-  Error:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-      fields:
-        type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+servers:
+  - url: /v1
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        fields:
+          type: string

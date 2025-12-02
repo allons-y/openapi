@@ -1,43 +1,44 @@
-swagger: '2.0'
-basePath: /
-host: localhost
+openapi: 3.0.0
 info:
   version: 0.1.0
   title: Reproducer
   description: |
     Reproducer for https://github.com/go-swagger/go-swagger/issues/2471
-consumes:
-  - application/json
-produces:
-  - plain/text
-schemes:
-  - http
 paths:
-  /example/{FooPath}:
+  "/example/{FooPath}":
     post:
-        summary: example
-        description: ''
-        operationId: examplePost
-        parameters:
-          - name: Foo
-            in: header
+      summary: example
+      description: ""
+      operationId: examplePost
+      parameters:
+        - name: Foo
+          in: header
+          required: false
+          description: a reproducer for this ticket
+          style: simple
+          schema:
             type: array
-            required: false
             items:
               type: string
-            description: 'a reproducer for this ticket'
-          - name: FooQuery
-            in: query
+        - name: FooQuery
+          in: query
+          required: false
+          style: form
+          explode: false
+          schema:
             type: array
-            required: false
             items:
               type: string
-          - name: FooPath
-            in: path
+        - name: FooPath
+          in: path
+          required: true
+          style: simple
+          schema:
             type: array
-            required: true
             items:
               type: string
-        responses:
-          '201':
-            description: OK
+      responses:
+        "201":
+          description: OK
+servers:
+  - url: http://localhost

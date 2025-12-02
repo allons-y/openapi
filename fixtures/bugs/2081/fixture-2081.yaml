@@ -1,52 +1,49 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
-  version: "1.0.0"
-  title: "Another bug"
-host: "localhost"
-basePath: "/"
+  version: 1.0.0
+  title: Another bug
 tags:
-  - name: "events"
-schemes:
-  - "http"
-definitions:
-  event:
-    type: object
-    required:
-      - "value"
-    properties:
-      value:
-        description: Problem property
-        example: 1
-  events:
-    type: array
-    items:
-      type: object
-      required: [ a ]
-      properties:
-        a:
-          type: object
-
+  - name: events
 paths:
   /events:
     post:
       tags:
-        - "events"
-      summary: "Add event"
-      operationId: "addEvent"
+        - events
+      summary: Add event
+      operationId: addEvent
       description: ""
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - in: "body"
-          name: "body"
-          description: "Event object."
-          required: true
-          schema:
-            $ref: '#/definitions/event'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/event"
+        description: Event object.
+        required: true
       responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: '#/definitions/events'
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/events"
+servers:
+  - url: http://localhost
+components:
+  schemas:
+    event:
+      type: object
+      required:
+        - value
+      properties:
+        value:
+          description: Problem property
+          example: 1
+    events:
+      type: array
+      items:
+        type: object
+        required:
+          - a
+        properties:
+          a:
+            type: object

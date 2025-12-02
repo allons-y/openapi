@@ -1,183 +1,193 @@
-swagger: '2.0'
-basePath: /
-host: localhost
+openapi: 3.0.0
 info:
   version: 0.1.0
   title: Check format validations
-  termsOfService: |
-    There are actually none.
   license:
-    name: 'Apache 2.0'
+    name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
-
-consumes:
-  - application/json
-produces:
-  - application/json
 paths:
-  /{p0}/{p1}:
+  "/{p0}/{p1}":
     get:
       parameters:
-        - name: body
-          in: body
-          schema:
-            $ref: '#/definitions/object'
         - name: p0
           in: path
           required: true
-          type: string
-          pattern: '(\d+)-(\d+)'
-          minLength: 12
-          maxLength: 16
+          schema:
+            type: string
+            minLength: 12
+            maxLength: 16
+            pattern: (\d+)-(\d+)
         - name: p1
           required: true
           in: path
-          type: string
-          format: date
-          pattern: '(\d+)/(\d+)'
-          minLength: 12
-          maxLength: 16
+          schema:
+            type: string
+            format: date
+            minLength: 12
+            maxLength: 16
+            pattern: (\d+)/(\d+)
         - name: p2
           in: query
-          type: string
-          format: uuid
-          pattern: '(\d+)-(\d+)'
-          minLength: 12
-          maxLength: 16
+          schema:
+            type: string
+            format: uuid
+            minLength: 12
+            maxLength: 16
+            pattern: (\d+)-(\d+)
         - name: p3
           in: query
-          type: string
-          format: datetime
-          pattern: '(\d+)-(\d+)'
-          minLength: 12
-          maxLength: 16
+          schema:
+            type: string
+            format: datetime
+            minLength: 12
+            maxLength: 16
+            pattern: (\d+)-(\d+)
         - name: p4
           in: query
-          type: string
-          format: bsonobjectid
-          pattern: '(\d+)-(\d+)'
-          minLength: 12
-          maxLength: 16
+          schema:
+            type: string
+            format: bsonobjectid
+            minLength: 12
+            maxLength: 16
+            pattern: (\d+)-(\d+)
         - name: p5
           in: query
-          type: string
-          format: duration
-          pattern: '(\d+)-(\d+)'
-          minLength: 12
-          maxLength: 16
+          schema:
+            type: string
+            format: duration
+            minLength: 12
+            maxLength: 16
+            pattern: (\d+)-(\d+)
         - name: p6
           in: query
-          type: string
-          format: byte
-          pattern: '(\d+)-(\d+)'
-          minLength: 12
-          maxLength: 16
+          schema:
+            type: string
+            format: byte
+            minLength: 12
+            maxLength: 16
+            pattern: (\d+)-(\d+)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/object"
       responses:
         default:
           description: error
-
   /:
     post:
-      consumes:
-      - multipart/form-data
-      parameters:
-        - name: upload
-          required: true
-          in: formData
-          type: file
-          pattern: '(\d+)-(\d+)'
-          minLength: 12
-          maxLength: 16
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                upload:
+                  type: string
+                  minLength: 12
+                  maxLength: 16
+                  pattern: (\d+)-(\d+)
+                  format: binary
+              required:
+                - upload
+        required: true
       responses:
         default:
           description: error
-
-definitions:
-  object:
-    required: [ p0, p1, p7, p8, p9, p10, p11 ]
-    properties:
-      p0:
-        type: string
-        pattern: '(\d+)-(\d+)'
-        minLength: 12
-        maxLength: 16
-      p1:
-        type: string
-        format: date
-        pattern: '(\d+)/(\d+)'
-        minLength: 12
-        maxLength: 16
-      p1Nullable:
-        type: string
-        format: date
-        pattern: '(\d+)/(\d+)'
-        minLength: 12
-        maxLength: 16
-        x-nullable: true
-      p2:
-        type: string
-        format: uuid
-        pattern: '(\d+)-(\d+)'
-        minLength: 12
-        maxLength: 16
-      p3:
-        type: string
-        format: datetime
-        pattern: '(\d+)-(\d+)'
-        minLength: 12
-        maxLength: 16
-      p4:
-        type: string
-        format: bsonobjectid
-        pattern: '(\d+)-(\d+)'
-        minLength: 12
-        maxLength: 16
-      p5:
-        type: string
-        format: duration
-        pattern: '(\d+)-(\d+)'
-        minLength: 12
-        maxLength: 16
-      p6:
-        type: string
-        format: byte
-        pattern: '(\d+)-(\d+)'
-        minLength: 12
-        maxLength: 16
-      p7:
-        type: string
-        format: binary
-        pattern: '(\d+)-(\d+)'
-        minLength: 12
-        maxLength: 16
-      p8:
-        $ref: '#/definitions/aliasedDate'
-      p9:
-        $ref: '#/definitions/aliasedReader'
-      p10:
-        type: string
-        pattern: '(\d+)-(\d+)'
-        minLength: 12
-        maxLength: 16
-        x-nullable: false
-      p11:
-        $ref: '#/definitions/aliasedString'
-
-  aliasedDate:
-        type: string
-        format: date
-        pattern: '(\d+)/(\d+)'
-        minLength: 16
-        maxLength: 20
-
-  aliasedReader:
-        type: string
-        format: binary
-        pattern: '(\d+)/(\d+)'
-        minLength: 16
-        maxLength: 20
-  aliasedString:
-        type: string
-        pattern: '(\d+)/(\d+)'
-        minLength: 16
-        maxLength: 20
+servers:
+  - url: //localhost
+components:
+  schemas:
+    object:
+      required:
+        - p0
+        - p1
+        - p7
+        - p8
+        - p9
+        - p10
+        - p11
+      properties:
+        p0:
+          type: string
+          pattern: (\d+)-(\d+)
+          minLength: 12
+          maxLength: 16
+        p1:
+          type: string
+          format: date
+          pattern: (\d+)/(\d+)
+          minLength: 12
+          maxLength: 16
+        p1Nullable:
+          type: string
+          format: date
+          pattern: (\d+)/(\d+)
+          minLength: 12
+          maxLength: 16
+          nullable: true
+        p2:
+          type: string
+          format: uuid
+          pattern: (\d+)-(\d+)
+          minLength: 12
+          maxLength: 16
+        p3:
+          type: string
+          format: datetime
+          pattern: (\d+)-(\d+)
+          minLength: 12
+          maxLength: 16
+        p4:
+          type: string
+          format: bsonobjectid
+          pattern: (\d+)-(\d+)
+          minLength: 12
+          maxLength: 16
+        p5:
+          type: string
+          format: duration
+          pattern: (\d+)-(\d+)
+          minLength: 12
+          maxLength: 16
+        p6:
+          type: string
+          format: byte
+          pattern: (\d+)-(\d+)
+          minLength: 12
+          maxLength: 16
+        p7:
+          type: string
+          format: binary
+          pattern: (\d+)-(\d+)
+          minLength: 12
+          maxLength: 16
+        p8:
+          $ref: "#/components/schemas/aliasedDate"
+        p9:
+          $ref: "#/components/schemas/aliasedReader"
+        p10:
+          type: string
+          pattern: (\d+)-(\d+)
+          minLength: 12
+          maxLength: 16
+          nullable: false
+        p11:
+          $ref: "#/components/schemas/aliasedString"
+    aliasedDate:
+      type: string
+      format: date
+      pattern: (\d+)/(\d+)
+      minLength: 16
+      maxLength: 20
+    aliasedReader:
+      type: string
+      format: binary
+      pattern: (\d+)/(\d+)
+      minLength: 16
+      maxLength: 20
+    aliasedString:
+      type: string
+      pattern: (\d+)/(\d+)
+      minLength: 16
+      maxLength: 20

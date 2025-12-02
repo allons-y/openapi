@@ -98,12 +98,12 @@ func TestOperationsParser(t *testing.T) {
 	if po.Get != nil {
 		rsp, k := po.Get.Responses.StatusCodeResponses[200]
 		if assert.True(t, k) {
-			assert.Equal(t, "#/definitions/ListResponse", rsp.Schema.Ref.String())
+			assert.Equal(t, "#/components/schemas/ListResponse", rsp.Schema.Ref.String())
 			assert.Equal(t, "200", rsp.Description)
 		}
 		rsp, k = po.Get.Responses.StatusCodeResponses[400]
 		if assert.True(t, k) {
-			assert.Equal(t, "#/definitions/ErrorResponse", rsp.Schema.Ref.String())
+			assert.Equal(t, "#/components/schemas/ErrorResponse", rsp.Schema.Ref.String())
 			assert.Equal(t, "400", rsp.Description)
 		}
 	}

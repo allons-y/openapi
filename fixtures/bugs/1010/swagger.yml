@@ -1,4 +1,4 @@
-swagger: "2.0"
+openapi: 3.0.0
 paths:
   /widgets/:
     get:
@@ -8,9 +8,15 @@ paths:
           in: query
           description: Return the widgets that are associated with this category.
           required: true
-          type: array
-          collectionFormat: "multi"
-          items:
-            type: string
-            pattern: '^[0-9abcdefghjkmnpqrtuvwxyz]{29}$'
-definitions: {}
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+              pattern: ^[0-9abcdefghjkmnpqrtuvwxyz]{29}$
+      responses:
+        default:
+          description: Default response
+info:
+  version: ""
+  title: ""

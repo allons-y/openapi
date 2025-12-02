@@ -1,13 +1,9 @@
-swagger: '2.0'
-
+openapi: 3.0.0
 info:
-  version: "1.0.0"
+  version: 1.0.0
   title: fixture with erroneous statements
-  description: see how the codegen reacts with invalid things (used to cover error cases in UT)
-produces:
-  - application/json
-consumes:
-  - application/json
+  description: see how the codegen reacts with invalid things (used to cover error
+    cases in UT)
 paths:
   /models:
     get:
@@ -19,10 +15,16 @@ paths:
       responses:
         default:
           description: Generic Out
-definitions:
-  arrayWithoutItems:
-    description: in swagger, an array **MUST** have an items schema
-    type: array
-  multipleTypes:
-    description: 'in swagger, an array **MUST** have an items schema: therefore this definition is invalid'
-    type: [ object, array ]
+components:
+  schemas:
+    arrayWithoutItems:
+      description: in swagger, an array **MUST** have an items schema
+      type: array
+      items: {}
+    multipleTypes:
+      description: "in swagger, an array **MUST** have an items schema: therefore this
+        definition is invalid"
+      oneOf:
+        - type: object
+        - type: array
+          items: {}

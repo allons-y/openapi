@@ -12,17 +12,21 @@ import (
 func newSpecBuilder(input *spec.Swagger, sc *scanCtx, scanModels bool) *specBuilder {
 	if input == nil {
 		input = new(spec.Swagger)
-		input.Swagger = "2.0"
+		input.OpenAPI = "3.0.0"
 	}
 
 	if input.Paths == nil {
 		input.Paths = new(spec.Paths)
 	}
-	if input.Definitions == nil {
-		input.Definitions = make(map[string]spec.Schema)
+	// Initialize Components for OpenAPI v3
+	if input.Components == nil {
+		input.Components = new(spec.Components)
 	}
-	if input.Responses == nil {
-		input.Responses = make(map[string]spec.Response)
+	if input.Components.Schemas == nil {
+		input.Components.Schemas = make(map[string]spec.Schema)
+	}
+	if input.Components.Responses == nil {
+		input.Components.Responses = make(map[string]spec.Response)
 	}
 	if input.Extensions == nil {
 		input.Extensions = make(spec.Extensions)
@@ -33,8 +37,8 @@ func newSpecBuilder(input *spec.Swagger, sc *scanCtx, scanModels bool) *specBuil
 		input:       input,
 		scanModels:  scanModels,
 		operations:  collectOperationsFromInput(input),
-		definitions: input.Definitions,
-		responses:   input.Responses,
+		definitions: input.Components.Schemas,
+		responses:   input.Components.Responses,
 	}
 }
 
@@ -80,8 +84,8 @@ func (s *specBuilder) Build() (*spec.Swagger, error) {
 		return nil, err
 	}
 
-	if s.input.Swagger == "" {
-		s.input.Swagger = "2.0"
+	if s.input.OpenAPI == "" {
+		s.input.OpenAPI = "3.0.0"
 	}
 
 	return s.input, nil

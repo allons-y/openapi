@@ -24,14 +24,19 @@ func metaTOSSetter(meta *spec.Info) func([]string) {
 	}
 }
 
+// metaConsumesSetter is deprecated in OpenAPI v3 - consumes moved to operation level
+// Kept for backward compatibility during annotation parsing, stored for server URL construction
 func metaConsumesSetter(meta *spec.Swagger) func([]string) {
 	return func(consumes []string) { meta.Consumes = consumes }
 }
 
+// metaProducesSetter is deprecated in OpenAPI v3 - produces moved to operation level
+// Kept for backward compatibility during annotation parsing
 func metaProducesSetter(meta *spec.Swagger) func([]string) {
 	return func(produces []string) { meta.Produces = produces }
 }
 
+// metaSchemeSetter stores schemes for server URL construction in OpenAPI v3
 func metaSchemeSetter(meta *spec.Swagger) func([]string) {
 	return func(schemes []string) { meta.Schemes = schemes }
 }
@@ -42,12 +47,16 @@ func metaSecuritySetter(meta *spec.Swagger) func([]map[string][]string) {
 
 func metaSecurityDefinitionsSetter(meta *spec.Swagger) func(json.RawMessage) error {
 	return func(jsonValue json.RawMessage) error {
-		var jsonData spec.SecurityDefinitions
+		var jsonData map[string]spec.SecurityScheme
 		err := json.Unmarshal(jsonValue, &jsonData)
 		if err != nil {
 			return err
 		}
-		meta.SecurityDefinitions = jsonData
+		// Store in Components.SecuritySchemes for OpenAPI v3
+		if meta.Components == nil {
+			meta.Components = new(spec.Components)
+		}
+		meta.Components.SecuritySchemes = jsonData
 		return nil
 	}
 }
@@ -145,6 +154,8 @@ func setSwaggerHost(swspec *spec.Swagger, lines []string) error {
 		lns = []string{"localhost"}
 	}
 	swspec.Host = lns[0]
+	// Build servers for OpenAPI v3
+	buildServers(swspec)
 	return nil
 }
 
@@ -154,7 +165,36 @@ func setSwaggerBasePath(swspec *spec.Swagger, lines []string) error {
 		ln = lines[0]
 	}
 	swspec.BasePath = ln
+	// Build servers for OpenAPI v3
+	buildServers(swspec)
 	return nil
+}
+
+// buildServers constructs the OpenAPI v3 servers array from host, basePath, and schemes
+func buildServers(swspec *spec.Swagger) {
+	if swspec.Host == "" {
+		return
+	}
+
+	schemes := swspec.Schemes
+	if len(schemes) == 0 {
+		schemes = []string{"https"}
+	}
+
+	basePath := swspec.BasePath
+	if basePath == "" {
+		basePath = "/"
+	}
+
+	swspec.Servers = nil
+	for _, scheme := range schemes {
+		url := scheme + "://" + swspec.Host + basePath
+		swspec.Servers = append(swspec.Servers, spec.Server{
+			ServerProps: spec.ServerProps{
+				URL: url,
+			},
+		})
+	}
 }
 
 func setInfoVersion(swspec *spec.Swagger, lines []string) error {

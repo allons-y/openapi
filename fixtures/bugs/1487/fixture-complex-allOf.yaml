@@ -1,16 +1,11 @@
-
-swagger: '2.0'
-
+openapi: 3.0.0
 info:
-  version: "1.0.0"
+  version: 1.0.0
   title: fixture for nested allOf with ref
-  description: |
+  description: >
     We check that validation bubbles up properly, with various compounds of 
+
     complex structures, as well as no validation is generated when not necessary.
-produces:
-  - application/json
-consumes:
-  - application/json
 paths:
   /models:
     get:
@@ -20,79 +15,74 @@ paths:
       responses:
         default:
           description: Generic Out
-
-definitions:
-  # with slices
-  sliceOfAllOf:
-    type: array
-    uniqueItems: true
-    items:
-      # this one should issue a warning
+components:
+  schemas:
+    sliceOfAllOf:
+      type: array
+      uniqueItems: true
+      items:
+        allOf:
+          - type: object
+            properties:
+              prop0:
+                type: string
+                format: uuid
+          - $ref: "#/components/schemas/sliceOfInterfaces"
+    sliceOfInterfaces:
+      type: array
+      items:
+        type: object
+        additionalProperties: true
+    sliceOfInterfacesWithValidation:
+      type: array
+      maxItems: 10
+      items:
+        type: object
+        additionalProperties: true
+    allOfAliases:
       allOf:
-        - type: object 
-          properties: 
-            prop0:
-              type: string
-              format: uuid
-        - $ref: '#/definitions/sliceOfInterfaces'
-  sliceOfInterfaces:
-    type: array
-    items:
-      type: object 
-      additionalProperties: true
-  sliceOfInterfacesWithValidation:
-    type: array
-    maxItems: 10
-    items:
-      type: object 
-      additionalProperties: true
-  allOfAliases:
-    allOf:
-      - $ref: '#/definitions/aliasedDate'
-      - $ref: '#/definitions/aliasedNullableDate'
-  allOfSlicesOfAliases:
-    type: object
-    allOf:
-      - type: object 
-        properties: 
-          prop1:
-            type: array 
-            maxItems: 10
-            items:
-              $ref: '#/definitions/aliasedDate'
-      - type: object 
-        properties: 
-          prop2:
-            type: array 
-            maxItems: 20
-            items:
-              $ref: '#/definitions/aliasedNullableDate'
-  sliceMix:
-    # This one is actually impossible to unmarshall
-    # However, the generated unmarshalling and validation code is interesting to observe
-    # to better understand how the generator works
-    allOf:
-      - $ref: '#/definitions/sliceOfAllOf'
-      - $ref: '#/definitions/sliceOfInterfaces'
-  objectMix:
-    allOf:
-      - type: object      # expect no validation here?
-      - type: object
-        properties:
-          prop1:
-            allOf:
-              - $ref: '#/definitions/aliasedDate'
-              - $ref: '#/definitions/aliasedNullableDate'
-      - type: object
-        properties:
-          prop2:
-            allOf:
-              - $ref: '#/definitions/aliasedDate'
-              - $ref: '#/definitions/aliasedNullableDate'
-  aliasedDate:
-    type: string
-    format: date
-  aliasedNullableDate:
-    type: string
-    format: date
-    x-nullable: true
+        - $ref: "#/components/schemas/aliasedDate"
+        - $ref: "#/components/schemas/aliasedNullableDate"
+    allOfSlicesOfAliases:
+      type: object
+      allOf:
+        - type: object
+          properties:
+            prop1:
+              type: array
+              maxItems: 10
+              items:
+                $ref: "#/components/schemas/aliasedDate"
+        - type: object
+          properties:
+            prop2:
+              type: array
+              maxItems: 20
+              items:
+                $ref: "#/components/schemas/aliasedNullableDate"
+    sliceMix:
+      allOf:
+        - $ref: "#/components/schemas/sliceOfAllOf"
+        - $ref: "#/components/schemas/sliceOfInterfaces"
+    objectMix:
+      allOf:
+        - type: object
+        - type: object
+          properties:
+            prop1:
+              allOf:
+                - $ref: "#/components/schemas/aliasedDate"
+                - $ref: "#/components/schemas/aliasedNullableDate"
+        - type: object
+          properties:
+            prop2:
+              allOf:
+                - $ref: "#/components/schemas/aliasedDate"
+                - $ref: "#/components/schemas/aliasedNullableDate"
+    aliasedDate:
+      type: string
+      format: date
+    aliasedNullableDate:
+      type: string
+      format: date
+      nullable: true

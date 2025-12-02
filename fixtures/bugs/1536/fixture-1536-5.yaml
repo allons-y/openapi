@@ -1,13 +1,26 @@
----
-  swagger: "2.0"
-  info: 
-    title: "param body with maps"
-    version: "0.0.1"
-    description: "repro issue 1537"
-    license: 
-      name: "Apache 2.0"
-      url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-  definitions: 
+openapi: 3.0.0
+info:
+  title: param body with maps
+  version: 0.0.1
+  description: repro issue 1537
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /getMapArrayWithMax:
+    get:
+      operationId: noop
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/modelMapOfNullablePrimitive"
+        required: true
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
     modelInterface:
       type: object
       additionalProperties: true
@@ -17,86 +30,73 @@
       items:
         type: object
     modelMapOfRef:
-       type: object
-       additionalProperties:
-         $ref: '#/definitions/modelArrayWithMax'
+      type: object
+      additionalProperties:
+        $ref: "#/components/schemas/modelArrayWithMax"
     modelArrayOfNotNullable:
-       type: array
-       items:
-         type: integer
-         minimum: 10
+      type: array
+      items:
+        type: integer
+        minimum: 10
     modelArrayOfNullable:
-       type: array
-       items:
-         type: integer
-         minimum: 0
+      type: array
+      items:
+        type: integer
+        minimum: 0
     modelArrayOfXNullable:
-       type: array
-       items:
-         type: integer
-         x-nullable: true
+      type: array
+      items:
+        type: integer
+        nullable: true
     modelArrayOfNotNullableString:
-       type: array
-       items:
-         type: string
-         default: ""
+      type: array
+      items:
+        type: string
+        default: ""
     modelArrayOfNullableString:
-       type: array
-       items:
-         type: string
-         default: "abc"
+      type: array
+      items:
+        type: string
+        default: abc
     modelArrayOfFormat:
-       type: array
-       items:
-         type: string
-         format: uuid
+      type: array
+      items:
+        type: string
+        format: uuid
     modelArrayOfNullableFormat:
-       type: array
-       items:
-         type: string
-         format: uuid
-         x-nullable: true
+      type: array
+      items:
+        type: string
+        format: uuid
+        nullable: true
     modelArrayOfRef:
-       type: array
-       items:
-         $ref: '#/definitions/modelArrayOfXNullable'
+      type: array
+      items:
+        $ref: "#/components/schemas/modelArrayOfXNullable"
     modelArrayOfRefNoValidations:
-       type: array
-       items:
-         $ref: '#/definitions/modelInterface'
+      type: array
+      items:
+        $ref: "#/components/schemas/modelInterface"
     modelArrayOfRefSliceValidations:
-       type: array
-       maxItems: 10
-       items:
-         $ref: '#/definitions/modelInterface'
+      type: array
+      maxItems: 10
+      items:
+        $ref: "#/components/schemas/modelInterface"
     modelMapOfNullablePrimitive:
-      type: object 
+      type: object
       additionalProperties:
         type: integer
         minimum: 0
     modelMapOfXNullablePrimitive:
-      type: object 
+      type: object
       additionalProperties:
         type: integer
         minimum: 100
-        x-nullable: true
+        nullable: true
     modelMapOfOfSliceOfNullablePrimitive:
-      type: object 
+      type: object
       additionalProperties:
         type: array
         items:
           type: integer
           minimum: 0
-  paths: 
-    /getMapArrayWithMax:
-      get: 
-        operationId: noop
-        parameters:
-          - name: mapOfNullablePrimitive
-            in: body
-            required: true
-            schema:
-              $ref: '#/definitions/modelMapOfNullablePrimitive'
-        responses: 
-          200: 
-            description: "OK"

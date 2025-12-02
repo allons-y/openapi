@@ -1,66 +1,60 @@
----
-swagger: "2.0"
+openapi: 3.0.0
 info:
   version: 0.1.0
   title: foo
-
 paths:
   /mypath:
     post:
-      parameters:
-        - $ref: "#/parameters/my_param"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/my_object"
+        required: true
       responses:
-        202:
+        "202":
           description: foo
-
-parameters:
-  my_param:
-    name: my_param
-    in: body
-    required: true
-    schema:
-      $ref: "#/definitions/my_object"
-
-definitions:
-  my_object:
-    type: object
-    required:
-      - required_string
-      - required_referenced_object
-      - required_referenced_string
-      - required_referenced_struct
-      - required_referenced_array
-      - required_referenced_map
-    properties:
-      required_string:
-        type: string
-      required_referenced_object:
-        $ref: '#/definitions/my_object_ref'
-      required_referenced_string:
-        $ref: '#/definitions/my_string_ref'
-      required_referenced_struct:
-        $ref: '#/definitions/my_struct_ref'
-      required_referenced_array:
-        $ref: '#/definitions/my_array_ref'
-      required_referenced_map:
-        $ref: '#/definitions/my_map_ref'
-  my_object_ref:  # <- interface
-    type: object
-  my_string_ref:  # <- aliased type
-    type: string
-  my_struct_ref:  # <- struct
-    type: object
-    properties:
-      x:
-        type: integer
-  my_array_ref:  # <- slice
-    type: array
-    items:
+components:
+  schemas:
+    my_object:
       type: object
-  my_map_ref:  # <- map
-    type: object
-    additionalProperties:
+      required:
+        - required_string
+        - required_referenced_object
+        - required_referenced_string
+        - required_referenced_struct
+        - required_referenced_array
+        - required_referenced_map
+      properties:
+        required_string:
+          type: string
+        required_referenced_object:
+          $ref: "#/components/schemas/my_object_ref"
+        required_referenced_string:
+          $ref: "#/components/schemas/my_string_ref"
+        required_referenced_struct:
+          $ref: "#/components/schemas/my_struct_ref"
+        required_referenced_array:
+          $ref: "#/components/schemas/my_array_ref"
+        required_referenced_map:
+          $ref: "#/components/schemas/my_map_ref"
+    my_object_ref:
+      type: object
+    my_string_ref:
+      type: string
+    my_struct_ref:
       type: object
       properties:
-        'y':
+        x:
           type: integer
+    my_array_ref:
+      type: array
+      items:
+        type: object
+    my_map_ref:
+      type: object
+      additionalProperties:
+        type: object
+        properties:
+          y:
+            type: integer

@@ -127,7 +127,7 @@ func TestParamsParser(t *testing.T) {
 	bodyParam := ob.Parameters[0]
 	assert.Equal(t, "The order to submit.", bodyParam.Description)
 	assert.Equal(t, "body", bodyParam.In)
-	assert.Equal(t, "#/definitions/order", bodyParam.Schema.Ref.String())
+	assert.Equal(t, "#/components/schemas/order", bodyParam.Schema.Ref.String())
 	assert.True(t, bodyParam.Required)
 
 	mop, okParam := operations["getOrders"]
@@ -175,7 +175,7 @@ func TestParamsParser(t *testing.T) {
 			assert.InDelta(t, 3.00, *param.Minimum, epsilon)
 			assert.False(t, param.ExclusiveMinimum)
 			assert.EqualValues(t, 2, param.Default, "%s default value is incorrect", param.Name)
-			assert.EqualValues(t, 27, param.Example)
+			assert.EqualValues(t, 27, param.ParamProps.Example)
 
 		case "x-hdr-name":
 			assert.Equal(t, "Name of this no model instance", param.Description)
@@ -272,7 +272,7 @@ func TestParamsParser(t *testing.T) {
 			assert.True(t, iprop.ExclusiveMinimum, "'id' should have had an exclusive minimum")
 			assert.Equal(t, 3, iprop.Default, "Items.ID default value is incorrect")
 
-			assertRef(t, itprop, "pet", "Pet", "#/definitions/pet")
+			assertRef(t, itprop, "pet", "Pet", "#/components/schemas/pet")
 			_, ok = itprop.Properties["pet"]
 			assert.True(t, ok)
 			// if itprop.Ref.String() == "" {

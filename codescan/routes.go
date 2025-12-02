@@ -9,16 +9,33 @@ import (
 	"github.com/go-openapi/spec"
 )
 
+// opConsumesSetter is deprecated in OpenAPI v3 - content types moved to requestBody
+// Kept for backward compatibility during annotation parsing
 func opConsumesSetter(op *spec.Operation) func([]string) {
 	return func(consumes []string) { op.Consumes = consumes }
 }
 
+// opProducesSetter is deprecated in OpenAPI v3 - content types moved to response content
+// Kept for backward compatibility during annotation parsing
 func opProducesSetter(op *spec.Operation) func([]string) {
 	return func(produces []string) { op.Produces = produces }
 }
 
-func opSchemeSetter(op *spec.Operation) func([]string) {
-	return func(schemes []string) { op.Schemes = schemes }
+// opServersSetter sets operation-level servers for OpenAPI v3
+// This replaces the old schemes field which is no longer in v3
+func opServersSetter(op *spec.Operation) func([]string) {
+	return func(schemes []string) {
+		// Convert schemes to servers if needed
+		// In v3, operation-level servers override root-level servers
+		// For now, we just store as servers with placeholder URLs
+		for _, scheme := range schemes {
+			op.Servers = append(op.Servers, spec.Server{
+				ServerProps: spec.ServerProps{
+					URL: scheme + "://",
+				},
+			})
+		}
+	}
 }
 
 func opSecurityDefsSetter(op *spec.Operation) func([]map[string][]string) {
@@ -76,7 +93,7 @@ func (r *routesBuilder) Build(tgt *spec.Paths) error {
 	sp.taggers = []tagParser{
 		newMultiLineTagParser("Consumes", newMultilineDropEmptyParser(rxConsumes, opConsumesSetter(op)), false),
 		newMultiLineTagParser("Produces", newMultilineDropEmptyParser(rxProduces, opProducesSetter(op)), false),
-		newSingleLineTagParser("Schemes", newSetSchemes(opSchemeSetter(op))),
+		newSingleLineTagParser("Schemes", newSetSchemes(opServersSetter(op))),
 		newMultiLineTagParser("Security", newSetSecurity(rxSecuritySchemes, opSecurityDefsSetter(op)), false),
 		newMultiLineTagParser("Parameters", spa, false),
 		newMultiLineTagParser("Responses", sr, false),

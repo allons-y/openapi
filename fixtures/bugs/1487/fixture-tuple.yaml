@@ -1,13 +1,8 @@
-swagger: '2.0'
-
+openapi: 3.0.0
 info:
-  version: "1.0.0"
+  version: 1.0.0
   title: fixture for tuples and additionalItems
   description: check different patterns of additionalItems validations or absence thereof
-produces:
-  - application/json
-consumes:
-  - application/json
 paths:
   /models:
     get:
@@ -19,69 +14,76 @@ paths:
       responses:
         default:
           description: Generic Out
-definitions:
-  comics:
-    type: array
-    items:
-      # no validation expected here
-      - type: string
-      # validation expected here
-      - type: object
-        required: [narrative]
-        properties:
-          narrative:
-            type: string
-      # validation expected here too
-      - type: object
-        properties:
-          marketingBS:
-            type: string
-      # validation expected here
-      - type: object
-        properties:
-          character:
-            type: string
-            pattern: '^[A-Z]+$'
-          author:
-            type: string
-            minLength: 1
-      # validation expected here
-      - type: array
-        items: 
-          type: string
-          format: isbn
-      - type: integer
-  classics:
-    type: array
-    items:
-      # no validation here
-      - type: integer 
-      # validation here
-      - type: string 
-        format: isbn
-      # validation here
-      - $ref: '#/definitions/comics'
-    additionalItems:
-      # validation expected here
+components:
+  schemas:
+    comics:
       type: array
       items:
-        - type: object
-          properties:
-            title:
+        anyOf:
+          - type: string
+          - type: object
+            required:
+              - narrative
+            properties:
+              narrative:
+                type: string
+          - type: object
+            properties:
+              marketingBS:
+                type: string
+          - type: object
+            properties:
+              character:
+                type: string
+                pattern: ^[A-Z]+$
+              author:
+                type: string
+                minLength: 1
+          - type: array
+            items:
               type: string
-              enum: [ 'Les Misérables', 'Bleak House', 'Sherlock Holmes', 'Siddhartha' ]
-            period:
-              type: string
-        - type: array
-          items:
-            type: string
-            format: date
-        - type: object
-          properties:
-            origin: 
-              type: string
-              enum: [ print, e-book, collection, museum ]
-          additionalProperties:
-              type: string
-              enum: [ bookshop, amazon, library ]
-        - $ref: '#/definitions/comics'
+              format: isbn
+          - type: integer
+    classics:
+      type: array
+      items:
+        anyOf:
+          - type: integer
+          - type: string
+            format: isbn
+          - $ref: "#/components/schemas/comics"
+      additionalItems:
+        type: array
+        items:
+          anyOf:
+            - type: object
+              properties:
+                title:
+                  type: string
+                  enum:
+                    - Les Misérables
+                    - Bleak House
+                    - Sherlock Holmes
+                    - Siddhartha
+                period:
+                  type: string
+            - type: array
+              items:
+                type: string
+                format: date
+            - type: object
+              properties:
+                origin:
+                  type: string
+                  enum:
+                    - print
+                    - e-book
+                    - collection
+                    - museum
+              additionalProperties:
+                type: string
+                enum:
+                  - bookshop
+                  - amazon
+                  - library
+            - $ref: "#/components/schemas/comics"

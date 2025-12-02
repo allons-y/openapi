@@ -1,51 +1,25 @@
-swagger: '2.0'
-
+openapi: 3.0.0
 info:
-  version: "1.0.0"
+  version: 1.0.0
   title: ordering security requirements
   description: verify that generated code keeps a stable order of security requirements
-produces:
-  - application/json
-consumes:
-  - application/json
-securityDefinitions:
-  A:
-    type: basic
-  B:
-    type: apiKey
-    name: K1
-    in: header
-  C:
-    type: apiKey
-    name: K2
-    in: query
-  D: 
-    type: apiKey
-    name: K3
-    in: query
-  E:
-    type: oauth2
-    authorizationUrl: https://fake.example.com/authorize
-    tokenUrl: https://fake.example.com/token
-    flow: accessCode
-    scopes: 
-      s0: ''
-      s1: '' 
-      s2: ''   
-      s3: '' 
-      s4: '' 
-      s5: '' 
-      s6: '' 
-      s7: '' 
-      s8: '' 
-      s9: '' 
 security:
   - A: []
     B: []
-    E: [s0, s1,s2,s3,s4]
+    E:
+      - s0
+      - s1
+      - s2
+      - s3
+      - s4
   - C: []
     D: []
-    E: [s5, s6,s7,s8,s9]
+    E:
+      - s5
+      - s6
+      - s7
+      - s8
+      - s9
 paths:
   /asec:
     get:
@@ -58,9 +32,19 @@ paths:
     get:
       security:
         - A: []
-          E: [s0, s1,s2,s3,s4]
+          E:
+            - s0
+            - s1
+            - s2
+            - s3
+            - s4
         - D: []
-          E: [s5, s6,s7,s8,s9]
+          E:
+            - s5
+            - s6
+            - s7
+            - s8
+            - s9
       operationId: bsecOp
       description: no description
       responses:
@@ -74,3 +58,37 @@ paths:
       responses:
         default:
           description: Generic Out
+components:
+  securitySchemes:
+    A:
+      type: http
+      scheme: basic
+    B:
+      type: apiKey
+      name: K1
+      in: header
+    C:
+      type: apiKey
+      name: K2
+      in: query
+    D:
+      type: apiKey
+      name: K3
+      in: query
+    E:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://fake.example.com/authorize
+          tokenUrl: https://fake.example.com/token
+          scopes:
+            s0: ""
+            s1: ""
+            s2: ""
+            s3: ""
+            s4: ""
+            s5: ""
+            s6: ""
+            s7: ""
+            s8: ""
+            s9: ""

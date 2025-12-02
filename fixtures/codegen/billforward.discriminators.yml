@@ -1,17 +1,9 @@
-swagger: '2.0'
-
+openapi: 3.0.0
 info:
-  version: "1.0.0"
+  version: 1.0.0
   title: Private to-do list
   description: |
     A very simple api description that makes a json only API to submit to do's.
-
-produces:
-  - application/json
-
-consumes:
-  - application/json
-
 paths:
   /models:
     get:
@@ -23,28 +15,30 @@ paths:
       responses:
         default:
           description: Generic Out
-definitions:
-
-  FlatPricingComponent:
-    allOf:
-    - {$ref: '#/definitions/PricingComponent'}
-    - {type: object}
-
-  TieredPricingComponent:
-    allOf:
-    - {$ref: '#/definitions/PricingComponent'}
-    - {type: object}
-
-  TieredVolumePricingComponent:
-    allOf:
-    - {$ref: '#/definitions/PricingComponent'}
-    - {type: object}
-
-  PricingComponent:
-    type: object
-    discriminator: chargeModel
-    properties:
-      priceExplanation: {type: array, items: {type: string}}
-      priceExplanationString: {type: string}
-    xml:
-      name: pricingComponent
+components:
+  schemas:
+    FlatPricingComponent:
+      allOf:
+        - $ref: "#/components/schemas/PricingComponent"
+        - type: object
+    TieredPricingComponent:
+      allOf:
+        - $ref: "#/components/schemas/PricingComponent"
+        - type: object
+    TieredVolumePricingComponent:
+      allOf:
+        - $ref: "#/components/schemas/PricingComponent"
+        - type: object
+    PricingComponent:
+      type: object
+      discriminator:
+        propertyName: chargeModel
+      properties:
+        priceExplanation:
+          type: array
+          items:
+            type: string
+        priceExplanationString:
+          type: string
+      xml:
+        name: pricingComponent

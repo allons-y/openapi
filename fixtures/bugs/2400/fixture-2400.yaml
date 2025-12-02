@@ -1,42 +1,41 @@
----
-  swagger: "2.0"
-  info:
-    title: "required aliased primitive"
-    version: "0.0.1"
-    description: "repro issue 2400"
-    license:
-      name: "Apache 2.0"
-      url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-
-  definitions:
+openapi: 3.0.0
+info:
+  title: required aliased primitive
+  version: 0.0.1
+  description: repro issue 2400
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /getRecords:
+    get:
+      operationId: getRecords
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignupRequest2"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/SignupRequest2"
+components:
+  schemas:
     SignupRequest:
       properties:
         email:
           type: string
       required:
         - email
-
     Email:
       type: string
-
     SignupRequest2:
       properties:
         email:
-          $ref: "#/definitions/Email"
+          $ref: "#/components/schemas/Email"
       required:
         - email
-  paths:
-    /getRecords:
-      get:
-        operationId: getRecords
-        parameters:
-          - name: records
-            in: body
-            required: true
-            schema:
-              $ref: '#/definitions/SignupRequest2'
-        responses:
-          200:
-            description: "OK"
-            schema:
-              $ref: '#/definitions/SignupRequest2'

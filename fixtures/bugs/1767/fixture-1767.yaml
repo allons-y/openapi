@@ -1,51 +1,41 @@
----
-swagger: '2.0'
+openapi: 3.0.0
 info:
-  version: "1.0.0"
+  version: 1.0.0
   title: FHIR API
   description: |
     #### FHIR API
-schemes:
-- http
-host: "fhir.test.lan"
-basePath: /
-
-parameters:
-  patientID:
-    name: patientID
-    in: path
-    description: "patient ID"
-    type: string
-    required: true
-
 paths:
-  /Patient/{patientID}:
+  "/Patient/{patientID}":
     parameters:
-    - $ref: "#/parameters/patientID"
+      - $ref: "#/components/parameters/patientID"
     get:
       tags:
-      - fhir
-      produces:
-      - application/fhir+json
-      consumes:
-      - application/fhir+json
+        - fhir
       responses:
-        200:
-          $ref: "#/responses/Patient"
+        "200":
+          $ref: "#/components/responses/Patient"
     put:
       tags:
-      - fhir
-      produces:
-      - application/fhir+json
-      consumes:
-      - application/fhir+json
+        - fhir
       responses:
-        200:
-          $ref: "#/responses/Patient"
-
-responses:
-  Patient:
-    description: "Patient"
-    schema:
-      allOf:
-      - $ref: 'Patient.yaml'
+        "200":
+          $ref: "#/components/responses/Patient"
+servers:
+  - url: http://fhir.test.lan
+components:
+  parameters:
+    patientID:
+      name: patientID
+      in: path
+      description: patient ID
+      required: true
+      schema:
+        type: string
+  responses:
+    Patient:
+      description: Patient
+      content:
+        "*/*":
+          schema:
+            allOf:
+              - $ref: Patient.yaml

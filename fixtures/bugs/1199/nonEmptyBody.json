@@ -1,13 +1,10 @@
 {
-    "swagger": "2.0",
-    "host": "localhost",
+    "openapi": "3.0.0",
     "info": {
         "description": "",
         "version": "",
-        "title": "",
-        "termsOfService": ""
+        "title": ""
     },
-    "basePath": "/api/v1/",
     "paths": {
         "/platform/infrastructure/allocators/{allocator_id}/clusters/_move": {
             "post": {
@@ -16,22 +13,25 @@
                 "operationId": "move-clusters",
                 "parameters": [
                     {
-                        "in": "body",
-                        "name": "body",
-                        "description": "Overrides defaults for the move of each cluster",
-                        "required": false,
-                        "schema": {
-                            "$ref": "#/definitions/MoveClustersRequest"
-                        }
-                    },
-                    {
                         "name": "allocator_id",
                         "in": "path",
                         "description": "The identifier of the allocator of which to move clusters.",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MoveClustersRequest"
+                            }
+                        }
+                    },
+                    "description": "Overrides defaults for the move of each cluster"
+                },
                 "responses": {
                     "202": {
                         "description": "response"
@@ -40,58 +40,65 @@
             }
         }
     },
-    "definitions": {
-        "MoveElasticsearchClusterConfiguration": {
-            "type": "object",
-            "required": [
-                "cluster_ids"
-            ],
-            "properties": {
-                "cluster_ids": {
-                    "type": "array",
-                    "description": "Identifiers for the Elasticsearch clusters.",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            },
-            "description": "Configuration object for moving Elasticsearch clusters."
-        },
-        "MoveKibanaClusterConfiguration": {
-            "type": "object",
-            "required": [
-                "cluster_ids"
-            ],
-            "properties": {
-                "cluster_ids": {
-                    "type": "array",
-                    "description": "Identifiers for the Kibana clusters.",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            },
-            "description": "Configuration object for moving Kibana clusters."
-        },
-        "MoveClustersRequest": {
-            "type": "object",
-            "properties": {
-                "elasticsearch_clusters": {
-                    "type": "array",
-                    "description": "Optional list of Elasticsearch clusters to move off the allocator. If not specified, then all Elasticsearch clusters on the allocator are moved.",
-                    "items": {
-                        "$ref": "#/definitions/MoveElasticsearchClusterConfiguration"
+    "servers": [
+        {
+            "url": "//localhost/api/v1"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "MoveElasticsearchClusterConfiguration": {
+                "type": "object",
+                "required": [
+                    "cluster_ids"
+                ],
+                "properties": {
+                    "cluster_ids": {
+                        "type": "array",
+                        "description": "Identifiers for the Elasticsearch clusters.",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 },
-                "kibana_clusters": {
-                    "type": "array",
-                    "description": "Optional list of Kibana clusters to move off the allocator. If not specified, then all Kibana clusters on the allocator are moved.",
-                    "items": {
-                        "$ref": "#/definitions/MoveKibanaClusterConfiguration"
-                    }
-                }
+                "description": "Configuration object for moving Elasticsearch clusters."
             },
-            "description": "Configuration for moving clusters off an allocator"
+            "MoveKibanaClusterConfiguration": {
+                "type": "object",
+                "required": [
+                    "cluster_ids"
+                ],
+                "properties": {
+                    "cluster_ids": {
+                        "type": "array",
+                        "description": "Identifiers for the Kibana clusters.",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "description": "Configuration object for moving Kibana clusters."
+            },
+            "MoveClustersRequest": {
+                "type": "object",
+                "properties": {
+                    "elasticsearch_clusters": {
+                        "type": "array",
+                        "description": "Optional list of Elasticsearch clusters to move off the allocator. If not specified, then all Elasticsearch clusters on the allocator are moved.",
+                        "items": {
+                            "$ref": "#/components/schemas/MoveElasticsearchClusterConfiguration"
+                        }
+                    },
+                    "kibana_clusters": {
+                        "type": "array",
+                        "description": "Optional list of Kibana clusters to move off the allocator. If not specified, then all Kibana clusters on the allocator are moved.",
+                        "items": {
+                            "$ref": "#/components/schemas/MoveKibanaClusterConfiguration"
+                        }
+                    }
+                },
+                "description": "Configuration for moving clusters off an allocator"
+            }
         }
     }
 }

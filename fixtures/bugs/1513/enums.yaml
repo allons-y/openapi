@@ -1,29 +1,27 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
-  version: "1.0.0"
-  title: "Test enum serialisation"
+  version: 1.0.0
+  title: Test enum serialisation
 paths:
-
   /example:
     put:
       operationId: put-enum
-      parameters:
-      - name: "something"
-        in: "body"
-        description: "PUT enum example"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MyEnum"
+        description: PUT enum example
         required: true
-        schema:
-          $ref: '#/definitions/MyEnum'
       responses:
-        202:
-          description: "PUT OK"
-        500:
-          description: "Error"
-
-definitions:
-
-  MyEnum:
-    type: "string"
-    enum:
-    - SOMEVALUE
-    - SOMEOTHERVALUE
+        "202":
+          description: PUT OK
+        "500":
+          description: Error
+components:
+  schemas:
+    MyEnum:
+      type: string
+      enum:
+        - SOMEVALUE
+        - SOMEOTHERVALUE

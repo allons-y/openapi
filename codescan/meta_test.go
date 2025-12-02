@@ -71,11 +71,16 @@ func TestParseSwagger(t *testing.T) {
 }
 
 func verifyMeta(t *testing.T, doc *spec.Swagger) {
+	t.Helper()
+
 	assert.NotNil(t, doc)
 	verifyInfo(t, doc.Info)
 	assert.Equal(t, []string{"application/json", "application/xml"}, doc.Consumes)
 	assert.Equal(t, []string{"application/json", "application/xml"}, doc.Produces)
-	assert.Equal(t, []string{"http", "https"}, doc.Schemes)
+	// In OpenAPI v3, schemes are part of server URLs
+	require.Len(t, doc.Servers, 2)
+	assert.Equal(t, "http://localhost/v2", doc.Servers[0].URL)
+	assert.Equal(t, "https://localhost/v2", doc.Servers[1].URL)
 	assert.Equal(t, []map[string][]string{{"api_key": {}}}, doc.Security)
 	expectedSecuritySchemaKey := spec.SecurityScheme{
 		SecuritySchemeProps: spec.SecuritySchemeProps{
@@ -123,13 +128,14 @@ func verifyMeta(t *testing.T, doc *spec.Swagger) {
 		},
 		"x-info-value": "value",
 	}
-	assert.NotNil(t, doc.SecurityDefinitions["api_key"])
-	assert.NotNil(t, doc.SecurityDefinitions["oauth2"])
-	assert.Equal(t, spec.SecurityDefinitions{"api_key": &expectedSecuritySchemaKey, "oauth2": &expectedSecuritySchemaOAuth}, doc.SecurityDefinitions)
+	// In OpenAPI v3, security schemes are in Components
+	require.NotNil(t, doc.Components)
+	require.NotNil(t, doc.Components.SecuritySchemes)
+	assert.NotNil(t, doc.Components.SecuritySchemes["api_key"])
+	assert.NotNil(t, doc.Components.SecuritySchemes["oauth2"])
+	assert.Equal(t, map[string]spec.SecurityScheme{"api_key": expectedSecuritySchemaKey, "oauth2": expectedSecuritySchemaOAuth}, doc.Components.SecuritySchemes)
 	assert.Equal(t, expectedExtensions, doc.Extensions)
 	assert.Equal(t, expectedInfoExtensions, doc.Info.Extensions)
-	assert.Equal(t, "localhost", doc.Host)
-	assert.Equal(t, "/v2", doc.BasePath)
 }
 
 func verifyInfo(t *testing.T, info *spec.Info) {

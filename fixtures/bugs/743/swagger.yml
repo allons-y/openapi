@@ -1,57 +1,45 @@
-swagger: "2.0"
-
+openapi: 3.0.0
 info:
   title: Discriminator
   description: Discriminator bug example
   version: 0.0.1
-
-schemes:
-  - http
-
-consumes:
-  - application/json
-produces:
-  - application/json
-
-definitions:
-
-  Id:
-    type: object
-    discriminator: type
-    required:
-      - type
-      - id
-    properties:
-      type:
-        type: string
-      id:
-        type: integer
-
-  Foo:
-    type: object
-    allOf:
-      - $ref: "#/definitions/Id"
-
-  Bar:
-    type: object
-    properties:
-      bar:
-        type: string
-
-  Awol:
-    type: object
-    allOf:
-      - $ref: "#/definitions/Foo"
-      - $ref: "#/definitions/Bar"
-
 paths:
-
   /awol:
     get:
       operationId: awol
       summary: get awol
       responses:
-        200:
+        "200":
           description: awol
-          schema:
-            $ref: "#/definitions/Awol"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Awol"
+components:
+  schemas:
+    Id:
+      type: object
+      discriminator:
+        propertyName: type
+      required:
+        - type
+        - id
+      properties:
+        type:
+          type: string
+        id:
+          type: integer
+    Foo:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Id"
+    Bar:
+      type: object
+      properties:
+        bar:
+          type: string
+    Awol:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Foo"
+        - $ref: "#/components/schemas/Bar"

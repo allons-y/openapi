@@ -1,19 +1,18 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   version: 1.0.0
-  title: 'string-body-api'
+  title: string-body-api
 paths:
   /echo:
     post:
-      operationId: "postEcho"
+      operationId: postEcho
       summary: Post an object
-      parameters:
-        - name: body
-          in: body
-          description: this argument is a string
-          schema:
-            type: object
-
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        description: this argument is a string
       responses:
-        '200':
+        "200":
           description: All is good

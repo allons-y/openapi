@@ -132,7 +132,8 @@ func (s *setOpParams) Parse(lines []string) error {
 				if current.Type == TypeBool {
 					current.Type = TypeBoolean
 				}
-			} else if ref, err := spec.NewRef("#/definitions/" + value); err == nil {
+			} else if ref, err := spec.NewRef("#/components/schemas/" + value); err == nil {
+				// Use OpenAPI v3 reference path format
 				current.Type = TypeObject
 				current.Schema.Ref = ref
 			}

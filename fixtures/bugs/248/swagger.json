@@ -1,31 +1,40 @@
 {
-  "paths": {
-    "/thing": {
-      "post": {
-        "summary": "SomePost",
-        "description": "",
-        "parameters": [{
-          "name": "optional_query_enum",
-          "enum": [
-            "OPTIONAL_ONE",
-            "OPTIONAL_TWO"
-          ],
-          "required": false,
-          "type": "string",
-          "in": "query"
-        }],
-        "operationId": "CreateThing"
-      }
-    }
-  },
-  "host": "connect.squareup.com",
-  "schemes": ["https"],
-  "produces": ["application/json"],
-  "swagger": "2.0",
-  "definitions": {},
-  "consumes": ["application/json"],
-  "info": {
-    "title": "Test API",
-    "version": "1.23"
-  }
+    "openapi": "3.0.0",
+    "paths": {
+        "/thing": {
+            "post": {
+                "summary": "SomePost",
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "optional_query_enum",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "OPTIONAL_ONE",
+                                "OPTIONAL_TWO"
+                            ]
+                        }
+                    }
+                ],
+                "operationId": "CreateThing",
+                "responses": {
+                    "default": {
+                        "description": "Default response"
+                    }
+                }
+            }
+        }
+    },
+    "info": {
+        "title": "Test API",
+        "version": "1.23"
+    },
+    "servers": [
+        {
+            "url": "https://connect.squareup.com"
+        }
+    ]
 }

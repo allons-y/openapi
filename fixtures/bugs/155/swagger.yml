@@ -1,45 +1,39 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
-  version: '2.0'
+  version: "2.0"
   title: Test API
-
-basePath: /api/2.0/
-schemes:
-  - https
-consumes:
-  - application/json
-produces:
-  - application/json
 paths:
-  '/sample/action/do-something':
+  /sample/action/do-something:
     post:
       operationId: sampleDoSomethingAction
-      parameters:
-        - name: json body
-          in: body
-          required: true
-          schema:
-            $ref: "#/definitions/Actions_DoSomethingRequest"
-
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Actions_DoSomethingRequest"
+        required: true
       responses:
-        '200':
+        "200":
           description: Success
-          schema:
-            $ref: '#/definitions/Actions_DoSomethingResponse'
-        '401':
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Actions_DoSomethingResponse"
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-
-definitions:
-  Actions_DoSomethingRequest:
-    type: object
-    properties:
-      client_id:
-        type: string
-
-  Actions_DoSomethingResponse:
-    type: object
-    properties:
-      result:
-        type: string
+servers:
+  - url: /api/2.0/
+components:
+  schemas:
+    Actions_DoSomethingRequest:
+      type: object
+      properties:
+        client_id:
+          type: string
+    Actions_DoSomethingResponse:
+      type: object
+      properties:
+        result:
+          type: string

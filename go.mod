@@ -9,12 +9,12 @@ require (
 	github.com/coreos/go-oidc/v3 v3.15.0
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
 	github.com/felixge/httpsnoop v1.0.4 // indirect
-	github.com/go-openapi/analysis v0.23.0
+	github.com/go-openapi/analysis v0.24.1
 	github.com/go-openapi/errors v0.22.4
 	github.com/go-openapi/inflect v0.21.3
-	github.com/go-openapi/loads v0.22.0
+	github.com/go-openapi/loads v0.23.2
 	github.com/go-openapi/runtime v0.28.0
-	github.com/go-openapi/spec v0.21.0
+	github.com/go-openapi/spec v0.22.1
 	github.com/go-openapi/strfmt v0.25.0
 	github.com/go-openapi/swag v0.25.4
 	github.com/go-openapi/swag/yamlutils v0.25.4
@@ -52,8 +52,8 @@ require (
 	github.com/go-jose/go-jose/v4 v4.0.5 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/go-openapi/jsonpointer v0.21.2 // indirect
-	github.com/go-openapi/jsonreference v0.21.0 // indirect
+	github.com/go-openapi/jsonpointer v0.22.3 // indirect
+	github.com/go-openapi/jsonreference v0.21.3 // indirect
 	github.com/go-openapi/swag/cmdutils v0.25.4 // indirect
 	github.com/go-openapi/swag/conv v0.25.4 // indirect
 	github.com/go-openapi/swag/fileutils v0.25.4 // indirect
@@ -89,3 +89,11 @@ require (
 	golang.org/x/mod v0.29.0 // indirect
 	golang.org/x/sync v0.18.0 // indirect
 )
+
+replace github.com/go-openapi/spec => github.com/allons-y/openapi-spec v0.0.0-20251202152022-df78cb0679ec
+
+replace github.com/go-openapi/analysis => github.com/allons-y/openapi-analysis v0.0.0-20251202152950-10f989869426
+
+replace github.com/go-openapi/loads => github.com/allons-y/openapi-loads v0.0.0-20251202153055-aa80596886fc
+
+replace github.com/go-openapi/validate => github.com/allons-y/openapi-validate v0.0.0-20251202153251-3e50c6108429

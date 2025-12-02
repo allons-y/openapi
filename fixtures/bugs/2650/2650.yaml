@@ -1,4 +1,4 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
   contact:
     email: support@swagger.com
@@ -6,52 +6,48 @@ info:
     url: https://swagger.com
   title: My API
   version: "1.0"
-host: swagger.com:80
-basePath: /api/v1
 paths:
   /api/runner:
     get:
-      consumes:
-        - application/json
       operationId: Get Runner
-      produces:
-        - application/json
       responses:
         "200":
           description: ok
-          schema:
-            $ref: '#/definitions/Runner'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Runner"
       tags:
         - Runner
     post:
-      consumes:
-        - application/json
       operationId: Post Runner
-      produces:
-        - application/json
-      parameters:
-      - name: body
-        in: body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Runner"
         required: true
-        schema:
-          $ref: '#/definitions/Runner'
-
       responses:
         "200":
           description: ok
-          schema:
-            $ref: '#/definitions/RunnerGroup'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RunnerGroup"
       tags:
         - Runner
-definitions:
-  Runner:
-    properties:
-      group_name:
-        type: string
-    type: object
-  RunnerGroup:
-    properties:
-      name:
-        description: Name should be unique per tenant
-        type: string
-    type: object
+servers:
+  - url: //swagger.com:80/api/v1
+components:
+  schemas:
+    Runner:
+      properties:
+        group_name:
+          type: string
+      type: object
+    RunnerGroup:
+      properties:
+        name:
+          description: Name should be unique per tenant
+          type: string
+      type: object

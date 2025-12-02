@@ -1,13 +1,8 @@
-swagger: '2.0'
-
+openapi: 3.0.0
 info:
-  version: "1.0.0"
-  title: 'issue 1232'
+  version: 1.0.0
+  title: issue 1232
   description: verifies marshalling code on discriminated type
-produces:
-  - application/json
-consumes:
-  - application/json
 paths:
   /pet:
     get:
@@ -16,16 +11,18 @@ paths:
       description: no description
       tags:
         - testcgen
-      parameters:
-      - name: aPet
-        in: body 
-        schema: 
-          $ref: '#/definitions/Pet'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pet"
       responses:
         default:
           description: Generic Out
-          schema:
-            $ref: '#/definitions/Pet'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pet"
   /cat:
     get:
       operationId: getCat
@@ -33,43 +30,46 @@ paths:
       description: no description
       tags:
         - testcgen
-      parameters:
-      - name: aCat
-        in: body 
-        schema: 
-          $ref: '#/definitions/Cat'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cat"
       responses:
         default:
           description: Generic Out
-          schema:
-            $ref: '#/definitions/Pet'
-definitions:
-  Pet:
-    type: object
-    discriminator: petType
-    properties:
-      name:
-        type: string
-      petType:
-        type: string
-    required:
-    - name
-    - petType
-
-  Cat:
-    type: object
-    description: A representation of a cat
-    allOf:
-    - $ref: '#/definitions/Pet'
-    - properties:
-        huntingSkill:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pet"
+components:
+  schemas:
+    Pet:
+      type: object
+      discriminator:
+        propertyName: petType
+      properties:
+        name:
           type: string
-          description: The measured skill for hunting
-          default: lazy
-          enum:
-          - clueless
-          - lazy
-          - adventurous
-          - aggressive
+        petType:
+          type: string
       required:
-      - huntingSkill
+        - name
+        - petType
+    Cat:
+      type: object
+      description: A representation of a cat
+      allOf:
+        - $ref: "#/components/schemas/Pet"
+        - properties:
+            huntingSkill:
+              type: string
+              description: The measured skill for hunting
+              default: lazy
+              enum:
+                - clueless
+                - lazy
+                - adventurous
+                - aggressive
+          required:
+            - huntingSkill

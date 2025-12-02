@@ -1,38 +1,35 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: Test API
   description: Test
   version: v1
-host: host
-schemes:
-- https
-- http
-basePath: /path
-produces:
-- application/json
-
 paths:
   /obj:
     get:
       summary: Get an object
       operationId: getObject
       responses:
-        200:
+        "200":
           description: The object
-          schema:
-            $ref: '#/definitions/MyObject'
-
-definitions:
-  MyObject:
-    title: My object
-    type: object
-    properties:
-      string1:
-        type: string
-        title: A string
-      bool1:
-        type: boolean
-        title: A boolean
-    default:
-      string1: "first"
-      bool1:   false
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MyObject"
+servers:
+  - url: https://host/path
+  - url: http://host/path
+components:
+  schemas:
+    MyObject:
+      title: My object
+      type: object
+      properties:
+        string1:
+          type: string
+          title: A string
+        bool1:
+          type: boolean
+          title: A boolean
+      default:
+        string1: first
+        bool1: false

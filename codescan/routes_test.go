@@ -347,7 +347,12 @@ func assertOperation(t *testing.T, op *spec.Operation, id, summary, description 
 	assert.Equal(t, tags, op.Tags)
 	assert.Equal(t, []string{"application/json", "application/x-protobuf"}, op.Consumes)
 	assert.Equal(t, []string{"application/json", "application/x-protobuf"}, op.Produces)
-	assert.Equal(t, []string{"http", "https", "ws", "wss"}, op.Schemes)
+	// In OpenAPI v3, schemes are represented as operation-level servers
+	require.Len(t, op.Servers, 4)
+	assert.Equal(t, "http://", op.Servers[0].URL)
+	assert.Equal(t, "https://", op.Servers[1].URL)
+	assert.Equal(t, "ws://", op.Servers[2].URL)
+	assert.Equal(t, "wss://", op.Servers[3].URL)
 	assert.Len(t, op.Security, 2)
 	akv, ok := op.Security[0]["api_key"]
 	assert.True(t, ok)
@@ -374,6 +379,8 @@ func assertOperation(t *testing.T, op *spec.Operation, id, summary, description 
 }
 
 func assertOperationBody(t *testing.T, op *spec.Operation, id, summary, description string, tags, scopes []string) {
+	t.Helper()
+
 	assert.NotNil(t, op)
 	assert.Equal(t, summary, op.Summary)
 	assert.Equal(t, description, op.Description)
@@ -381,7 +388,12 @@ func assertOperationBody(t *testing.T, op *spec.Operation, id, summary, descript
 	assert.Equal(t, tags, op.Tags)
 	assert.Equal(t, []string{"application/json", "application/x-protobuf"}, op.Consumes)
 	assert.Equal(t, []string{"application/json", "application/x-protobuf"}, op.Produces)
-	assert.Equal(t, []string{"http", "https", "ws", "wss"}, op.Schemes)
+	// In OpenAPI v3, schemes are represented as operation-level servers
+	require.Len(t, op.Servers, 4)
+	assert.Equal(t, "http://", op.Servers[0].URL)
+	assert.Equal(t, "https://", op.Servers[1].URL)
+	assert.Equal(t, "ws://", op.Servers[2].URL)
+	assert.Equal(t, "wss://", op.Servers[3].URL)
 	assert.Len(t, op.Security, 2)
 	akv, ok := op.Security[0]["api_key"]
 	assert.True(t, ok)
@@ -395,14 +407,14 @@ func assertOperationBody(t *testing.T, op *spec.Operation, id, summary, descript
 
 	assert.NotNil(t, op.Responses.Default)
 	assert.Empty(t, op.Responses.Default.Ref.String())
-	assert.Equal(t, "#/definitions/genericError", op.Responses.Default.Schema.Ref.String())
+	assert.Equal(t, "#/components/schemas/genericError", op.Responses.Default.Schema.Ref.String())
 
 	rsp, ok := op.Responses.StatusCodeResponses[200]
 	assert.True(t, ok)
 	assert.Empty(t, rsp.Ref.String())
-	assert.Equal(t, "#/definitions/someResponse", rsp.Schema.Ref.String())
+	assert.Equal(t, "#/components/schemas/someResponse", rsp.Schema.Ref.String())
 	rsp, ok = op.Responses.StatusCodeResponses[422]
 	assert.True(t, ok)
 	assert.Empty(t, rsp.Ref.String())
-	assert.Equal(t, "#/definitions/validationError", rsp.Schema.Ref.String())
+	assert.Equal(t, "#/components/schemas/validationError", rsp.Schema.Ref.String())
 }

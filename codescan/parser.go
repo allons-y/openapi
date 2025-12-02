@@ -1362,9 +1362,11 @@ func (ss *setOpResponses) Parse(lines []string) error {
 				if description == "" {
 					description = refTarget
 				}
-				ref, err = spec.NewRef("#/definitions/" + refTarget)
+				// Use OpenAPI v3 reference path format
+				ref, err = spec.NewRef("#/components/schemas/" + refTarget)
 			} else {
-				ref, err = spec.NewRef("#/responses/" + refTarget)
+				// Use OpenAPI v3 reference path format
+				ref, err = spec.NewRef("#/components/responses/" + refTarget)
 			}
 			if err != nil {
 				return err

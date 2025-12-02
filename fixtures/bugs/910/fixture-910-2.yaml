@@ -1,35 +1,36 @@
-swagger: "2.0"
-
+openapi: 3.0.0
 info:
   title: MyTest
   description: MyTest
-  version: "1.0.0"
-
-definitions:
-  myTestObject:
-            type: object
-            properties:
-              foo:
-                type: object
-              bar:
-                type: integer
-                format: int64
-              baz:
-                type: integer
-                format: int64
-              quux:
-                type: array
-                items:
-                  type: string
-            required:
-              - foo
-              - bar
+  version: 1.0.0
 paths:
   /mytest:
     get:
       description: my test
       responses:
-        200:
+        "200":
           description: my test
-          schema:
-            $ref: '#/definitions/myTestObject'
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/myTestObject"
+components:
+  schemas:
+    myTestObject:
+      type: object
+      properties:
+        foo:
+          type: object
+        bar:
+          type: integer
+          format: int64
+        baz:
+          type: integer
+          format: int64
+        quux:
+          type: array
+          items:
+            type: string
+      required:
+        - foo
+        - bar

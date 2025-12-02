@@ -1,28 +1,27 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: fixture b for issue#1397
-  version: '1.0.0'
-host: localhost
-basePath: /
-produces:
-  - application/json
-schemes:
-  - http
+  version: 1.0.0
 paths:
   /path:
     get:
       operationId: path
       responses:
-        200:
+        "200":
           description: simple type
-          schema:
-            $ref: '#/definitions/ContainerConfig'
-definitions:
-  ContainerConfig:
-    type: object
-    enum:
-      - { "place": "first" }
-      - { "place": "second" }
-      - { "place": "third" }
-    additionalProperties:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContainerConfig"
+servers:
+  - url: http://localhost
+components:
+  schemas:
+    ContainerConfig:
       type: object
+      enum:
+        - place: first
+        - place: second
+        - place: third
+      additionalProperties:
+        type: object

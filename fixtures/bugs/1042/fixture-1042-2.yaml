@@ -1,42 +1,45 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
   title: allOf marshalling
-  description: |
+  description: >
     when the specification incorrectly defines the allOf,
+
     generated unmarshalling is wrong.
+
     This fixture asserts that with correct spec, the generated models are correct.
   version: "0.0"
-  
-basePath: "/test"
-
 paths:
-  "/allof":
+  /allof:
     get:
       responses:
-        '200':
+        "200":
           description: test
-          schema:
-            "$ref": "#/definitions/ExtendedErrorModel"
-  
-definitions:
-  ErrorModel:
-    type: object
-    required:
-      - message
-      - code
-    properties:
-      message:
-        type: string
-      code:
-        type: integer
-        minimum: 100
-        maximum: 600
-  ExtendedErrorModel:
-    allOf:
-      - $ref: '#/definitions/ErrorModel'
-      - type: object
-        required:
-          - rootCause
-        properties:
-          rootCause:
-            type: string
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ExtendedErrorModel"
+servers:
+  - url: /test
+components:
+  schemas:
+    ErrorModel:
+      type: object
+      required:
+        - message
+        - code
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+          minimum: 100
+          maximum: 600
+    ExtendedErrorModel:
+      allOf:
+        - $ref: "#/components/schemas/ErrorModel"
+        - type: object
+          required:
+            - rootCause
+          properties:
+            rootCause:
+              type: string

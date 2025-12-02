@@ -1,208 +1,213 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: fixture for issue#909
-  version: '1.0.0'
-host: localhost
-basePath: /
-produces:
-  - application/json
-schemes:
-  - http
+  version: 1.0.0
 paths:
   /optional:
     get:
       operationId: getOptional
       parameters:
-      - name: notAnOption1
-        in: query
-        type: array
-        collectionFormat: csv
-        required: true
-        items:
-          type: array
-          items:
-            type: string
-            format: date-time
-      - name: isAnOptionalHeader
-        in: header
-        type: array
-        collectionFormat: tsv
-        required: false
-        items:
-          type: array
-          items:
-            type: string
-            format: uuid
-      - name: notAnOption3
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/ContainerConfig'
-      responses:
-        200:
-          description: header is of a simple type
-          headers:
-            x-isAnOptionalHeader0DirtSimple:
-              description: "header 0 is a plain header"
-              type: string
-
-            x-isAnOptionalHeader0DirtSimpleInteger:
-              description: "header 0 is a plain integer header"
-              type: integer
-
-            x-isAnOptionalHeader0DirtSimpleArray:
-              description: "header 0 is a plain array of integer header"
+        - name: notAnOption1
+          in: query
+          required: true
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
               type: array
-              items:
-                type: integer
-
-            x-isAnOptionalHeader0:
-              description: "header 0 is a date-time"
-              type: string
-              format: date-time
-              default: 2018-01-28T23:54:00.000Z
-
-            x-isAnOptionalHeader0Stringer:
-              description: "header 0Stringer is a uuid"
-              type: string
-              format: uuid
-              default: 524fc6d5-66c6-46f6-90bc-34e0d0139e43
-
-            x-isAnOptionalHeader0Primitive:
-              description: "header 0Primitive is a primitive"
-              type: number
-              format: float
-              default: 345.55
-
-            x-isAnOptionalHeader1:
-              description: "header 1 an array of datetimes"
-              type: array
-              collectionFormat: tsv
-              minItems: 3
               items:
                 type: string
                 format: date-time
-              default:
-              - 2018-01-28T23:54:00.000Z
-              - 2018-02-28T23:54:00.000Z
-              - 2018-03-28T23:54:00.000Z
-              - 2018-04-28T23:54:00.000Z
-
+        - name: isAnOptionalHeader
+          in: header
+          required: false
+          x-s2o-warning: collectionFormat:tsv is no longer supported
+          x-collectionFormat: tsv
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                type: string
+                format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContainerConfig"
+        required: true
+      responses:
+        "200":
+          description: header is of a simple type
+          headers:
+            x-isAnOptionalHeader0DirtSimple:
+              description: header 0 is a plain header
+              schema:
+                type: string
+            x-isAnOptionalHeader0DirtSimpleInteger:
+              description: header 0 is a plain integer header
+              schema:
+                type: integer
+            x-isAnOptionalHeader0DirtSimpleArray:
+              description: header 0 is a plain array of integer header
+              schema:
+                type: array
+                items:
+                  type: integer
+              style: simple
+            x-isAnOptionalHeader0:
+              description: header 0 is a date-time
+              schema:
+                type: string
+                format: date-time
+                default: 2018-01-28T23:54:00.000Z
+            x-isAnOptionalHeader0Stringer:
+              description: header 0Stringer is a uuid
+              schema:
+                type: string
+                format: uuid
+                default: 524fc6d5-66c6-46f6-90bc-34e0d0139e43
+            x-isAnOptionalHeader0Primitive:
+              description: header 0Primitive is a primitive
+              schema:
+                type: number
+                format: float
+                default: 345.55
+            x-isAnOptionalHeader1:
+              description: header 1 an array of datetimes
+              schema:
+                type: array
+                minItems: 3
+                default:
+                  - 2018-01-28T23:54:00.000Z
+                  - 2018-02-28T23:54:00.000Z
+                  - 2018-03-28T23:54:00.000Z
+                  - 2018-04-28T23:54:00.000Z
+                items:
+                  type: string
+                  format: date-time
+              x-s2o-warning: collectionFormat:tsv is no longer supported
+              x-collectionFormat: tsv
             x-isAnOptionalHeader2:
-              description: "header 2 a nested array of integers"
-              type: array
-              uniqueItems: true
-              items:
+              description: header 2 a nested array of integers
+              schema:
                 type: array
-                collectionFormat: pipes
-                items:
-                  type: integer
-                  format: int32
-                  minimum: 20
-                  default: 21
-              default:
-              -
-                - 21
-                - 22
-                - 23
-              -
-                - 31
-                - 32
-                - 33
-
-            x-isAnOptionalHeader2NoFormat:
-              description: "header 2NoFormat a nested array of integers"
-              type: array
-              uniqueItems: true
-              collectionFormat: pipes
-              items:
-                type: array
-                collectionFormat: tsv
-                items:
-                  type: integer
-                  minimum: 20
-                  default: 21
-              default:
-              -
-                - 21
-                - 22
-                - 23
-              -
-                - 31
-                - 32
-                - 33
-
-            x-isAnOptionalHeader3:
-              description: "header 3 a nested array of uuid"
-              type: array
-              uniqueItems: true
-              # defaults to csv
-              #collectionFormat: csv
-              items:
-                type: array
-                collectionFormat: pipes
+                uniqueItems: true
+                default:
+                  - - 21
+                    - 22
+                    - 23
+                  - - 31
+                    - 32
+                    - 33
                 items:
                   type: array
+                  collectionFormat: pipes
                   items:
-                    collectionFormat: tsv
-                    type: string
-                    format: uuid
-              default:
-              -
-                -
-                  - 524fc6d5-66c6-46f6-90bc-34e0d0139e43
-                  - c8199a5f-f7ce-4fb1-b8af-082256125e89
-                -
-                  - c8199a5f-f7ce-4fb1-b8af-082256125e89
-                  - 524fc6d5-66c6-46f6-90bc-34e0d0139e43
-              -
-                -
-                  - c8199a5f-f7ce-4fb1-b8af-082256125e89
-                  - 524fc6d5-66c6-46f6-90bc-34e0d0139e43
-                -
-                  - 524fc6d5-66c6-46f6-90bc-34e0d0139e43
-                  - c8199a5f-f7ce-4fb1-b8af-082256125e89
-          schema:
-            type: string
-            format: hostname
-            default: "www.example.com"
-        201:
+                    type: integer
+                    format: int32
+                    minimum: 20
+                    default: 21
+              style: simple
+            x-isAnOptionalHeader2NoFormat:
+              description: header 2NoFormat a nested array of integers
+              schema:
+                type: array
+                uniqueItems: true
+                default:
+                  - - 21
+                    - 22
+                    - 23
+                  - - 31
+                    - 32
+                    - 33
+                items:
+                  type: array
+                  collectionFormat: tsv
+                  items:
+                    type: integer
+                    minimum: 20
+                    default: 21
+              x-s2o-warning: collectionFormat:pipes is no longer supported for headers
+            x-isAnOptionalHeader3:
+              description: header 3 a nested array of uuid
+              schema:
+                type: array
+                uniqueItems: true
+                default:
+                  - - - 524fc6d5-66c6-46f6-90bc-34e0d0139e43
+                      - c8199a5f-f7ce-4fb1-b8af-082256125e89
+                    - - c8199a5f-f7ce-4fb1-b8af-082256125e89
+                      - 524fc6d5-66c6-46f6-90bc-34e0d0139e43
+                  - - - c8199a5f-f7ce-4fb1-b8af-082256125e89
+                      - 524fc6d5-66c6-46f6-90bc-34e0d0139e43
+                    - - 524fc6d5-66c6-46f6-90bc-34e0d0139e43
+                      - c8199a5f-f7ce-4fb1-b8af-082256125e89
+                items:
+                  type: array
+                  collectionFormat: pipes
+                  items:
+                    type: array
+                    items:
+                      collectionFormat: tsv
+                      type: string
+                      format: uuid
+              style: simple
+          content:
+            application/json:
+              schema:
+                type: string
+                format: hostname
+                default: www.example.com
+        "201":
           description: simple type
-          schema:
-            type: string
-            format: uuid
-            default: c8199a5f-f7ce-4fb1-b8af-082256125e89
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+                default: c8199a5f-f7ce-4fb1-b8af-082256125e89
         default:
           description: schema type
           headers:
             x-isDefaultHeader0:
-              description: "header 0 is an integer"
-              type: integer
-              format: uint32
-              default: 15
-
+              description: header 0 is an integer
+              schema:
+                type: integer
+                format: uint32
+                default: 15
             x-isDefaultHeader1:
               description: |
                 header 1 an array of simple precision floats.
                 This array contains at least 3 elements.
-
-              type: array
-              collectionFormat: pipes
-              minItems: 3
-              items:
-                type: number
-                format: float
-              default: [ 14.00, 15, 16 ]
-          schema:
-            $ref: '#/definitions/ContainerConfig'
-definitions:
-  ContainerConfig:
-    type: object
-    required: [config1]
-    properties:
-      config1:
-        type: string
-        format: date-time
-      config2:
-        type: string
-        format: uuid
+              schema:
+                type: array
+                minItems: 3
+                default:
+                  - 14
+                  - 15
+                  - 16
+                items:
+                  type: number
+                  format: float
+              x-s2o-warning: collectionFormat:pipes is no longer supported for headers
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContainerConfig"
+servers:
+  - url: http://localhost
+components:
+  schemas:
+    ContainerConfig:
+      type: object
+      required:
+        - config1
+      properties:
+        config1:
+          type: string
+          format: date-time
+        config2:
+          type: string
+          format: uuid

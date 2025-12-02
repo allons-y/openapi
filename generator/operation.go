@@ -426,7 +426,19 @@ func (b *codeGenOpBuilder) MakeOperation() (GenOperation, error) {
 	swsp := resolver.Doc.Spec()
 
 	schemes, extraSchemes := gatherURISchemes(swsp, operation)
-	originalSchemes := operation.Schemes
+	// In OpenAPI v3, schemes are extracted from operation-level servers
+	var originalSchemes []string
+	for _, server := range operation.Servers {
+		if strings.HasPrefix(server.URL, "https://") || strings.HasPrefix(server.URL, "https:") {
+			originalSchemes = append(originalSchemes, "https")
+		} else if strings.HasPrefix(server.URL, "http://") || strings.HasPrefix(server.URL, "http:") {
+			originalSchemes = append(originalSchemes, "http")
+		} else if strings.HasPrefix(server.URL, "wss://") || strings.HasPrefix(server.URL, "wss:") {
+			originalSchemes = append(originalSchemes, "wss")
+		} else if strings.HasPrefix(server.URL, "ws://") || strings.HasPrefix(server.URL, "ws:") {
+			originalSchemes = append(originalSchemes, "ws")
+		}
+	}
 	originalExtraSchemes := getExtraSchemes(operation.Extensions)
 
 	produces := producesOrDefault(operation.Produces, swsp.Produces, b.DefaultProduces)

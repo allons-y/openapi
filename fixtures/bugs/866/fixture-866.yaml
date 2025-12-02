@@ -1,25 +1,27 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   version: 0.0.0
-  title: 'Test'
+  title: Test
 paths:
   /:
     get:
       responses:
-        200:
+        "200":
           description: Success
-          schema:
-            required:
-              - data
-            properties:
-              data:
+          content:
+            "*/*":
+              schema:
                 required:
-                  - account_id
-                  - access_token
+                  - data
                 properties:
-                  account_id:
-                    type: integer
-                    format: int64
-                  access_token:
-                    type: string
-                    maxLength: 64
+                  data:
+                    required:
+                      - account_id
+                      - access_token
+                    properties:
+                      account_id:
+                        type: integer
+                        format: int64
+                      access_token:
+                        type: string
+                        maxLength: 64

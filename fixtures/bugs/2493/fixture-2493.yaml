@@ -1,33 +1,27 @@
----
-swagger: '2.0'
+openapi: 3.0.0
 info:
   description: Test
   version: 0.0.1
   title: Test
-host: test
-basePath: /test/v1
-schemes:
-  - http
-consumes:
-  - application/json
-produces:
-  - application/json
 paths:
   /test:
     post:
       operationId: test
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/TestRequest'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TestRequest"
+        required: true
       responses:
-        200:
+        "200":
           description: OK
-definitions:
-  TestRequest:
-    type: object
-    properties:
-      name:
-        type: string
+servers:
+  - url: http://test/test/v1
+components:
+  schemas:
+    TestRequest:
+      type: object
+      properties:
+        name:
+          type: string

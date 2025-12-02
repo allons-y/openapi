@@ -1,98 +1,94 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
   title: "repro #2364"
-  version: "0.0.1"
-  description: "repro issue 2364"
+  version: 0.0.1
+  description: repro issue 2364
   license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
 paths:
   /getRecords:
     get:
       operationId: getRecords
       responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: '#/definitions/BundleAttributesResponse'
-
-definitions:
-  BundleAttributesResponse:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/BundleAttributesResponse"
+components:
+  schemas:
+    BundleAttributesResponse:
       properties:
         type:
-          $ref: "#/definitions/BundleType"
+          $ref: "#/components/schemas/BundleType"
         items:
           description: Array of bundle items in the root of the bundle.
           type: array
           items:
-            $ref: "#/definitions/BundleItemResponse"
+            $ref: "#/components/schemas/BundleItemResponse"
         sections:
           description: Array of bundle section in the root of the bundle.
           type: array
           items:
-            $ref: "#/definitions/ItemBundleSectionResponse"
+            $ref: "#/components/schemas/ItemBundleSectionResponse"
         nullableSections:
-            type: array
-            items:
-              $ref: "#/definitions/NullableItemBundleSectionResponse"
+          type: array
+          items:
+            $ref: "#/components/schemas/NullableItemBundleSectionResponse"
         otherSections:
-            type: array
-            items:
-              $ref: "#/definitions/OtherItemBundleSectionResponse"
-
-  BundleType:
-    type: string
-
-  BundleItemResponse:
-    type: object
-    properties:
-      id:
-        type: string
-    x-nullable: false
-
-  BundleSectionResponse:
-    type: object
-    x-omitempty: false
-    properties:
-      id:
-        type: string
-        x-omitempty: false
-        example: 5dfb977429ec145dd6f9c307
-
-  ItemBundleSectionResponse:
-    allOf:
-      - $ref: "#/definitions/BundleSectionResponse"
-      - type: object
-        x-omitempty: false
-        properties:
+          type: array
           items:
-            description: Array of bundle items inside a section of the bundle
-            type: array
+            $ref: "#/components/schemas/OtherItemBundleSectionResponse"
+    BundleType:
+      type: string
+    BundleItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      nullable: false
+    BundleSectionResponse:
+      type: object
+      x-omitempty: false
+      properties:
+        id:
+          type: string
+          x-omitempty: false
+          example: 5dfb977429ec145dd6f9c307
+    ItemBundleSectionResponse:
+      allOf:
+        - $ref: "#/components/schemas/BundleSectionResponse"
+        - type: object
+          x-omitempty: false
+          properties:
             items:
-              $ref: "#/definitions/BundleItemResponse"
-    x-nullable: false
-
-  NullableItemBundleSectionResponse:
-    allOf:
-      - $ref: "#/definitions/BundleSectionResponse"
-      - type: object
-        x-omitempty: false
-        properties:
-          items:
-            description: Array of bundle items inside a section of the bundle
-            type: array
+              description: Array of bundle items inside a section of the bundle
+              type: array
+              items:
+                $ref: "#/components/schemas/BundleItemResponse"
+      nullable: false
+    NullableItemBundleSectionResponse:
+      allOf:
+        - $ref: "#/components/schemas/BundleSectionResponse"
+        - type: object
+          x-omitempty: false
+          properties:
             items:
-              $ref: "#/definitions/BundleItemResponse"
-    x-nullable: true
-
-  OtherItemBundleSectionResponse:
-    allOf:
-      - $ref: "#/definitions/BundleSectionResponse"
-      - type: object
-        x-omitempty: false
-        properties:
-          items:
-            description: Array of bundle items inside a section of the bundle
-            type: array
+              description: Array of bundle items inside a section of the bundle
+              type: array
+              items:
+                $ref: "#/components/schemas/BundleItemResponse"
+      nullable: true
+    OtherItemBundleSectionResponse:
+      allOf:
+        - $ref: "#/components/schemas/BundleSectionResponse"
+        - type: object
+          x-omitempty: false
+          properties:
             items:
-              $ref: "#/definitions/BundleItemResponse"
+              description: Array of bundle items inside a section of the bundle
+              type: array
+              items:
+                $ref: "#/components/schemas/BundleItemResponse"

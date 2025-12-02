@@ -1,39 +1,39 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: Object
   version: 0.1.0
-
 paths:
   /:
     get:
       summary: GET
       operationId: getAll
       parameters:
-        - $ref: 'responses.yaml#/parameters/BadRequest'
-        - $ref: 'responses.yaml#/parameters/GoodRequest'
-        - $ref: 'responses.yaml#/parameters/PlainRequest'
-        - $ref: 'responses.yaml#/parameters/StrangeRequest'
-        - $ref: 'responses.yaml#/parameters/RemoteRequest'
-        - name: nestedBody
-          in: body
-          schema:
-            $ref: '#/definitions/nestedRefDefinition'
+        - $ref: responses.yaml#/components/parameters/BadRequest
+        - $ref: responses.yaml#/components/parameters/GoodRequest
+        - $ref: responses.yaml#/components/parameters/PlainRequest
+        - $ref: responses.yaml#/components/parameters/StrangeRequest
+        - $ref: responses.yaml#/components/parameters/RemoteRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/nestedRefDefinition"
       responses:
-        200:
+        "200":
           description: Ok
-        400:
-          $ref: 'responses.yaml#/responses/BadRequest'
-        403:
-          $ref: 'responses.yaml#/responses/GoodRequest'
-        404:
-          $ref: 'responses.yaml#/responses/PlainRequest'
-        304:
-          $ref: 'responses.yaml#/responses/StrangeRequest'
-        204:
-          $ref: 'responses.yaml#/responses/RemoteRequest'
-
-definitions:
-  badDefinition:
-    $ref: 'responses.yaml#/definitions/Error'
-  nestedRefDefinition:
-    $ref: 'responses.yaml#/definitions/myArray'
+        "204":
+          $ref: responses.yaml#/responses/RemoteRequest
+        "304":
+          $ref: responses.yaml#/responses/StrangeRequest
+        "400":
+          $ref: responses.yaml#/responses/BadRequest
+        "403":
+          $ref: responses.yaml#/responses/GoodRequest
+        "404":
+          $ref: responses.yaml#/responses/PlainRequest
+components:
+  schemas:
+    badDefinition:
+      $ref: responses.yaml#/definitions/Error
+    nestedRefDefinition:
+      $ref: responses.yaml#/definitions/myArray

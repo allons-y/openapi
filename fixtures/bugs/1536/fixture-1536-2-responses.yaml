@@ -1,138 +1,147 @@
----
-  swagger: "2.0"
-  info: 
-    title: "gen operation with body param, --skip-flatten mode"
-    version: "0.0.1"
-    description: "repro issue 1537"
-    license: 
-      name: "Apache 2.0"
-      url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-  paths: 
-    /getSimple:
-      get: 
-        operationId: getSimple
-        parameters:
-          - name: simpleBody
-            in: body
+openapi: 3.0.0
+info:
+  title: gen operation with body param, --skip-flatten mode
+  version: 0.0.1
+  description: repro issue 1537
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /getSimple:
+    get:
+      operationId: getSimple
+      requestBody:
+        content:
+          application/json:
             schema:
               type: object
               properties:
-                p1: 
+                p1:
                   type: integer
-        responses: 
-          200: 
-            description: "OK"
-    /getSimpleArray:
-      get: 
-        operationId: getSimpleArray
-        parameters:
-          - name: simpleBody
-            in: body
+      responses:
+        "200":
+          description: OK
+  /getSimpleArray:
+    get:
+      operationId: getSimpleArray
+      requestBody:
+        content:
+          application/json:
             schema:
               type: array
               items:
                 type: integer
-        responses: 
-          200: 
-            description: "OK"
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  type: integer
+  /getNested:
+    get:
+      operationId: getNested
+      requestBody:
+        content:
+          application/json:
             schema:
               type: array
               items:
-                type: integer
-    /getNested: 
-      get: 
-        operationId: getNested
-        parameters:
-          - name: genericNested
-            in: body
-            schema:
-              type: array
-              items: 
                 type: array
                 items:
                   type: array
-                  items: 
+                  items:
                     type: array
                     items:
                       type: object
-        responses: 
-          200: 
-            description: "OK"
-            schema:
-              type: array
-              items: 
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
                 type: array
                 items:
                   type: array
-                  items: 
+                  items:
                     type: array
                     items:
-                      type: object
-    /getNestedWithValidations: 
-      get: 
-        operationId: getNestedWithValidations
-        parameters:
-          - name: genericNestedWithValidations
-            in: body
+                      type: array
+                      items:
+                        type: object
+  /getNestedWithValidations:
+    get:
+      operationId: getNestedWithValidations
+      requestBody:
+        content:
+          application/json:
             schema:
               type: array
-              items: 
+              items:
                 type: array
                 items:
                   type: array
-                  items: 
+                  items:
                     type: array
                     maxItems: 10
                     items:
                       type: object
-        responses: 
-          200: 
-            description: "OK"
-            schema:
-              type: array
-              items: 
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
                 type: array
                 items:
                   type: array
-                  items: 
+                  items:
                     type: array
-                    maxItems: 10
                     items:
-                      type: object
-    /getNestedRequired: 
-      get: 
-        operationId: getNestedRequired
-        parameters:
-          - name: objectNestedRequired
-            in: body
+                      type: array
+                      maxItems: 10
+                      items:
+                        type: object
+  /getNestedRequired:
+    get:
+      operationId: getNestedRequired
+      requestBody:
+        content:
+          application/json:
             schema:
               type: array
-              items: 
+              items:
                 type: array
                 items:
                   type: array
-                  items: 
+                  items:
                     type: array
                     items:
                       type: object
-                      required: [pkcs]
+                      required:
+                        - pkcs
                       properties:
                         pkcs:
                           type: string
-        responses: 
-          200: 
-            description: "OK"
-            schema:
-              type: array
-              items: 
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
                 type: array
                 items:
                   type: array
-                  items: 
+                  items:
                     type: array
                     items:
-                      type: object
-                      required: [pkcs]
-                      properties:
-                        pkcs:
-                          type: string
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - pkcs
+                        properties:
+                          pkcs:
+                            type: string

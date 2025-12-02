@@ -1,13 +1,10 @@
 {
-    "swagger": "2.0",
-    "host": "localhost",
+    "openapi": "3.0.0",
     "info": {
         "description": "",
         "version": "",
-        "title": "",
-        "termsOfService": ""
+        "title": ""
     },
-    "basePath": "/api/v1/",
     "paths": {
         "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_start": {
             "post": {
@@ -18,18 +15,22 @@
                         "in": "path",
                         "description": "Identifier for the Elasticsearch cluster",
                         "required": true,
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "name": "instance_ids",
                         "in": "path",
                         "description": "Optional comma-delimited list of instance identifiers of the Elasticsearch cluster, otherwise will apply to all instances",
                         "required": true,
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "collectionFormat": "csv"
+                        "style": "simple",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
                     }
                 ],
                 "responses": {
@@ -39,5 +40,10 @@
                 }
             }
         }
-    }
+    },
+    "servers": [
+        {
+            "url": "//localhost/api/v1"
+        }
+    ]
 }

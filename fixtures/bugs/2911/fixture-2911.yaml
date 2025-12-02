@@ -1,4 +1,4 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: Title
   description: some description
@@ -6,44 +6,47 @@ info:
     name: John Doe
     url: https://www.acme.com/support
     email: support@acme.com
-  version: "1.0.0"
+  version: 1.0.0
 paths:
   /:
     get:
       responses:
-        200:
+        "200":
           description: Example path
-          schema:
-            type: string
+          content:
+            "*/*":
+              schema:
+                type: string
         default:
           description: generic error
-          schema:
-            type: string
-definitions:
-  animal:
-    type: 'object'
-    properties:
-      kind:
-        $ref: '#/definitions/pet'
-  pet:
-    type: object
-    required: [type]
-    discriminator: type
-    properties:
-      type:
-        $ref: '#/definitions/petType'
-
-  petType:
-    type: string
-    enum:
-      - dog
-      - cat
-
-  dog:
-    allOf:
-      - $ref: '#/definitions/pet'
-        type: object
-  cat:
-    allOf:
-      - $ref: '#/definitions/pet'
-        type: object
+          content:
+            "*/*":
+              schema:
+                type: string
+components:
+  schemas:
+    animal:
+      type: object
+      properties:
+        kind:
+          $ref: "#/components/schemas/pet"
+    pet:
+      type: object
+      required:
+        - type
+      discriminator:
+        propertyName: type
+      properties:
+        type:
+          $ref: "#/components/schemas/petType"
+    petType:
+      type: string
+      enum:
+        - dog
+        - cat
+    dog:
+      allOf:
+        - $ref: "#/components/schemas/pet"
+    cat:
+      allOf:
+        - $ref: "#/components/schemas/pet"

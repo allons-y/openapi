@@ -1,24 +1,18 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
-  description: "ms api"
-  version: "1.0.0"
-  title: "ms api"
-
-host: "127.0.0.1:8613"
-basePath: "/rest/ms"
-
+  description: ms api
+  version: 1.0.0
+  title: ms api
 tags:
-  - name: "business"
-    description: "business info"
+  - name: business
+    description: business info
     externalDocs:
-      description: "Find out more"
-      url: "http://swagger.io"
-schemes:
-  - "http"
-
+      description: Find out more
+      url: http://swagger.io
 security:
   - api_key: []
-
 paths:
   /business:
-    $ref: "business.yaml#/paths/~1business"
+    $ref: business.yaml#/paths/~1business
+servers:
+  - url: http://127.0.0.1:8613/rest/ms

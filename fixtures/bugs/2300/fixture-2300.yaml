@@ -1,73 +1,76 @@
----
-  swagger: "2.0"
-  info:
-    title: "param body with array of empty objects"
-    version: "0.0.1"
-    description: "repro issue 1537"
-    license:
-      name: "Apache 2.0"
-      url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-  definitions:
+openapi: 3.0.0
+info:
+  title: param body with array of empty objects
+  version: 0.0.1
+  description: repro issue 1537
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /getRecords:
+    get:
+      operationId: getRecords
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/obj"
+        required: true
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
     obj:
       type: object
-      required: [ req1, req2, req3, req4, req5 ]
+      required:
+        - req1
+        - req2
+        - req3
+        - req4
+        - req5
       properties:
         req1:
-          $ref: '#/definitions/requiredInterface'
+          $ref: "#/components/schemas/requiredInterface"
         req2:
-          $ref: '#/definitions/requiredNonNullableInterface'
+          $ref: "#/components/schemas/requiredNonNullableInterface"
         req3:
-          $ref: '#/definitions/requiredNullableInterface'
+          $ref: "#/components/schemas/requiredNullableInterface"
         req4:
-          $ref: '#/definitions/requiredMap'
+          $ref: "#/components/schemas/requiredMap"
         req5:
-          $ref: '#/definitions/basic'
+          $ref: "#/components/schemas/basic"
         nreq1:
-          $ref: '#/definitions/requiredInterface'
+          $ref: "#/components/schemas/requiredInterface"
         nreq2:
-          $ref: '#/definitions/requiredNonNullableInterface'
+          $ref: "#/components/schemas/requiredNonNullableInterface"
         nreq3:
-          $ref: '#/definitions/requiredNullableInterface'
+          $ref: "#/components/schemas/requiredNullableInterface"
         nreq4:
-          $ref: '#/definitions/requiredMap'
+          $ref: "#/components/schemas/requiredMap"
         nreq5:
-          $ref: '#/definitions/basic'
-
+          $ref: "#/components/schemas/basic"
     requiredInterface:
       type: object
       additionalProperties: true
     requiredNonNullableInterface:
       type: object
       additionalProperties: true
-      x-nullable: false
+      nullable: false
     requiredNullableInterface:
       type: object
       additionalProperties: true
-      x-nullable: true
+      nullable: true
     requiredMap:
       type: object
       additionalProperties:
         type: object
     basic:
       type: object
-      required: [ a ]
+      required:
+        - a
       properties:
         a:
-          type:
-            string
+          type: string
         b:
-          type:
-            string
-  paths:
-    /getRecords:
-      get:
-        operationId: getRecords
-        parameters:
-          - name: records
-            in: body
-            required: true
-            schema:
-              $ref: '#/definitions/obj'
-        responses:
-          200:
-            description: "OK"
+          type: string

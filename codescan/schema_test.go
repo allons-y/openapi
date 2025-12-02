@@ -263,7 +263,7 @@ func TestSchemaBuilder(t *testing.T) {
 	assert.True(t, iprop.ExclusiveMinimum, "'id' should have had an exclusive minimum")
 	assert.Equal(t, 11, iprop.Default, "ID default value is incorrect")
 
-	assertRef(t, itprop, "pet", "Pet", "#/definitions/pet")
+	assertRef(t, itprop, "pet", "Pet", "#/components/schemas/pet")
 	iprop, ok = itprop.Properties["pet"]
 	assert.True(t, ok)
 	if itprop.Ref.String() != "" {
@@ -328,7 +328,7 @@ func TestTextMarhalCustomType(t *testing.T) {
 	assertProperty(t, &schema, "string", "struct", "", "Struct")
 	assertProperty(t, &schema, "string", "map", "", "Map")
 	assertMapProperty(t, &schema, "string", "mapUUID", "uuid", "MapUUID")
-	assertRef(t, &schema, "url", "URL", "#/definitions/URL")
+	assertRef(t, &schema, "url", "URL", "#/components/schemas/URL")
 	assertProperty(t, &schema, "string", "time", "date-time", "Time")
 	assertProperty(t, &schema, "string", "structStrfmt", "date-time", "StructStrfmt")
 	assertProperty(t, &schema, "string", "structStrfmtPtr", "date-time", "StructStrfmtPtr")
@@ -519,8 +519,8 @@ func TestParseStructFields(t *testing.T) {
 	assertProperty(t, &eSchema, "integer", "cid", "int64", "CID")
 	assertProperty(t, &eSchema, "string", "baz", "", "Baz")
 
-	assertRef(t, &schema, "top", "Top", "#/definitions/Something")
-	assertRef(t, &schema, "notSel", "NotSel", "#/definitions/NotSelected")
+	assertRef(t, &schema, "top", "Top", "#/components/schemas/Something")
+	assertRef(t, &schema, "notSel", "NotSel", "#/components/schemas/NotSelected")
 }
 
 func TestParsePointerFields(t *testing.T) {
@@ -544,8 +544,8 @@ func TestParsePointerFields(t *testing.T) {
 	assertProperty(t, &eSchema, "integer", "cid", "int64", "CID")
 	assertProperty(t, &eSchema, "string", "baz", "", "Baz")
 
-	assertRef(t, &schema, "top", "Top", "#/definitions/Something")
-	assertRef(t, &schema, "notSel", "NotSel", "#/definitions/NotSelected")
+	assertRef(t, &schema, "top", "Top", "#/components/schemas/Something")
+	assertRef(t, &schema, "notSel", "NotSel", "#/components/schemas/NotSelected")
 }
 
 func TestEmbeddedStarExpr(t *testing.T) {
@@ -619,8 +619,8 @@ func TestParseSliceFields(t *testing.T) {
 	assertArrayProperty(t, eSchema, "integer", "cid", "int64", "CID")
 	assertArrayProperty(t, eSchema, "string", "baz", "", "Baz")
 
-	assertArrayRef(t, &schema, "tops", "Tops", "#/definitions/Something")
-	assertArrayRef(t, &schema, "notSels", "NotSels", "#/definitions/NotSelected")
+	assertArrayRef(t, &schema, "tops", "Tops", "#/components/schemas/Something")
+	assertArrayRef(t, &schema, "notSels", "NotSels", "#/components/schemas/NotSelected")
 
 	assertArrayProperty(t, &schema, "integer", "ptrIds", "int64", "PtrIDs")
 	assertArrayProperty(t, &schema, "string", "ptrNames", "", "PtrNames")
@@ -630,8 +630,8 @@ func TestParseSliceFields(t *testing.T) {
 	assertArrayProperty(t, eSchema, "integer", "ptrCid", "int64", "PtrCID")
 	assertArrayProperty(t, eSchema, "string", "ptrBaz", "", "PtrBaz")
 
-	assertArrayRef(t, &schema, "ptrTops", "PtrTops", "#/definitions/Something")
-	assertArrayRef(t, &schema, "ptrNotSels", "PtrNotSels", "#/definitions/NotSelected")
+	assertArrayRef(t, &schema, "ptrTops", "PtrTops", "#/components/schemas/Something")
+	assertArrayRef(t, &schema, "ptrNotSels", "PtrNotSels", "#/components/schemas/NotSelected")
 }
 
 func TestParseMapFields(t *testing.T) {
@@ -655,8 +655,8 @@ func TestParseMapFields(t *testing.T) {
 	assertMapProperty(t, eSchema, "integer", "cid", "int64", "CID")
 	assertMapProperty(t, eSchema, "string", "baz", "", "Baz")
 
-	assertMapRef(t, &schema, "tops", "Tops", "#/definitions/Something")
-	assertMapRef(t, &schema, "notSels", "NotSels", "#/definitions/NotSelected")
+	assertMapRef(t, &schema, "tops", "Tops", "#/components/schemas/Something")
+	assertMapRef(t, &schema, "notSels", "NotSels", "#/components/schemas/NotSelected")
 
 	assertMapProperty(t, &schema, "integer", "ptrIds", "int64", "PtrIDs")
 	assertMapProperty(t, &schema, "string", "ptrNames", "", "PtrNames")
@@ -666,8 +666,8 @@ func TestParseMapFields(t *testing.T) {
 	assertMapProperty(t, eSchema, "integer", "ptrCid", "int64", "PtrCID")
 	assertMapProperty(t, eSchema, "string", "ptrBaz", "", "PtrBaz")
 
-	assertMapRef(t, &schema, "ptrTops", "PtrTops", "#/definitions/Something")
-	assertMapRef(t, &schema, "ptrNotSels", "PtrNotSels", "#/definitions/NotSelected")
+	assertMapRef(t, &schema, "ptrTops", "PtrTops", "#/components/schemas/Something")
+	assertMapRef(t, &schema, "ptrNotSels", "PtrNotSels", "#/components/schemas/NotSelected")
 }
 
 func TestInterfaceField(t *testing.T) {
@@ -697,47 +697,47 @@ func TestAliasedTypes(t *testing.T) {
 	require.NoError(t, prs.Build(models))
 
 	schema := models["OtherTypes"]
-	assertRef(t, &schema, "named", "Named", "#/definitions/SomeStringType")
-	assertRef(t, &schema, "numbered", "Numbered", "#/definitions/SomeIntType")
+	assertRef(t, &schema, "named", "Named", "#/components/schemas/SomeStringType")
+	assertRef(t, &schema, "numbered", "Numbered", "#/components/schemas/SomeIntType")
 	assertProperty(t, &schema, "string", "dated", "date-time", "Dated")
-	assertRef(t, &schema, "timed", "Timed", "#/definitions/SomeTimedType")
-	assertRef(t, &schema, "petted", "Petted", "#/definitions/SomePettedType")
-	assertRef(t, &schema, "somethinged", "Somethinged", "#/definitions/SomethingType")
-	assertRef(t, &schema, "strMap", "StrMap", "#/definitions/SomeStringMap")
-	assertRef(t, &schema, "strArrMap", "StrArrMap", "#/definitions/SomeArrayStringMap")
+	assertRef(t, &schema, "timed", "Timed", "#/components/schemas/SomeTimedType")
+	assertRef(t, &schema, "petted", "Petted", "#/components/schemas/SomePettedType")
+	assertRef(t, &schema, "somethinged", "Somethinged", "#/components/schemas/SomethingType")
+	assertRef(t, &schema, "strMap", "StrMap", "#/components/schemas/SomeStringMap")
+	assertRef(t, &schema, "strArrMap", "StrArrMap", "#/components/schemas/SomeArrayStringMap")
 
-	assertRef(t, &schema, "manyNamed", "ManyNamed", "#/definitions/SomeStringsType")
-	assertRef(t, &schema, "manyNumbered", "ManyNumbered", "#/definitions/SomeIntsType")
+	assertRef(t, &schema, "manyNamed", "ManyNamed", "#/components/schemas/SomeStringsType")
+	assertRef(t, &schema, "manyNumbered", "ManyNumbered", "#/components/schemas/SomeIntsType")
 	assertArrayProperty(t, &schema, "string", "manyDated", "date-time", "ManyDated")
-	assertRef(t, &schema, "manyTimed", "ManyTimed", "#/definitions/SomeTimedsType")
-	assertRef(t, &schema, "manyPetted", "ManyPetted", "#/definitions/SomePettedsType")
-	assertRef(t, &schema, "manySomethinged", "ManySomethinged", "#/definitions/SomethingsType")
+	assertRef(t, &schema, "manyTimed", "ManyTimed", "#/components/schemas/SomeTimedsType")
+	assertRef(t, &schema, "manyPetted", "ManyPetted", "#/components/schemas/SomePettedsType")
+	assertRef(t, &schema, "manySomethinged", "ManySomethinged", "#/components/schemas/SomethingsType")
 
-	assertArrayRef(t, &schema, "nameds", "Nameds", "#/definitions/SomeStringType")
-	assertArrayRef(t, &schema, "numbereds", "Numbereds", "#/definitions/SomeIntType")
+	assertArrayRef(t, &schema, "nameds", "Nameds", "#/components/schemas/SomeStringType")
+	assertArrayRef(t, &schema, "numbereds", "Numbereds", "#/components/schemas/SomeIntType")
 	assertArrayProperty(t, &schema, "string", "dateds", "date-time", "Dateds")
-	assertArrayRef(t, &schema, "timeds", "Timeds", "#/definitions/SomeTimedType")
-	assertArrayRef(t, &schema, "petteds", "Petteds", "#/definitions/SomePettedType")
-	assertArrayRef(t, &schema, "somethingeds", "Somethingeds", "#/definitions/SomethingType")
+	assertArrayRef(t, &schema, "timeds", "Timeds", "#/components/schemas/SomeTimedType")
+	assertArrayRef(t, &schema, "petteds", "Petteds", "#/components/schemas/SomePettedType")
+	assertArrayRef(t, &schema, "somethingeds", "Somethingeds", "#/components/schemas/SomethingType")
 
-	assertRef(t, &schema, "modsNamed", "ModsNamed", "#/definitions/modsSomeStringType")
-	assertRef(t, &schema, "modsNumbered", "ModsNumbered", "#/definitions/modsSomeIntType")
+	assertRef(t, &schema, "modsNamed", "ModsNamed", "#/components/schemas/modsSomeStringType")
+	assertRef(t, &schema, "modsNumbered", "ModsNumbered", "#/components/schemas/modsSomeIntType")
 	assertProperty(t, &schema, "string", "modsDated", "date-time", "ModsDated")
-	assertRef(t, &schema, "modsTimed", "ModsTimed", "#/definitions/modsSomeTimedType")
-	assertRef(t, &schema, "modsPetted", "ModsPetted", "#/definitions/modsSomePettedType")
+	assertRef(t, &schema, "modsTimed", "ModsTimed", "#/components/schemas/modsSomeTimedType")
+	assertRef(t, &schema, "modsPetted", "ModsPetted", "#/components/schemas/modsSomePettedType")
 
-	assertArrayRef(t, &schema, "modsNameds", "ModsNameds", "#/definitions/modsSomeStringType")
-	assertArrayRef(t, &schema, "modsNumbereds", "ModsNumbereds", "#/definitions/modsSomeIntType")
+	assertArrayRef(t, &schema, "modsNameds", "ModsNameds", "#/components/schemas/modsSomeStringType")
+	assertArrayRef(t, &schema, "modsNumbereds", "ModsNumbereds", "#/components/schemas/modsSomeIntType")
 	assertArrayProperty(t, &schema, "string", "modsDateds", "date-time", "ModsDateds")
-	assertArrayRef(t, &schema, "modsTimeds", "ModsTimeds", "#/definitions/modsSomeTimedType")
-	assertArrayRef(t, &schema, "modsPetteds", "ModsPetteds", "#/definitions/modsSomePettedType")
+	assertArrayRef(t, &schema, "modsTimeds", "ModsTimeds", "#/components/schemas/modsSomeTimedType")
+	assertArrayRef(t, &schema, "modsPetteds", "ModsPetteds", "#/components/schemas/modsSomePettedType")
 
-	assertRef(t, &schema, "manyModsNamed", "ManyModsNamed", "#/definitions/modsSomeStringsType")
-	assertRef(t, &schema, "manyModsNumbered", "ManyModsNumbered", "#/definitions/modsSomeIntsType")
+	assertRef(t, &schema, "manyModsNamed", "ManyModsNamed", "#/components/schemas/modsSomeStringsType")
+	assertRef(t, &schema, "manyModsNumbered", "ManyModsNumbered", "#/components/schemas/modsSomeIntsType")
 	assertArrayProperty(t, &schema, "string", "manyModsDated", "date-time", "ManyModsDated")
-	assertRef(t, &schema, "manyModsTimed", "ManyModsTimed", "#/definitions/modsSomeTimedsType")
-	assertRef(t, &schema, "manyModsPetted", "ManyModsPetted", "#/definitions/modsSomePettedsType")
-	assertRef(t, &schema, "manyModsPettedPtr", "ManyModsPettedPtr", "#/definitions/modsSomePettedsPtrType")
+	assertRef(t, &schema, "manyModsTimed", "ManyModsTimed", "#/components/schemas/modsSomeTimedsType")
+	assertRef(t, &schema, "manyModsPetted", "ManyModsPetted", "#/components/schemas/modsSomePettedsType")
+	assertRef(t, &schema, "manyModsPettedPtr", "ManyModsPettedPtr", "#/components/schemas/modsSomePettedsPtrType")
 
 	assertProperty(t, &schema, "string", "namedAlias", "", "NamedAlias")
 	assertProperty(t, &schema, "integer", "numberedAlias", "int64", "NumberedAlias")
@@ -796,16 +796,16 @@ func TestAliasedModels(t *testing.T) {
 		assertDefinition(t, defs, "SomeIntType", "integer", "int64", "")
 		assertDefinition(t, defs, "SomeTimeType", "string", "date-time", "")
 		assertDefinition(t, defs, "SomeTimedType", "string", "date-time", "")
-		assertRefDefinition(t, defs, "SomePettedType", "#/definitions/pet", "")
-		assertRefDefinition(t, defs, "SomethingType", "#/definitions/Something", "")
+		assertRefDefinition(t, defs, "SomePettedType", "#/components/schemas/pet", "")
+		assertRefDefinition(t, defs, "SomethingType", "#/components/schemas/Something", "")
 
 		// slice types
 		assertArrayDefinition(t, defs, "SomeStringsType", "string", "", "")
 		assertArrayDefinition(t, defs, "SomeIntsType", "integer", "int64", "")
 		assertArrayDefinition(t, defs, "SomeTimesType", "string", "date-time", "")
 		assertArrayDefinition(t, defs, "SomeTimedsType", "string", "date-time", "")
-		assertArrayWithRefDefinition(t, defs, "SomePettedsType", "#/definitions/pet", "")
-		assertArrayWithRefDefinition(t, defs, "SomethingsType", "#/definitions/Something", "")
+		assertArrayWithRefDefinition(t, defs, "SomePettedsType", "#/components/schemas/pet", "")
+		assertArrayWithRefDefinition(t, defs, "SomethingsType", "#/components/schemas/Something", "")
 
 		// map types
 		assertMapDefinition(t, defs, "SomeObject", "object", "", "")
@@ -813,8 +813,8 @@ func TestAliasedModels(t *testing.T) {
 		assertMapDefinition(t, defs, "SomeIntMap", "integer", "int64", "")
 		assertMapDefinition(t, defs, "SomeTimeMap", "string", "date-time", "")
 		assertMapDefinition(t, defs, "SomeTimedMap", "string", "date-time", "")
-		assertMapWithRefDefinition(t, defs, "SomePettedMap", "#/definitions/pet", "")
-		assertMapWithRefDefinition(t, defs, "SomeSomethingMap", "#/definitions/Something", "")
+		assertMapWithRefDefinition(t, defs, "SomePettedMap", "#/components/schemas/pet", "")
+		assertMapWithRefDefinition(t, defs, "SomeSomethingMap", "#/components/schemas/Something", "")
 	}
 }
 
@@ -853,7 +853,7 @@ func TestAliasedTopLevelModels(t *testing.T) {
 					models := make(map[string]spec.Schema)
 					require.NoError(t, builder.Build(models))
 
-					assertRefDefinition(t, models, "Customer", "#/definitions/User", "")
+					assertRefDefinition(t, models, "Customer", "#/components/schemas/User", "")
 				})
 
 				t.Run("should have discovered models for User and Customer", func(t *testing.T) {
@@ -1065,7 +1065,7 @@ func TestAliasedSchemas(t *testing.T) {
 					})
 					foundProps = true
 				case isAlias:
-					assertIsRef(t, &member, "#/definitions/Empty")
+					assertIsRef(t, &member, "#/components/schemas/Empty")
 					foundAliased = true
 				default:
 					assert.Failf(t, "embedded members in struct are not as expected", "unexpected member in allOf: %d", idx)
@@ -1099,19 +1099,19 @@ func TestAliasedSchemas(t *testing.T) {
 			t.Run("with alias to any", func(t *testing.T) {
 				_, ok = order.Properties["DeliveryOption"]
 				require.True(t, ok)
-				assertRef(t, &order, "DeliveryOption", "", "#/definitions/Anything") // points to an alias to any
+				assertRef(t, &order, "DeliveryOption", "", "#/components/schemas/Anything") // points to an alias to any
 			})
 
 			t.Run("with alias to primitive type", func(t *testing.T) {
 				_, ok = order.Properties["id"]
 				require.True(t, ok)
-				assertRef(t, &order, "id", "", "#/definitions/UUID") // points to an alias to any
+				assertRef(t, &order, "id", "", "#/components/schemas/UUID") // points to an alias to any
 			})
 
 			t.Run("with alias to struct type", func(t *testing.T) {
 				_, ok = order.Properties["extended_id"]
 				require.True(t, ok)
-				assertRef(t, &order, "extended_id", "", "#/definitions/ExtendedID") // points to an alias to any
+				assertRef(t, &order, "extended_id", "", "#/components/schemas/ExtendedID") // points to an alias to any
 			})
 
 			t.Run("inside anonymous array", func(t *testing.T) {
@@ -1181,7 +1181,7 @@ func TestAliasedSchemas(t *testing.T) {
 		void, ok := sp.Definitions["void"]
 		require.True(t, ok)
 
-		assertIsRef(t, &void, "#/definitions/Empty") // points to another alias
+		assertIsRef(t, &void, "#/components/schemas/Empty") // points to another alias
 	})
 
 	t.Run("type redefinition to anonymous is not an alias and is resolved as an object", func(t *testing.T) {
@@ -1202,14 +1202,14 @@ func TestAliasedSchemas(t *testing.T) {
 		iface, ok := sp.Definitions["iface_alias"]
 		require.True(t, ok)
 
-		assertIsRef(t, &iface, "#/definitions/iface") // points to an interface
+		assertIsRef(t, &iface, "#/components/schemas/iface") // points to an interface
 	})
 
 	t.Run("interface redefinition is not an alias and should render as a $ref", func(t *testing.T) {
 		iface, ok := sp.Definitions["iface_redefinition"]
 		require.True(t, ok)
 
-		assertIsRef(t, &iface, "#/definitions/iface") // points to an interface
+		assertIsRef(t, &iface, "#/components/schemas/iface") // points to an interface
 	})
 
 	t.Run("anonymous interface should render a schema", func(t *testing.T) {
@@ -1305,7 +1305,7 @@ func TestAliasedSchemas(t *testing.T) {
 		t.Run("alias to named alias to anonymous slice should render as ref", func(t *testing.T) {
 			slice, ok := sp.Definitions["slice_to_slice"] // type X = Slice
 			require.True(t, ok)
-			assertIsRef(t, &slice, "#/definitions/slice_type") // points to a named alias
+			assertIsRef(t, &slice, "#/components/schemas/slice_type") // points to a named alias
 		})
 	})
 
@@ -1325,7 +1325,7 @@ func TestAliasedSchemas(t *testing.T) {
 			iface, ok := sp.Definitions["anonymous_iface_alias"]
 			require.True(t, ok)
 
-			assertIsRef(t, &iface, "#/definitions/anonymous_iface") // points to an anonymous interface
+			assertIsRef(t, &iface, "#/components/schemas/anonymous_iface") // points to an anonymous interface
 		})
 
 		t.Run("named interface should render as a schema", func(t *testing.T) {
@@ -1431,7 +1431,7 @@ func TestAliasedSchemas(t *testing.T) {
 					foundEmbeddedAnon = true
 				case isRef:
 					require.Empty(t, member.Properties)
-					assertIsRef(t, &member, "#/definitions/iface_alias")
+					assertIsRef(t, &member, "#/components/schemas/iface_alias")
 					foundRef = true
 				default:
 					assert.Failf(t, "embedded members in interface are not as expected", "unexpected member in allOf: %d", idx)
@@ -1464,9 +1464,9 @@ func TestAliasedSchemas(t *testing.T) {
 					foundProps = true
 				case isRef:
 					switch member.Ref.String() {
-					case "#/definitions/Anything":
+					case "#/components/schemas/Anything":
 						foundAnything = true
-					case "#/definitions/UUID":
+					case "#/components/schemas/UUID":
 						foundUUID = true
 					default:
 						assert.Failf(t,
@@ -1590,7 +1590,7 @@ func TestSpecialSchemas(t *testing.T) {
 			t.Run("property pointer to struct should render as a ref", func(t *testing.T) {
 				ptr, ok := props["PtrStruct"]
 				require.True(t, ok)
-				assertIsRef(t, &ptr, "#/definitions/GoStruct")
+				assertIsRef(t, &ptr, "#/components/schemas/GoStruct")
 			})
 
 			t.Run("property as time.Time should render as a formatted string", func(t *testing.T) {
@@ -1640,7 +1640,7 @@ func TestSpecialSchemas(t *testing.T) {
 			t.Run("type time.Duration is not recognized as a special type and should just render as a ref", func(t *testing.T) {
 				d, ok := props["Duration"]
 				require.True(t, ok)
-				assertIsRef(t, &d, "#/definitions/Duration")
+				assertIsRef(t, &d, "#/components/schemas/Duration")
 
 				t.Run("discovered definition should be an integer", func(t *testing.T) {
 					duration, ok := sp.Definitions["Duration"]
@@ -1693,7 +1693,7 @@ func TestSpecialSchemas(t *testing.T) {
 				require.NotNil(t, mm.AdditionalProperties)
 				mapSchema := mm.AdditionalProperties.Schema
 				require.NotNil(t, mapSchema)
-				assertIsRef(t, mapSchema, "#/definitions/GoStruct")
+				assertIsRef(t, mapSchema, "#/components/schemas/GoStruct")
 			})
 
 			t.Run(`with the "WhatNot" anonymous inner struct`, func(t *testing.T) {
@@ -1770,7 +1770,7 @@ func TestSpecialSchemas(t *testing.T) {
 									} else {
 										dest = "Value"
 									}
-									assertIsRef(t, &prop, "#/definitions/"+dest)
+									assertIsRef(t, &prop, "#/components/schemas/"+dest)
 
 									t.Run("the $ref should exist", func(t *testing.T) {
 										deref, ok := sp.Definitions[dest]
@@ -1871,7 +1871,7 @@ func TestSpecialSchemas(t *testing.T) {
 		t.Run("generic map alias to a named generic type should render a ref", func(t *testing.T) {
 			generic, ok := sp.Definitions["generic_indirect"]
 			require.True(t, ok)
-			assertIsRef(t, &generic, "#/definitions/generic_map_alias")
+			assertIsRef(t, &generic, "#/components/schemas/generic_map_alias")
 		})
 
 		// generic_slice
@@ -1890,7 +1890,7 @@ func TestSpecialSchemas(t *testing.T) {
 		t.Run("alias to type constraint should render a ref", func(t *testing.T) {
 			generic, ok := sp.Definitions["union_alias"]
 			require.True(t, ok)
-			assertIsRef(t, &generic, "#/definitions/numerical_constraint")
+			assertIsRef(t, &generic, "#/components/schemas/numerical_constraint")
 		})
 	})
 }
@@ -1914,7 +1914,7 @@ func TestEmbeddedAllOf(t *testing.T) {
 	assertProperty(t, &asch, "string", "name", "", "Name")
 
 	asch = schema.AllOf[1]
-	assert.Equal(t, "#/definitions/withNotes", asch.Ref.String())
+	assert.Equal(t, "#/components/schemas/withNotes", asch.Ref.String())
 
 	asch = schema.AllOf[2]
 	assertProperty(t, &asch, "string", "createdAt", "date-time", "CreatedAt")
@@ -2015,26 +2015,26 @@ func TestSwaggerTypeNamedWithGenerics(t *testing.T) {
 		},
 		"NamedStoreOrderResults": func(t *testing.T, models map[string]spec.Schema) {
 			schema := models["namedStoreOrderResults"]
-			assertArrayRef(t, &schema, "matches", "Matches", "#/definitions/order")
+			assertArrayRef(t, &schema, "matches", "Matches", "#/components/schemas/order")
 		},
 		"NamedStringSlice": func(t *testing.T, models map[string]spec.Schema) {
 			assertArrayDefinition(t, models, "namedStringSlice", "string", "", "NamedStringSlice")
 		},
 		"NamedStoreOrderSlice": func(t *testing.T, models map[string]spec.Schema) {
-			assertArrayWithRefDefinition(t, models, "namedStoreOrderSlice", "#/definitions/order", "NamedStoreOrderSlice")
+			assertArrayWithRefDefinition(t, models, "namedStoreOrderSlice", "#/components/schemas/order", "NamedStoreOrderSlice")
 		},
 		"NamedStringMap": func(t *testing.T, models map[string]spec.Schema) {
 			assertMapDefinition(t, models, "namedStringMap", "string", "", "NamedStringMap")
 		},
 		"NamedStoreOrderMap": func(t *testing.T, models map[string]spec.Schema) {
-			assertMapWithRefDefinition(t, models, "namedStoreOrderMap", "#/definitions/order", "NamedStoreOrderMap")
+			assertMapWithRefDefinition(t, models, "namedStoreOrderMap", "#/components/schemas/order", "NamedStoreOrderMap")
 		},
 		"NamedMapOfStoreOrderSlices": func(t *testing.T, models map[string]spec.Schema) {
 			assertMapDefinition(t, models, "namedMapOfStoreOrderSlices", "array", "", "NamedMapOfStoreOrderSlices")
 			arraySchema := models["namedMapOfStoreOrderSlices"].AdditionalProperties.Schema
 			assertArrayWithRefDefinition(t, map[string]spec.Schema{
 				"array": *arraySchema,
-			}, "array", "#/definitions/order", "")
+			}, "array", "#/components/schemas/order", "")
 		},
 	}
 
@@ -2130,14 +2130,14 @@ func TestInterfaceDiscriminators(t *testing.T) {
 		assertProperty(t, &sch, "string", "colorName", "", "ColorName")
 
 		sch = schema.AllOf[2]
-		assert.Equal(t, "#/definitions/extra", sch.Ref.String())
+		assert.Equal(t, "#/components/schemas/extra", sch.Ref.String())
 
 		sch = schema.AllOf[0]
 		assert.Len(t, sch.Properties, 1)
 		assertProperty(t, &sch, "integer", "id", "int64", "ID")
 
 		sch = schema.AllOf[1]
-		assert.Equal(t, "#/definitions/water", sch.Ref.String())
+		assert.Equal(t, "#/components/schemas/water", sch.Ref.String())
 
 		sch = schema.AllOf[4]
 		assert.Len(t, sch.Properties, 2)
@@ -2155,7 +2155,7 @@ func TestInterfaceDiscriminators(t *testing.T) {
 		assert.Equal(t, "ModelS", cl)
 
 		sch := schema.AllOf[0]
-		assert.Equal(t, "#/definitions/TeslaCar", sch.Ref.String())
+		assert.Equal(t, "#/components/schemas/TeslaCar", sch.Ref.String())
 		sch = schema.AllOf[1]
 		assert.Len(t, sch.Properties, 1)
 		assertProperty(t, &sch, "string", "edition", "", "Edition")
@@ -2168,7 +2168,7 @@ func TestInterfaceDiscriminators(t *testing.T) {
 
 		sch, ok := schema.Properties["Tesla"]
 		if assert.True(t, ok) {
-			assert.Equal(t, "#/definitions/TeslaCar", sch.Ref.String())
+			assert.Equal(t, "#/components/schemas/TeslaCar", sch.Ref.String())
 		}
 
 		assertProperty(t, &schema, "integer", "doors", "int64", "Doors")
@@ -2441,7 +2441,7 @@ func TestIssue2540(t *testing.T) {
       "default": "{ \"Published\": 1900, \"Author\": \"Unknown\" }",
       "properties": {
         "Author": {
-          "$ref": "#/definitions/Author"
+          "$ref": "#/components/schemas/Author"
         },
         "Published": {
           "type": "integer",
@@ -2463,7 +2463,7 @@ func TestIssue2540(t *testing.T) {
       "default": "{ \"Published\": 1900, \"Author\": \"Unknown\" }",
       "properties": {
         "Author": {
-          "$ref": "#/definitions/Author",
+          "$ref": "#/components/schemas/Author",
           "example": "{ \"Name\": \"Tolkien\" }"
         },
         "Published": {

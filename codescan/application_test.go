@@ -9,6 +9,7 @@ import (
 	"log"
 	"os"
 	"sort"
+	"strings"
 	"testing"
 
 	"github.com/go-openapi/spec"
@@ -79,15 +80,17 @@ func TestAppScanner_Definitions(t *testing.T) {
 	})
 	require.NoError(t, err)
 	if assert.NotNil(t, doc) {
-		_, ok := doc.Definitions["Booking"]
+		require.NotNil(t, doc.Components, "Components should not be nil in OpenAPI v3")
+		require.NotNil(t, doc.Components.Schemas, "Components.Schemas should not be nil")
+		_, ok := doc.Components.Schemas["Booking"]
 		assert.True(t, ok, "Should include cross repo structs")
-		_, ok = doc.Definitions["Customer"]
+		_, ok = doc.Components.Schemas["Customer"]
 		assert.True(t, ok, "Should include package structs with swagger:model")
-		_, ok = doc.Definitions["DateRange"]
+		_, ok = doc.Components.Schemas["DateRange"]
 		assert.True(t, ok, "Should include package structs that are used in responses")
-		_, ok = doc.Definitions["BookingResponse"]
+		_, ok = doc.Components.Schemas["BookingResponse"]
 		assert.False(t, ok, "Should not include responses")
-		_, ok = doc.Definitions["IgnoreMe"]
+		_, ok = doc.Components.Schemas["IgnoreMe"]
 		assert.False(t, ok, "Should not include un-annotated/un-referenced structs")
 	}
 }
@@ -132,8 +135,9 @@ func verifyParsedPetStore(t *testing.T, doc *spec.Swagger) {
 
 	verifyTop(t, doc)
 	verifyInfo(t, doc.Info)
-	verifyModels(t, doc.Definitions)
-	verifyCommonResponses(t, doc.Responses)
+	require.NotNil(t, doc.Components, "Components should not be nil in OpenAPI v3")
+	verifyModels(t, doc.Components.Schemas)
+	verifyCommonResponses(t, doc.Components.Responses)
 
 	t.Run("with API paths", func(t *testing.T) {
 		require.NotNil(t, doc.Paths)
@@ -165,7 +169,7 @@ func verifyParsedPetStore(t *testing.T, doc *spec.Swagger) {
 				assert.Equal(t, []any{"available", "pending", "sold"}, sparam.Enum)
 				assert.False(t, sparam.Required)
 				assert.Equal(t, "Status", sparam.Extensions["x-go-name"])
-				assert.Equal(t, "#/responses/genericError", op.Get.Responses.Default.Ref.String())
+				assert.Equal(t, "#/components/responses/genericError", op.Get.Responses.Default.Ref.String())
 				assert.Len(t, op.Get.Parameters, 2)
 				sparam1 := op.Get.Parameters[names[0].Index]
 				assert.Equal(t, "Birthday", sparam1.Description)
@@ -181,7 +185,7 @@ func verifyParsedPetStore(t *testing.T, doc *spec.Swagger) {
 				assert.Equal(t, "array", aprop.Type[0])
 				assert.NotNil(t, aprop.Items)
 				assert.NotNil(t, aprop.Items.Schema)
-				assert.Equal(t, "#/definitions/pet", aprop.Items.Schema.Ref.String())
+				assert.Equal(t, "#/components/schemas/pet", aprop.Items.Schema.Ref.String())
 			})
 
 			t.Run("with POST: createPet", func(t *testing.T) {
@@ -191,12 +195,12 @@ func verifyParsedPetStore(t *testing.T, doc *spec.Swagger) {
 				assert.Equal(t, "createPet", op.Post.ID)
 				assert.Equal(t, []string{"pets"}, op.Post.Tags)
 				verifyRefParam(t, op.Post.Parameters[0], "The pet to submit.", "pet")
-				assert.Equal(t, "#/responses/genericError", op.Post.Responses.Default.Ref.String())
+				assert.Equal(t, "#/components/responses/genericError", op.Post.Responses.Default.Ref.String())
 				rs, ok := op.Post.Responses.StatusCodeResponses[200]
 				assert.True(t, ok)
 				assert.NotNil(t, rs.Schema)
 				aprop := rs.Schema
-				assert.Equal(t, "#/definitions/pet", aprop.Ref.String())
+				assert.Equal(t, "#/components/schemas/pet", aprop.Ref.String())
 			})
 		})
 
@@ -212,12 +216,12 @@ func verifyParsedPetStore(t *testing.T, doc *spec.Swagger) {
 				assert.Equal(t, "getPetById", op.Get.ID)
 				assert.Equal(t, []string{"pets"}, op.Get.Tags)
 				verifyIDParam(t, op.Get.Parameters[0], "The ID of the pet")
-				assert.Equal(t, "#/responses/genericError", op.Get.Responses.Default.Ref.String())
+				assert.Equal(t, "#/components/responses/genericError", op.Get.Responses.Default.Ref.String())
 				rs, ok := op.Get.Responses.StatusCodeResponses[200]
 				require.True(t, ok)
 				require.NotNil(t, rs.Schema)
 				aprop := rs.Schema
-				assert.Equal(t, "#/definitions/pet", aprop.Ref.String())
+				assert.Equal(t, "#/components/schemas/pet", aprop.Ref.String())
 			})
 
 			t.Run("with PUT: updatePet", func(t *testing.T) {
@@ -228,12 +232,12 @@ func verifyParsedPetStore(t *testing.T, doc *spec.Swagger) {
 				assert.Equal(t, []string{"pets"}, op.Put.Tags)
 				verifyIDParam(t, op.Put.Parameters[0], "The ID of the pet")
 				verifyRefParam(t, op.Put.Parameters[1], "The pet to submit.", "pet")
-				assert.Equal(t, "#/responses/genericError", op.Put.Responses.Default.Ref.String())
+				assert.Equal(t, "#/components/responses/genericError", op.Put.Responses.Default.Ref.String())
 				rs, ok := op.Put.Responses.StatusCodeResponses[200]
 				require.True(t, ok)
 				require.NotNil(t, rs.Schema)
 				aprop := rs.Schema
-				assert.Equal(t, "#/definitions/pet", aprop.Ref.String())
+				assert.Equal(t, "#/components/schemas/pet", aprop.Ref.String())
 			})
 
 			t.Run("with DELETE: deletePet", func(t *testing.T) {
@@ -243,7 +247,7 @@ func verifyParsedPetStore(t *testing.T, doc *spec.Swagger) {
 				assert.Equal(t, "deletePet", op.Delete.ID)
 				assert.Equal(t, []string{"pets"}, op.Delete.Tags)
 				verifyIDParam(t, op.Delete.Parameters[0], "The ID of the pet")
-				assert.Equal(t, "#/responses/genericError", op.Delete.Responses.Default.Ref.String())
+				assert.Equal(t, "#/components/responses/genericError", op.Delete.Responses.Default.Ref.String())
 				_, ok := op.Delete.Responses.StatusCodeResponses[204]
 				assert.True(t, ok)
 			})
@@ -261,13 +265,13 @@ func verifyParsedPetStore(t *testing.T, doc *spec.Swagger) {
 				assert.Equal(t, "getOrderDetails", op.Get.ID)
 				assert.Equal(t, []string{"orders"}, op.Get.Tags)
 				verifyIDParam(t, op.Get.Parameters[0], "The ID of the order")
-				assert.Equal(t, "#/responses/genericError", op.Get.Responses.Default.Ref.String())
+				assert.Equal(t, "#/components/responses/genericError", op.Get.Responses.Default.Ref.String())
 				rs, ok := op.Get.Responses.StatusCodeResponses[200]
 				require.True(t, ok)
-				assert.Equal(t, "#/responses/orderResponse", rs.Ref.String())
-				rsm := doc.Responses["orderResponse"]
+				assert.Equal(t, "#/components/responses/orderResponse", rs.Ref.String())
+				rsm := doc.Components.Responses["orderResponse"]
 				assert.NotNil(t, rsm.Schema)
-				assert.Equal(t, "#/definitions/order", rsm.Schema.Ref.String())
+				assert.Equal(t, "#/components/schemas/order", rsm.Schema.Ref.String())
 			})
 
 			t.Run("with DELETE: cancelOrder", func(t *testing.T) {
@@ -277,7 +281,7 @@ func verifyParsedPetStore(t *testing.T, doc *spec.Swagger) {
 				assert.Equal(t, "cancelOrder", op.Delete.ID)
 				assert.Equal(t, []string{"orders"}, op.Delete.Tags)
 				verifyIDParam(t, op.Delete.Parameters[0], "The ID of the order")
-				assert.Equal(t, "#/responses/genericError", op.Delete.Responses.Default.Ref.String())
+				assert.Equal(t, "#/components/responses/genericError", op.Delete.Responses.Default.Ref.String())
 				_, ok := op.Delete.Responses.StatusCodeResponses[204]
 				assert.True(t, ok)
 			})
@@ -290,12 +294,12 @@ func verifyParsedPetStore(t *testing.T, doc *spec.Swagger) {
 				assert.Equal(t, []string{"orders"}, op.Put.Tags)
 				verifyIDParam(t, op.Put.Parameters[0], "The ID of the order")
 				verifyRefParam(t, op.Put.Parameters[1], "The order to submit", "order")
-				assert.Equal(t, "#/responses/genericError", op.Put.Responses.Default.Ref.String())
+				assert.Equal(t, "#/components/responses/genericError", op.Put.Responses.Default.Ref.String())
 				rs, ok := op.Put.Responses.StatusCodeResponses[200]
 				require.True(t, ok)
 				require.NotNil(t, rs.Schema)
 				aprop := rs.Schema
-				assert.Equal(t, "#/definitions/order", aprop.Ref.String())
+				assert.Equal(t, "#/components/schemas/order", aprop.Ref.String())
 			})
 		})
 
@@ -311,13 +315,13 @@ func verifyParsedPetStore(t *testing.T, doc *spec.Swagger) {
 				assert.Equal(t, "createOrder", op.Post.ID)
 				assert.Equal(t, []string{"orders"}, op.Post.Tags)
 				verifyRefParam(t, op.Post.Parameters[0], "The order to submit", "order")
-				assert.Equal(t, "#/responses/genericError", op.Post.Responses.Default.Ref.String())
+				assert.Equal(t, "#/components/responses/genericError", op.Post.Responses.Default.Ref.String())
 				rs, ok := op.Post.Responses.StatusCodeResponses[200]
 				require.True(t, ok)
-				assert.Equal(t, "#/responses/orderResponse", rs.Ref.String())
-				rsm := doc.Responses["orderResponse"]
+				assert.Equal(t, "#/components/responses/orderResponse", rs.Ref.String())
+				rsm := doc.Components.Responses["orderResponse"]
 				require.NotNil(t, rsm.Schema)
-				assert.Equal(t, "#/definitions/order", rsm.Schema.Ref.String())
+				assert.Equal(t, "#/components/schemas/order", rsm.Schema.Ref.String())
 			})
 		})
 	})
@@ -332,13 +336,18 @@ func verifyTop(t *testing.T, doc *spec.Swagger) {
 			assert.Equal(t, []string{"application/json"}, doc.Produces)
 		})
 		t.Run("schemes should be http and https", func(t *testing.T) {
-			assert.Equal(t, []string{"http", "https"}, doc.Schemes)
+			// In OpenAPI v3, schemes are represented in server URLs
+			require.Len(t, doc.Servers, 2)
+			assert.Equal(t, "http://localhost/v2", doc.Servers[0].URL)
+			assert.Equal(t, "https://localhost/v2", doc.Servers[1].URL)
 		})
 		t.Run("API host should be localhost", func(t *testing.T) {
-			assert.Equal(t, "localhost", doc.Host)
+			// In OpenAPI v3, host is in server URLs - already verified above
+			assert.True(t, len(doc.Servers) > 0 && strings.Contains(doc.Servers[0].URL, "localhost"))
 		})
 		t.Run("check API base path", func(t *testing.T) {
-			assert.Equal(t, "/v2", doc.BasePath)
+			// In OpenAPI v3, basePath is in server URLs - already verified above
+			assert.True(t, len(doc.Servers) > 0 && strings.Contains(doc.Servers[0].URL, "/v2"))
 		})
 	})
 }
@@ -443,7 +452,7 @@ func verifyModels(t *testing.T, definitions spec.Definitions) {
 		assert.True(t, ok)
 		assert.Equal(t, "The pet's birthday", prop.Description)
 
-		assertArrayRef(t, &mod, "tags", "Tags", "#/definitions/tag")
+		assertArrayRef(t, &mod, "tags", "Tags", "#/components/schemas/tag")
 		prop, ok = mod.Properties["tags"]
 		assert.True(t, ok)
 		assert.Equal(t, "Extra bits of information attached to this pet.", prop.Description)
@@ -511,7 +520,7 @@ func verifyRefParam(t *testing.T, param spec.Parameter, description, refed strin
 	// TODO: this may fail sometimes (seen on go1.12 windows test): require pointer to be valid and avoid panicking
 	require.NotNil(t, param)
 	require.NotNil(t, param.Schema)
-	assert.Equal(t, "#/definitions/"+refed, param.Schema.Ref.String())
+	assert.Equal(t, "#/components/schemas/"+refed, param.Schema.Ref.String())
 	assert.True(t, param.Required)
 }
 

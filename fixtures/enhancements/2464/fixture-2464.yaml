@@ -1,38 +1,43 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
-  title: "enum variant names"
-  version: "0.0.1"
+  title: enum variant names
+  version: 0.0.1
 paths:
-  "/":
+  /:
     get:
       summary: Get a device
-      operationId: "GetDevice"
+      operationId: GetDevice
       responses:
-        200:
+        "200":
           description: Get an example device
-          schema:
-            type: object
-            properties:
-              band: { $ref: "#/definitions/band" }
-              change: { $ref: "#/definitions/change" }
-              topic: { $ref: "#/definitions/topic" }
-
-definitions:
-  band:
-    type: string
-    enum:
-      - "2.4Ghz"
-      - "5Ghz"
-      - "10Ghz"
-      - "24Ghz"
-  change:
-    type: string
-    enum:
-      - "-1"
-      - "0"
-      - "+1"
-  topic:
-    type: string
-    enum:
-      - "#one"
-      - "two#two"
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  band:
+                    $ref: "#/components/schemas/band"
+                  change:
+                    $ref: "#/components/schemas/change"
+                  topic:
+                    $ref: "#/components/schemas/topic"
+components:
+  schemas:
+    band:
+      type: string
+      enum:
+        - 2.4Ghz
+        - 5Ghz
+        - 10Ghz
+        - 24Ghz
+    change:
+      type: string
+      enum:
+        - "-1"
+        - "0"
+        - "+1"
+    topic:
+      type: string
+      enum:
+        - "#one"
+        - two#two

@@ -626,7 +626,8 @@ func (r *responseBuilder) buildFromStruct(decl *entityDecl, tpe *types.Struct, r
 
 func (r *responseBuilder) makeRef(decl *entityDecl, prop swaggerTypable) error {
 	nm, _ := decl.Names()
-	ref, err := spec.NewRef("#/definitions/" + nm)
+	// Use OpenAPI v3 reference path format
+	ref, err := spec.NewRef("#/components/schemas/" + nm)
 	if err != nil {
 		return err
 	}

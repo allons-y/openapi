@@ -1,26 +1,27 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   version: 1.0.0
-  title: 'string-body-api'
+  title: string-body-api
 paths:
   /echo:
     post:
       summary: Post an object
-      parameters:
-        - name: body
-          in: body
-          schema:
-            $ref: "#/definitions/pet"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/pet"
       responses:
-        '200':
+        "200":
           description: All is good
-definitions:
-  pet:
-    type: object
-    required:
-      - date
-    properties:
-      date:
-        additionalProperties: true
-        type: object
-        description: Foo
+components:
+  schemas:
+    pet:
+      type: object
+      required:
+        - date
+      properties:
+        date:
+          additionalProperties: true
+          type: object
+          description: Foo

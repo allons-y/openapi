@@ -1,76 +1,80 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
-  version: "1.0.0"
+  version: 1.0.0
   title: generating client with error reporting
   description: verify that generated code prints errors
 paths:
   /abc:
     post:
       tags:
-        - "abc"
-      summary: "Create a new ABC"
+        - abc
+      summary: Create a new ABC
       description: ""
-      operationId: "create"
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - in: "body"
-          name: "abc"
-          required: true
-          schema:
-            $ref: "#/definitions/abc"
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/abc"
+        required: true
       responses:
-        202:
-          description: "Accepted"
-          schema:
-            $ref: '#/definitions/abc'
-        400:
-          $ref: '#/responses/BadRequest'
-        404:
-          $ref: '#/responses/NotFound'
-        409:
-          $ref: '#/responses/Conflict'
-        500:
-          $ref: '#/responses/InternalError'
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/abc"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "500":
+          $ref: "#/components/responses/InternalError"
         default:
-          description: "default response"
+          description: default response
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        "*/*":
           schema:
-
-definitions:
-  abc:
-    type: string
-
-  Error:
-    type: "object"
-    properties:
-      message:
-        type: string
-        x-nullable: false
-        minLength: 1
-    required:
-      - message
-
-responses:
-  Unauthorized:
-    description: "Unauthorized"
-    schema:
-      $ref: '#/definitions/Error'
-  NotFound:
-    description: "Not found"
-    schema:
-      $ref: '#/definitions/Error'
-  InternalError:
-    description: "Inernal Server Error"
-    schema:
-      $ref: '#/definitions/Error'
-  BadRequest:
-    description: "Bad Request"
-    schema:
-      $ref: '#/definitions/Error'
-  Conflict:
-    description: "Conflict"
-    schema:
-      $ref: '#/definitions/Error'
-
+            $ref: "#/components/schemas/Error"
+    NotFound:
+      description: Not found
+      content:
+        "*/*":
+          schema:
+            $ref: "#/components/schemas/Error"
+    InternalError:
+      description: Inernal Server Error
+      content:
+        "*/*":
+          schema:
+            $ref: "#/components/schemas/Error"
+    BadRequest:
+      description: Bad Request
+      content:
+        "*/*":
+          schema:
+            $ref: "#/components/schemas/Error"
+    Conflict:
+      description: Conflict
+      content:
+        "*/*":
+          schema:
+            $ref: "#/components/schemas/Error"
+  schemas:
+    abc:
+      type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          minLength: 1
+          nullable: false
+      required:
+        - message

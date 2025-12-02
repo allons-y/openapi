@@ -1,13 +1,7 @@
-swagger: '2.0'
-basePath: '/'
-consumes:
-  - application/json
-produces:
-  - application/json
-host: example.com
+openapi: 3.0.0
 info:
-  title: 'My'
-  version: '1.0.0'
+  title: My
+  version: 1.0.0
 paths:
   /endpoint:
     get:
@@ -17,12 +11,14 @@ paths:
       tags:
         - ops
       responses:
-        200:
+        "200":
           description: OK
-
-securityDefinitions:          
-  opBearer:
-    in: header
-    name: Authorization
-    type: apiKey
-    x-go-name: OpBearer
+servers:
+  - url: //example.com
+components:
+  securitySchemes:
+    opBearer:
+      in: header
+      name: Authorization
+      type: apiKey
+      x-go-name: OpBearer

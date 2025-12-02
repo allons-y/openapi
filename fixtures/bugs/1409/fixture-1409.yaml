@@ -1,42 +1,42 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: fixture a for issue#1409
-  version: '1.0.0'
-host: localhost
-basePath: /
-produces:
-  - application/json
-schemes:
-  - http
+  version: 1.0.0
 paths:
   /path:
     get:
       operationId: path
       responses:
-        200:
+        "200":
           description: simple type
-          schema:
-            $ref: '#/definitions/Graph'
-definitions:
-  Graph:
-    type: object
-    additionalProperties: true
-    properties:
-      Nodes:
-        type: array
-        items:
-          $ref: "#/definitions/Node"
-  Node:
-    type: object
-    discriminator: NodeType
-    required:
-    - NodeType
-    properties:
-      NodeType:
-        type: string
-  CodeBlockNode:
-    allOf:
-    - $ref: "#/definitions/Node"
-    - properties:
-         Code:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Graph"
+servers:
+  - url: http://localhost
+components:
+  schemas:
+    Graph:
+      type: object
+      additionalProperties: true
+      properties:
+        Nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Node"
+    Node:
+      type: object
+      discriminator:
+        propertyName: NodeType
+      required:
+        - NodeType
+      properties:
+        NodeType:
           type: string
+    CodeBlockNode:
+      allOf:
+        - $ref: "#/components/schemas/Node"
+        - properties:
+            Code:
+              type: string

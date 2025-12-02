@@ -69,9 +69,11 @@ func (s *Spec) Execute(args []string) error {
 	info := new(spec.Info)
 	doc.Info = info
 
-	doc.Swagger = "2.0"
+	doc.OpenAPI = "3.0.0"
 	doc.Paths = new(spec.Paths)
-	doc.Definitions = make(spec.Definitions)
+	// Initialize Components for OpenAPI v3
+	doc.Components = new(spec.Components)
+	doc.Components.Schemas = make(map[string]spec.Schema)
 
 	info.Title = s.Title
 	if info.Title == "" {

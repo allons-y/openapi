@@ -1,17 +1,8 @@
----
-swagger: "2.0"
+openapi: 3.0.0
 info:
   title: Swagger Sample
   description: Sample API Playground.
   version: 1.0.0
-basePath: /v1
-schemes:
-- http
-consumes:
-- application/vdn.sample.v1+json
-produces:
-- application/vdn.sample.v1+json
-
 paths:
   /books:
     get:
@@ -20,48 +11,54 @@ paths:
       tags:
         - books
       responses:
-        200:
+        "200":
           headers:
             Link:
-              type: string
+              schema:
+                type: string
           description: An array of books
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Book"
+          content:
+            application/vdn.sample.v1+json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Book"
         default:
           description: generic error response
-          schema:
-            $ref: "#/definitions/Error"
-
-definitions:
-  Book:
-    type: object
-    required:
-      - title
-      - summary
-    properties:
-      title:
-        type: string
-        example: Winnie the Pooh
-      summary:
-        type: string
-        example: Famous children's book
-      related_books:
-        type: array
-        items:
-          $ref: "#/definitions/Book"
-
-  Error:
-    type: object
-    readOnly: true
-    properties:
-      code:
-        type: integer
-        format: int64
-        example: 400
-      message:
-        type: string
-        example: Unexpected error
-    required:
-      - message
+          content:
+            application/vdn.sample.v1+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+servers:
+  - url: /v1
+components:
+  schemas:
+    Book:
+      type: object
+      required:
+        - title
+        - summary
+      properties:
+        title:
+          type: string
+          example: Winnie the Pooh
+        summary:
+          type: string
+          example: Famous children's book
+        related_books:
+          type: array
+          items:
+            $ref: "#/components/schemas/Book"
+    Error:
+      type: object
+      readOnly: true
+      properties:
+        code:
+          type: integer
+          format: int64
+          example: 400
+        message:
+          type: string
+          example: Unexpected error
+      required:
+        - message

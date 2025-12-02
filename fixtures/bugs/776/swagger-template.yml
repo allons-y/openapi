@@ -1,13 +1,7 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: Test
-  version: '1.0.0'
-host: localhost
-basePath: /
-produces:
-  - application/json
-schemes:
-  - http
+  version: 1.0.0
 paths:
   /healthy:
     get:
@@ -15,8 +9,13 @@ paths:
       responses:
         default:
           description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-definitions:
-  Error:
-    $ref: ./error.yaml#/definitions/Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+servers:
+  - url: http://localhost
+components:
+  schemas:
+    Error:
+      $ref: ./error.yaml#/definitions/Error

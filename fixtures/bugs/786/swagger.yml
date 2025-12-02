@@ -1,21 +1,8 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: Test API
   description: my test
-  version: "0.1.0"
-
-host: test.test.com
-
-schemes:
-  - https
-
-basePath: /
-
-produces:
-  - application/json
-consumes:
-  - application/json
-
+  version: 0.1.0
 paths:
   /:
     get:
@@ -24,17 +11,19 @@ paths:
       tags:
         - Root
       responses:
-        307:
+        "307":
           description: Redirect to a thing.
-
-definitions:
-  MyFirstObject:
-    type: object
-    properties:
-      entree_choice:
-        type: object
-        additionalProperties:
-          type: string
-          enum:
-            - Beef
-            - Vegan
+servers:
+  - url: https://test.test.com
+components:
+  schemas:
+    MyFirstObject:
+      type: object
+      properties:
+        entree_choice:
+          type: object
+          additionalProperties:
+            type: string
+            enum:
+              - Beef
+              - Vegan

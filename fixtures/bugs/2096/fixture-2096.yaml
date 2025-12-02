@@ -1,33 +1,26 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
-  version: '1.0.0'
+  version: 1.0.0
   title: MyAPI
-
-schemes:
-  - https
-consumes:
-  - application/json
-produces:
-  - application/json
-
 paths:
   /list:
     get:
       operationId: ListResources
       parameters:
-        -
-          name: fields
+        - name: fields
           in: query
           description: Resource fields to select
-          type: array
-          collectionFormat: csv
-          uniqueItems: true
-          items:
-            type: string
-          default:
-            - first
-            - second
-            - third
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+            uniqueItems: true
+            default:
+              - first
+              - second
+              - third
       responses:
-        200:
+        "200":
           description: OK
