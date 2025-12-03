@@ -3,7 +3,7 @@
 
 package commands
 
-import "github.com/allons-y/openapi/cmd/swagger/commands/generate"
+import "github.com/allons-y/openapi/cmd/openapi/commands/generate"
 
 // Generate command to group all generator commands together.
 type Generate struct {

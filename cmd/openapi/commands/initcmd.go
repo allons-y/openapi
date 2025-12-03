@@ -3,7 +3,7 @@
 
 package commands
 
-import "github.com/allons-y/openapi/cmd/swagger/commands/initcmd"
+import "github.com/allons-y/openapi/cmd/openapi/commands/initcmd"
 
 // InitCmd is a command namespace for initializing things like a swagger spec.
 type InitCmd struct {

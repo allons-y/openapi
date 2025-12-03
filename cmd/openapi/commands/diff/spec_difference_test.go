@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/allons-y/openapi/cmd/swagger/commands/diff"
+	"github.com/allons-y/openapi/cmd/openapi/commands/diff"
 )
 
 func TestMatches(t *testing.T) {

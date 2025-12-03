@@ -13,7 +13,7 @@ import (
 	"github.com/jessevdk/go-flags"
 	"github.com/stretchr/testify/require"
 
-	"github.com/allons-y/openapi/cmd/swagger/commands/generate"
+	"github.com/allons-y/openapi/cmd/openapi/commands/generate"
 )
 
 func TestGenerateServer(t *testing.T) {

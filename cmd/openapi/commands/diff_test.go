@@ -14,8 +14,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/allons-y/openapi/cmd/swagger/commands/diff"
-	"github.com/allons-y/openapi/cmd/swagger/commands/internal/cmdtest"
+	"github.com/allons-y/openapi/cmd/openapi/commands/diff"
+	"github.com/allons-y/openapi/cmd/openapi/commands/internal/cmdtest"
 )
 
 type testCaseData struct {

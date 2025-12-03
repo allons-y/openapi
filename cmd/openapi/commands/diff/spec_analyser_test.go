@@ -16,7 +16,7 @@ import (
 
 	loads "github.com/allons-y/openapi-loads"
 
-	"github.com/allons-y/openapi/cmd/swagger/commands/internal/cmdtest"
+	"github.com/allons-y/openapi/cmd/openapi/commands/internal/cmdtest"
 )
 
 // TestDiffForVariousCombinations - computes the diffs for a number
