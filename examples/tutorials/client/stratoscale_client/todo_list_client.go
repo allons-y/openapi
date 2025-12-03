@@ -10,8 +10,8 @@ import (
 	rtclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/go-swagger/go-swagger/examples/tutorials/client/stratoscale_client/experimental"
-	"github.com/go-swagger/go-swagger/examples/tutorials/client/stratoscale_client/todos"
+	"github.com/allons-y/openapi/examples/tutorials/client/stratoscale_client/experimental"
+	"github.com/allons-y/openapi/examples/tutorials/client/stratoscale_client/todos"
 )
 
 const (

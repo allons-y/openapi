@@ -10,10 +10,10 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/go-swagger/go-swagger/examples/generated/restapi/operations"
-	"github.com/go-swagger/go-swagger/examples/generated/restapi/operations/pet"
-	"github.com/go-swagger/go-swagger/examples/generated/restapi/operations/store"
-	"github.com/go-swagger/go-swagger/examples/generated/restapi/operations/user"
+	"github.com/allons-y/openapi/examples/generated/restapi/operations"
+	"github.com/allons-y/openapi/examples/generated/restapi/operations/pet"
+	"github.com/allons-y/openapi/examples/generated/restapi/operations/store"
+	"github.com/allons-y/openapi/examples/generated/restapi/operations/user"
 )
 
 //go:generate swagger generate server --target ../../generated --name Petstore --spec ../swagger-petstore.json --principal any

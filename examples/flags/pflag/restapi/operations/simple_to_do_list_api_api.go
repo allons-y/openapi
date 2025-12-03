@@ -16,7 +16,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/examples/flags/pflag/restapi/operations/todos"
+	"github.com/allons-y/openapi/examples/flags/pflag/restapi/operations/todos"
 )
 
 // NewSimpleToDoListAPIAPI creates a new SimpleToDoListAPI instance

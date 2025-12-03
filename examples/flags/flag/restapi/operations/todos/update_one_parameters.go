@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/go-swagger/go-swagger/examples/flags/flag/models"
+	"github.com/allons-y/openapi/examples/flags/flag/models"
 )
 
 // NewUpdateOneParams creates a new UpdateOneParams object

@@ -12,7 +12,7 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/go-swagger/go-swagger/examples/tutorials/client/models"
+	"github.com/allons-y/openapi/examples/tutorials/client/models"
 )
 
 // NewAddOneParams creates a new AddOneParams object,

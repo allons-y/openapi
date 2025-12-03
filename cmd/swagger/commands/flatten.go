@@ -11,7 +11,7 @@ import (
 	analysis "github.com/allons-y/openapi-analysis"
 	loads "github.com/allons-y/openapi-loads"
 
-	"github.com/go-swagger/go-swagger/cmd/swagger/commands/generate"
+	"github.com/allons-y/openapi/cmd/swagger/commands/generate"
 )
 
 // FlattenSpec is a command that flattens a swagger document

@@ -407,7 +407,7 @@
           "x-go-name": "Name"
         }
       },
-      "x-go-package": "github.com/go-swagger/go-swagger/examples/generated/models"
+      "x-go-package": "github.com/allons-y/openapi/examples/generated/models"
     },
     "DateTime": {
       "description": "DateTime is a time but it serializes to ISO8601 format with millis\nIt knows how to read 3 different variations of a RFC3339 date time.\nMost APIs we encounter want either millisecond or second precision times.\nThis just tries to make it worry-free.",
@@ -454,7 +454,7 @@
           "x-go-name": "Status"
         }
       },
-      "x-go-package": "github.com/go-swagger/go-swagger/examples/generated/models"
+      "x-go-package": "github.com/allons-y/openapi/examples/generated/models"
     },
     "Pet": {
       "description": "Pet pet",
@@ -500,7 +500,7 @@
           "x-go-name": "Tags"
         }
       },
-      "x-go-package": "github.com/go-swagger/go-swagger/examples/generated/models"
+      "x-go-package": "github.com/allons-y/openapi/examples/generated/models"
     },
     "Tag": {
       "description": "Tag tag",
@@ -518,7 +518,7 @@
           "x-go-name": "Name"
         }
       },
-      "x-go-package": "github.com/go-swagger/go-swagger/examples/generated/models"
+      "x-go-package": "github.com/allons-y/openapi/examples/generated/models"
     },
     "User": {
       "description": "User user",
@@ -567,7 +567,7 @@
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/go-swagger/go-swagger/examples/generated/models"
+      "x-go-package": "github.com/allons-y/openapi/examples/generated/models"
     }
   },
   "responses": {

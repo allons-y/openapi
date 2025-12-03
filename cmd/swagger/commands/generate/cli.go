@@ -3,7 +3,7 @@
 
 package generate
 
-import "github.com/go-swagger/go-swagger/generator"
+import "github.com/allons-y/openapi/generator"
 
 type Cli struct {
 	// generate a cli includes all client code

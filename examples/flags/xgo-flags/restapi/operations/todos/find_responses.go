@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/go-swagger/go-swagger/examples/flags/xgo-flags/models"
+	"github.com/allons-y/openapi/examples/flags/xgo-flags/models"
 )
 
 // FindOKCode is the HTTP code returned for type FindOK

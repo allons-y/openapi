@@ -10,7 +10,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	go_ext "github.com/go-swagger/go-swagger/examples/external-types/go-ext"
+	go_ext "github.com/allons-y/openapi/examples/external-types/go-ext"
 )
 
 // MyExtCollection This type demonstrates the import generation with name mangling

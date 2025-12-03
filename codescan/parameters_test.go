@@ -404,7 +404,7 @@ func TestParamsParser(t *testing.T) {
 
 func TestParamsParser_TransparentAliases(t *testing.T) {
 	sctx, err := newScanCtx(&Options{
-		Packages:           []string{"github.com/go-swagger/go-swagger/fixtures/goparsing/transparentalias"},
+		Packages:           []string{"github.com/allons-y/openapi/fixtures/goparsing/transparentalias"},
 		TransparentAliases: true,
 		ScanModels:         true,
 	})

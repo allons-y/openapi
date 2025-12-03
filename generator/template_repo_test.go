@@ -258,7 +258,7 @@ func TestTemplates_DefinitionTargetImportPath(t *testing.T) {
 	opts := opts()
 	// Non existing target would panic: to be tested too, but in another module
 	opts.Target = "../fixtures"
-	expected := "github.com/go-swagger/go-swagger/fixtures"
+	expected := "github.com/allons-y/openapi/fixtures"
 
 	// executes template against model definitions
 	genModel, err := getModelEnvironment("../fixtures/codegen/todolist.models.yml", opts)

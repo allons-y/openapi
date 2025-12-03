@@ -24,7 +24,7 @@ import (
 	"github.com/go-openapi/runtime/flagext"
 	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/examples/auto-configure/restapi/operations"
+	"github.com/allons-y/openapi/examples/auto-configure/restapi/operations"
 )
 
 const (

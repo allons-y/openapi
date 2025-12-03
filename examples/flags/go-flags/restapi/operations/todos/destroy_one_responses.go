@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/go-swagger/go-swagger/examples/flags/go-flags/models"
+	"github.com/allons-y/openapi/examples/flags/go-flags/models"
 )
 
 // DestroyOneNoContentCode is the HTTP code returned for type DestroyOneNoContent

@@ -10,8 +10,8 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/go-swagger/go-swagger/examples/flags/flag/restapi/operations"
-	"github.com/go-swagger/go-swagger/examples/flags/flag/restapi/operations/todos"
+	"github.com/allons-y/openapi/examples/flags/flag/restapi/operations"
+	"github.com/allons-y/openapi/examples/flags/flag/restapi/operations/todos"
 )
 
 //go:generate swagger generate server --target ../../flag --name SimpleToDoListAPI --spec ../../swagger.yml --principal any

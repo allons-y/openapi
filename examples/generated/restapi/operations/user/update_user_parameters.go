@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/go-swagger/go-swagger/examples/generated/models"
+	"github.com/allons-y/openapi/examples/generated/models"
 )
 
 // NewUpdateUserParams creates a new UpdateUserParams object

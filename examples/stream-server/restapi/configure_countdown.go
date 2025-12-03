@@ -11,9 +11,9 @@ import (
 	runtime "github.com/go-openapi/runtime"
 	middleware "github.com/go-openapi/runtime/middleware"
 
-	"github.com/go-swagger/go-swagger/examples/stream-server/biz"
+	"github.com/allons-y/openapi/examples/stream-server/biz"
 
-	"github.com/go-swagger/go-swagger/examples/stream-server/restapi/operations"
+	"github.com/allons-y/openapi/examples/stream-server/restapi/operations"
 )
 
 //go:generate swagger generate server --target .. --name Countdown --spec ../swagger.yml

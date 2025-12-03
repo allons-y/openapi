@@ -11,9 +11,9 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/go-swagger/go-swagger/examples/auto-configure/implementation"
-	"github.com/go-swagger/go-swagger/examples/auto-configure/restapi/operations"
-	"github.com/go-swagger/go-swagger/examples/auto-configure/restapi/operations/todos"
+	"github.com/allons-y/openapi/examples/auto-configure/implementation"
+	"github.com/allons-y/openapi/examples/auto-configure/restapi/operations"
+	"github.com/allons-y/openapi/examples/auto-configure/restapi/operations/todos"
 )
 
 //go:generate swagger generate server --target ../../auto-configure --name AToDoListApplication --spec ../swagger.yml --implementation-package github.com/go-swagger/go-swagger/examples/auto-configure/implementation --principal any

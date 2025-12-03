@@ -15,7 +15,7 @@ import (
 	loads "github.com/allons-y/openapi-loads"
 	spec "github.com/allons-y/openapi-spec"
 
-	"github.com/go-swagger/go-swagger/generator"
+	"github.com/allons-y/openapi/generator"
 )
 
 const (

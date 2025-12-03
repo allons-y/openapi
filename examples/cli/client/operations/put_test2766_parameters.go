@@ -13,7 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/examples/cli/models"
+	"github.com/allons-y/openapi/examples/cli/models"
 )
 
 // NewPutTest2766Params creates a new PutTest2766Params object,

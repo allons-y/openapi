@@ -14,7 +14,7 @@ import (
 	"gopkg.in/yaml.v3"
 
 	spec "github.com/allons-y/openapi-spec"
-	"github.com/go-swagger/go-swagger/codescan"
+	"github.com/allons-y/openapi/codescan"
 )
 
 func TestSpecEmbeddedDescriptionAndTags_Issue3125(t *testing.T) {

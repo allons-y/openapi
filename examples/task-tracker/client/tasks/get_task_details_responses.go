@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/go-swagger/go-swagger/examples/task-tracker/models"
+	"github.com/allons-y/openapi/examples/task-tracker/models"
 )
 
 // GetTaskDetailsReader is a Reader for the GetTaskDetails structure.

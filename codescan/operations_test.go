@@ -21,10 +21,10 @@ func TestOperationsExpression(t *testing.T) {
 func TestOperationsParser(t *testing.T) {
 	sctx, err := newScanCtx(&Options{
 		Packages: []string{
-			"github.com/go-swagger/go-swagger/fixtures/goparsing/classification",
-			"github.com/go-swagger/go-swagger/fixtures/goparsing/classification/models",
-			"github.com/go-swagger/go-swagger/fixtures/goparsing/classification/operations",
-			"github.com/go-swagger/go-swagger/fixtures/goparsing/classification/operations_annotation",
+			"github.com/allons-y/openapi/fixtures/goparsing/classification",
+			"github.com/allons-y/openapi/fixtures/goparsing/classification/models",
+			"github.com/allons-y/openapi/fixtures/goparsing/classification/operations",
+			"github.com/allons-y/openapi/fixtures/goparsing/classification/operations_annotation",
 		},
 	})
 	require.NoError(t, err)

@@ -13,7 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-swagger/go-swagger/examples/external-types/fred"
+	"github.com/allons-y/openapi/examples/external-types/fred"
 )
 
 // MyTuple Demonstrates references to some external type in the context of a tuple.

@@ -10,7 +10,7 @@ import (
 
 	flags "github.com/jessevdk/go-flags"
 
-	"github.com/go-swagger/go-swagger/cmd/swagger/commands"
+	"github.com/allons-y/openapi/cmd/swagger/commands"
 )
 
 var opts struct {

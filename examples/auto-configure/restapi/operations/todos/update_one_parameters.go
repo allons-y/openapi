@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/examples/auto-configure/models"
+	"github.com/allons-y/openapi/examples/auto-configure/models"
 )
 
 // NewUpdateOneParams creates a new UpdateOneParams object

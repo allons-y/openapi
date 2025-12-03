@@ -11,8 +11,8 @@ import (
 
 	loads "github.com/allons-y/openapi-loads"
 
-	"github.com/go-swagger/go-swagger/examples/composed-auth/restapi"
-	"github.com/go-swagger/go-swagger/examples/composed-auth/restapi/operations"
+	"github.com/allons-y/openapi/examples/composed-auth/restapi"
+	"github.com/allons-y/openapi/examples/composed-auth/restapi/operations"
 )
 
 func main() {

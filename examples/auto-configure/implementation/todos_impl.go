@@ -8,8 +8,8 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/examples/auto-configure/models"
-	"github.com/go-swagger/go-swagger/examples/auto-configure/restapi/operations/todos"
+	"github.com/allons-y/openapi/examples/auto-configure/models"
+	"github.com/allons-y/openapi/examples/auto-configure/restapi/operations/todos"
 )
 
 type TodosHandlerImpl struct {

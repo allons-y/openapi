@@ -12,7 +12,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-swagger/go-swagger/generator/internal/gentest"
+	"github.com/allons-y/openapi/generator/internal/gentest"
 )
 
 const (

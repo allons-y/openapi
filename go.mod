@@ -1,4 +1,4 @@
-module github.com/go-swagger/go-swagger
+module github.com/allons-y/openapi
 
 go 1.24.0
 

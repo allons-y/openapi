@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/go-swagger/go-swagger/examples/generated/models"
+	"github.com/allons-y/openapi/examples/generated/models"
 )
 
 // GetUserByNameOKCode is the HTTP code returned for type GetUserByNameOK

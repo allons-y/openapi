@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/go-swagger/go-swagger/examples/task-tracker/models"
+	"github.com/allons-y/openapi/examples/task-tracker/models"
 )
 
 // DeleteTaskNoContentCode is the HTTP code returned for type DeleteTaskNoContent

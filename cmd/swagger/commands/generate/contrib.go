@@ -4,7 +4,7 @@
 package generate
 
 import (
-	"github.com/go-swagger/go-swagger/generator"
+	"github.com/allons-y/openapi/generator"
 )
 
 // contribOptionsOverride gives contributed templates the ability to override the options if they need.

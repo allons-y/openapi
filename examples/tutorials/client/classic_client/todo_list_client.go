@@ -7,8 +7,8 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/go-swagger/go-swagger/examples/tutorials/client/classic_client/experimental"
-	"github.com/go-swagger/go-swagger/examples/tutorials/client/classic_client/todos"
+	"github.com/allons-y/openapi/examples/tutorials/client/classic_client/experimental"
+	"github.com/allons-y/openapi/examples/tutorials/client/classic_client/todos"
 )
 
 // Default todo list HTTP client.

@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/go-swagger/go-swagger/examples/todo-list/models"
+	"github.com/allons-y/openapi/examples/todo-list/models"
 )
 
 // UpdateOneOKCode is the HTTP code returned for type UpdateOneOK

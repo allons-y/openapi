@@ -12,8 +12,8 @@ import (
 	loads "github.com/allons-y/openapi-loads"
 	"github.com/allons-y/openapi-loads/fmts"
 
-	"github.com/go-swagger/go-swagger/examples/flags/xflag/restapi"
-	"github.com/go-swagger/go-swagger/examples/flags/xflag/restapi/operations"
+	"github.com/allons-y/openapi/examples/flags/xflag/restapi"
+	"github.com/allons-y/openapi/examples/flags/xflag/restapi/operations"
 )
 
 func init() {

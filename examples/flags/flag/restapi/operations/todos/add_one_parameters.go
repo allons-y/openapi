@@ -10,7 +10,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/go-swagger/go-swagger/examples/flags/flag/models"
+	"github.com/allons-y/openapi/examples/flags/flag/models"
 )
 
 // NewAddOneParams creates a new AddOneParams object

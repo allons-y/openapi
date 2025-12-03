@@ -6,7 +6,7 @@ package generate
 import (
 	"github.com/jessevdk/go-flags"
 
-	"github.com/go-swagger/go-swagger/generator"
+	"github.com/allons-y/openapi/generator"
 )
 
 // Markdown generates a markdown representation of the spec.

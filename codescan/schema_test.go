@@ -291,7 +291,7 @@ func TestSchemaBuilder(t *testing.T) {
 	require.NotNil(t, decl2)
 	require.NoError(t, (&schemaBuilder{decl: decl2, ctx: sctx}).Build(models))
 	msch, ok := models["order"]
-	pn := "github.com/go-swagger/go-swagger/fixtures/goparsing/classification/models"
+	pn := "github.com/allons-y/openapi/fixtures/goparsing/classification/models"
 	assert.True(t, ok)
 	assert.Equal(t, pn, msch.Extensions["x-go-package"])
 	assert.Equal(t, "StoreOrder", msch.Extensions["x-go-name"])
@@ -305,7 +305,7 @@ func TestSchemaBuilder_AddExtensions(t *testing.T) {
 	require.NoError(t, (&schemaBuilder{decl: decl, ctx: sctx}).Build(models))
 
 	msch, ok := models["order"]
-	pn := "github.com/go-swagger/go-swagger/fixtures/goparsing/classification/models"
+	pn := "github.com/allons-y/openapi/fixtures/goparsing/classification/models"
 	assert.True(t, ok)
 	assert.Equal(t, pn, msch.Extensions["x-go-package"])
 	assert.Equal(t, "StoreOrder", msch.Extensions["x-go-name"])
@@ -823,7 +823,7 @@ func TestAliasedTopLevelModels(t *testing.T) {
 		t.Run("with goparsing/spec", func(t *testing.T) {
 			sctx, err := newScanCtx(&Options{
 				Packages: []string{
-					"github.com/go-swagger/go-swagger/fixtures/goparsing/spec",
+					"github.com/allons-y/openapi/fixtures/goparsing/spec",
 				},
 				ScanModels: false,
 				RefAliases: true,
@@ -831,14 +831,14 @@ func TestAliasedTopLevelModels(t *testing.T) {
 			require.NoError(t, err)
 
 			t.Run("should find User definition in source", func(t *testing.T) {
-				_, hasUser := sctx.FindDecl("github.com/go-swagger/go-swagger/fixtures/goparsing/spec", "User")
+				_, hasUser := sctx.FindDecl("github.com/allons-y/openapi/fixtures/goparsing/spec", "User")
 				require.True(t, hasUser)
 			})
 
 			var decl *entityDecl
 			t.Run("should find Customer definition in source", func(t *testing.T) {
 				var hasCustomer bool
-				decl, hasCustomer = sctx.FindDecl("github.com/go-swagger/go-swagger/fixtures/goparsing/spec", "Customer")
+				decl, hasCustomer = sctx.FindDecl("github.com/allons-y/openapi/fixtures/goparsing/spec", "Customer")
 				require.True(t, hasCustomer)
 			})
 
@@ -898,7 +898,7 @@ func TestAliasedTopLevelModels(t *testing.T) {
 		t.Run("with goparsing/spec", func(t *testing.T) {
 			sctx, err := newScanCtx(&Options{
 				Packages: []string{
-					"github.com/go-swagger/go-swagger/fixtures/goparsing/spec",
+					"github.com/allons-y/openapi/fixtures/goparsing/spec",
 				},
 				ScanModels: false,
 				RefAliases: false,
@@ -906,14 +906,14 @@ func TestAliasedTopLevelModels(t *testing.T) {
 			require.NoError(t, err)
 
 			t.Run("should find User definition in source", func(t *testing.T) {
-				_, hasUser := sctx.FindDecl("github.com/go-swagger/go-swagger/fixtures/goparsing/spec", "User")
+				_, hasUser := sctx.FindDecl("github.com/allons-y/openapi/fixtures/goparsing/spec", "User")
 				require.True(t, hasUser)
 			})
 
 			var decl *entityDecl
 			t.Run("should find Customer definition in source", func(t *testing.T) {
 				var hasCustomer bool
-				decl, hasCustomer = sctx.FindDecl("github.com/go-swagger/go-swagger/fixtures/goparsing/spec", "Customer")
+				decl, hasCustomer = sctx.FindDecl("github.com/allons-y/openapi/fixtures/goparsing/spec", "Customer")
 				require.True(t, hasCustomer)
 			})
 
@@ -1627,7 +1627,7 @@ func TestSpecialSchemas(t *testing.T) {
 				t.Run("a type based on the encoding.TextMarshaler decorated with a x-go-type extension", func(t *testing.T) {
 					val, hasExt := m.Extensions.GetString("x-go-type")
 					assert.True(t, hasExt)
-					assert.Equal(t, "github.com/go-swagger/go-swagger/fixtures/goparsing/go123/special.IsATextMarshaler", val)
+					assert.Equal(t, "github.com/allons-y/openapi/fixtures/goparsing/go123/special.IsATextMarshaler", val)
 				})
 			})
 
@@ -1949,7 +1949,7 @@ func TestPointersAreNullableByDefaultWhenSetXNullableForPointersIsSet(t *testing
 		assert.NotContains(t, schema.Properties["Value5"].Extensions, "x-nullable")
 	}
 
-	packagePath := "github.com/go-swagger/go-swagger/fixtures/enhancements/pointers-nullable-by-default"
+	packagePath := "github.com/allons-y/openapi/fixtures/enhancements/pointers-nullable-by-default"
 	sctx, err := newScanCtx(&Options{Packages: []string{packagePath}, SetXNullableForPointers: true})
 	require.NoError(t, err)
 
@@ -1984,7 +1984,7 @@ func TestPointersAreNotNullableByDefaultWhenSetXNullableForPointersIsNotSet(t *t
 		assert.NotContains(t, schema.Properties["Value5"].Extensions, "x-nullable")
 	}
 
-	packagePath := "github.com/go-swagger/go-swagger/fixtures/enhancements/pointers-nullable-by-default"
+	packagePath := "github.com/allons-y/openapi/fixtures/enhancements/pointers-nullable-by-default"
 	sctx, err := newScanCtx(&Options{Packages: []string{packagePath}})
 	require.NoError(t, err)
 
@@ -2199,7 +2199,7 @@ func TestAddExtension(t *testing.T) {
 }
 
 func getClassificationModel(sctx *scanCtx, nm string) *entityDecl {
-	decl, ok := sctx.FindDecl("github.com/go-swagger/go-swagger/fixtures/goparsing/classification/models", nm)
+	decl, ok := sctx.FindDecl("github.com/allons-y/openapi/fixtures/goparsing/classification/models", nm)
 	if !ok {
 		return nil
 	}
@@ -2401,7 +2401,7 @@ func marshalToYAMLFormat(swspec any) ([]byte, error) {
 }
 
 func TestEmbeddedDescriptionAndTags(t *testing.T) {
-	packagePath := "github.com/go-swagger/go-swagger/fixtures/bugs/3125/minimal"
+	packagePath := "github.com/allons-y/openapi/fixtures/bugs/3125/minimal"
 	sctx, err := newScanCtx(&Options{
 		Packages:    []string{packagePath},
 		DescWithRef: true,
@@ -2481,7 +2481,7 @@ func TestIssue2540(t *testing.T) {
 func testIssue2540(descWithRef bool, expectedJSON string) func(*testing.T) {
 	return func(t *testing.T) {
 		t.Setenv("SWAGGER_GENERATE_EXTENSION", "false")
-		packagePath := "github.com/go-swagger/go-swagger/fixtures/bugs/2540/foo"
+		packagePath := "github.com/allons-y/openapi/fixtures/bugs/2540/foo"
 		sctx, err := newScanCtx(&Options{
 			Packages:    []string{packagePath},
 			DescWithRef: descWithRef,

@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/go-swagger/go-swagger/examples/auto-configure/models"
+	"github.com/allons-y/openapi/examples/auto-configure/models"
 )
 
 // UpdateOneOKCode is the HTTP code returned for type UpdateOneOK

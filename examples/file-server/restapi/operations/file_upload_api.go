@@ -16,7 +16,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/examples/file-server/restapi/operations/uploads"
+	"github.com/allons-y/openapi/examples/file-server/restapi/operations/uploads"
 )
 
 // NewFileUploadAPI creates a new FileUpload instance

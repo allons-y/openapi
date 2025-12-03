@@ -16,8 +16,8 @@ import (
 
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
-	"github.com/go-swagger/go-swagger/examples/stream-client/client"
-	"github.com/go-swagger/go-swagger/examples/stream-client/client/operations"
+	"github.com/allons-y/openapi/examples/stream-client/client"
+	"github.com/allons-y/openapi/examples/stream-client/client/operations"
 )
 
 // Buffer knows how to UnmarshalText

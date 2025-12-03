@@ -16,7 +16,7 @@ import (
 	analysis "github.com/allons-y/openapi-analysis"
 	loads "github.com/allons-y/openapi-loads"
 	spec "github.com/allons-y/openapi-spec"
-	"github.com/go-swagger/go-swagger/generator/internal/gentest"
+	"github.com/allons-y/openapi/generator/internal/gentest"
 )
 
 func TestUniqueOperationNameMangling(t *testing.T) {

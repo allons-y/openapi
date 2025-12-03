@@ -13,7 +13,7 @@ import (
 
 	loads "github.com/allons-y/openapi-loads"
 
-	"github.com/go-swagger/go-swagger/cmd/swagger/commands/diff"
+	"github.com/allons-y/openapi/cmd/swagger/commands/diff"
 )
 
 // JSONFormat for json.

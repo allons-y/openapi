@@ -56,7 +56,7 @@ paths:
               x-go-type:
                 type: MyAlternateString
                 import:
-                  package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+                  package: "github.com/allons-y/openapi/examples/external-types/fred"
                   alias: custom
 
     post:
@@ -76,7 +76,7 @@ paths:
               x-go-type:
                 type: MyAlternateString
                 import:
-                  package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+                  package: "github.com/allons-y/openapi/examples/external-types/fred"
                   alias: custom
 
       responses:
@@ -96,7 +96,7 @@ paths:
                   x-go-type:
                     type: MyAlternateString
                     import:
-                      package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+                      package: "github.com/allons-y/openapi/examples/external-types/fred"
                       alias: custom
 
   /stream:
@@ -182,7 +182,7 @@ definitions:
         x-go-type:
           type: MyAlternateInteger
           import:
-            package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+            package: "github.com/allons-y/openapi/examples/external-types/fred"
 
       epsilon:
         type: array
@@ -191,7 +191,7 @@ definitions:
           x-go-type:
             type: MyAlternateType
             import:
-              package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+              package: "github.com/allons-y/openapi/examples/external-types/fred"
               alias: custom
 
       reqMeta:
@@ -213,7 +213,7 @@ definitions:
         x-go-type:
           type: MyAlternateInteger
           import:
-            package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+            package: "github.com/allons-y/openapi/examples/external-types/fred"
 
       reqEpsilon:
         type: array
@@ -222,7 +222,7 @@ definitions:
           x-go-type:
             type: MyAlternateType
             import:
-              package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+              package: "github.com/allons-y/openapi/examples/external-types/fred"
               alias: custom
 
       nullableMeta:
@@ -270,7 +270,7 @@ definitions:
         x-go-type:
           type: MyAlternateInteger
           import:
-            package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+            package: "github.com/allons-y/openapi/examples/external-types/fred"
           hints:
             nullable: true
 
@@ -286,7 +286,7 @@ definitions:
           x-go-type:
             type: MyAlternateType
             import:
-              package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+              package: "github.com/allons-y/openapi/examples/external-types/fred"
               alias: custom
           x-nullable: true
 
@@ -310,7 +310,7 @@ definitions:
     x-go-type:
       type: MyAlternateType
       import:
-        package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+        package: "github.com/allons-y/openapi/examples/external-types/fred"
         alias: alternate
 
   MyCustomArray:
@@ -327,7 +327,7 @@ definitions:
       x-go-type:
         type: MyAlternateType
         import:
-          package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+          package: "github.com/allons-y/openapi/examples/external-types/fred"
           alias: alternate
 
   MyCustomArrayNullable:
@@ -343,7 +343,7 @@ definitions:
       x-go-type:
         type: MyAlternateType
         import:
-          package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+          package: "github.com/allons-y/openapi/examples/external-types/fred"
           alias: alternate
         hints:
           nullable: true
@@ -364,7 +364,7 @@ definitions:
         x-go-type:
           type: MyAlternateType
           import:
-            package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+            package: "github.com/allons-y/openapi/examples/external-types/fred"
             alias: alternate
 
   MyCustomMapNullable:
@@ -382,7 +382,7 @@ definitions:
         x-go-type:
           type: MyAlternateType
           import:
-            package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+            package: "github.com/allons-y/openapi/examples/external-types/fred"
             alias: alternate
         x-nullable: true
 
@@ -415,7 +415,7 @@ definitions:
     x-go-type:
       type: MyAlternateInterface
       import:
-        package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+        package: "github.com/allons-y/openapi/examples/external-types/fred"
       hints:
         kind: interface
 
@@ -426,7 +426,7 @@ definitions:
     x-go-type:
       type: MyExtType
       import:
-        package: "github.com/go-swagger/go-swagger/examples/external-types/go-ext"
+        package: "github.com/allons-y/openapi/examples/external-types/go-ext"
 
   MyExtCollection:
     description: |
@@ -458,7 +458,7 @@ definitions:
         x-go-type:
           type: MyAlternateStreamer
           import:
-            package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+            package: "github.com/allons-y/openapi/examples/external-types/fred"
             alias: alternate
       reader3:
         description: |
@@ -472,7 +472,7 @@ definitions:
         x-go-type:
           type: MyAlternateStreamer
           import:
-            package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+            package: "github.com/allons-y/openapi/examples/external-types/fred"
           hints:
             kind: stream
 
@@ -501,7 +501,7 @@ definitions:
         x-go-type:
           type: MyAlternateInterface
           import:
-            package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+            package: "github.com/allons-y/openapi/examples/external-types/fred"
           hints:
             kind: interface
 
@@ -541,7 +541,7 @@ definitions:
       x-go-type:
         type: MyAlternateType
         import:
-          package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+          package: "github.com/allons-y/openapi/examples/external-types/fred"
     additionalItems:
       description: |
         Additional items to a tuple, from an external type.
@@ -554,7 +554,7 @@ definitions:
         x-go-type:
           type: MyAlternateType
           import:
-            package: "github.com/go-swagger/go-swagger/examples/external-types/fred"
+            package: "github.com/allons-y/openapi/examples/external-types/fred"
 
   EmbeddedTime:
     description: |

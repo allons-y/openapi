@@ -11,8 +11,8 @@ import (
 
 	loads "github.com/allons-y/openapi-loads"
 
-	"github.com/go-swagger/go-swagger/examples/file-server/restapi"
-	"github.com/go-swagger/go-swagger/examples/file-server/restapi/operations"
+	"github.com/allons-y/openapi/examples/file-server/restapi"
+	"github.com/allons-y/openapi/examples/file-server/restapi/operations"
 )
 
 func main() {

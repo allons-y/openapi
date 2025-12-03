@@ -16,7 +16,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/go-swagger/go-swagger/examples/composed-auth/models"
+	"github.com/allons-y/openapi/examples/composed-auth/models"
 )
 
 // NewMultiAuthExampleAPI creates a new MultiAuthExample instance

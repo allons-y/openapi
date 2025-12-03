@@ -19,7 +19,7 @@ import (
 	loads "github.com/allons-y/openapi-loads"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/swag"
-	"github.com/go-swagger/go-swagger/generator/internal/gentest"
+	"github.com/allons-y/openapi/generator/internal/gentest"
 )
 
 const (

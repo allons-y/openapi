@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	alternate "github.com/go-swagger/go-swagger/examples/external-types/fred"
+	alternate "github.com/allons-y/openapi/examples/external-types/fred"
 )
 
 // NewPutTestParams creates a new PutTestParams object

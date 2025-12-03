@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/go-swagger/go-swagger/generator/internal/gentest"
+	"github.com/allons-y/openapi/generator/internal/gentest"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

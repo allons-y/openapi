@@ -63,7 +63,7 @@ func TestApplication_LoadCode(t *testing.T) {
 
 func TestAppScanner_NewSpec(t *testing.T) {
 	doc, err := Run(&Options{
-		Packages: []string{"github.com/go-swagger/go-swagger/fixtures/goparsing/petstore/..."},
+		Packages: []string{"github.com/allons-y/openapi/fixtures/goparsing/petstore/..."},
 	})
 	require.NoError(t, err)
 	if assert.NotNil(t, doc) {
@@ -75,7 +75,7 @@ func TestAppScanner_NewSpec(t *testing.T) {
 
 func TestAppScanner_Definitions(t *testing.T) {
 	doc, err := Run(&Options{
-		Packages:   []string{"github.com/go-swagger/go-swagger/fixtures/goparsing/bookings/..."},
+		Packages:   []string{"github.com/allons-y/openapi/fixtures/goparsing/bookings/..."},
 		ScanModels: true,
 	})
 	require.NoError(t, err)
@@ -102,7 +102,7 @@ func loadPetstorePkgsCtx(t *testing.T) *scanCtx {
 		return petstoreCtx
 	}
 	sctx, err := newScanCtx(&Options{
-		Packages: []string{"github.com/go-swagger/go-swagger/fixtures/goparsing/petstore/..."},
+		Packages: []string{"github.com/allons-y/openapi/fixtures/goparsing/petstore/..."},
 	})
 	require.NoError(t, err)
 	petstoreCtx = sctx
@@ -119,9 +119,9 @@ func loadClassificationPkgsCtx(t *testing.T, extra ...string) *scanCtx {
 
 	sctx, err := newScanCtx(&Options{
 		Packages: append([]string{
-			"github.com/go-swagger/go-swagger/fixtures/goparsing/classification",
-			"github.com/go-swagger/go-swagger/fixtures/goparsing/classification/models",
-			"github.com/go-swagger/go-swagger/fixtures/goparsing/classification/operations",
+			"github.com/allons-y/openapi/fixtures/goparsing/classification",
+			"github.com/allons-y/openapi/fixtures/goparsing/classification/models",
+			"github.com/allons-y/openapi/fixtures/goparsing/classification/operations",
 		}, extra...),
 	})
 	require.NoError(t, err)

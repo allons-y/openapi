@@ -10,7 +10,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	alternate "github.com/go-swagger/go-swagger/examples/external-types/fred"
+	alternate "github.com/allons-y/openapi/examples/external-types/fred"
 )
 
 // MyCustomArrayNullable This generate an array type in models, based on the external type.

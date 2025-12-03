@@ -10,8 +10,8 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/go-swagger/go-swagger/examples/task-tracker/restapi/operations"
-	"github.com/go-swagger/go-swagger/examples/task-tracker/restapi/operations/tasks"
+	"github.com/allons-y/openapi/examples/task-tracker/restapi/operations"
+	"github.com/allons-y/openapi/examples/task-tracker/restapi/operations/tasks"
 )
 
 //go:generate swagger generate server --target ../../task-tracker --name TaskTracker --spec ../swagger.yml --principal any

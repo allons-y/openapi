@@ -10,7 +10,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/go-swagger/go-swagger/examples/external-types/restapi/operations"
+	"github.com/allons-y/openapi/examples/external-types/restapi/operations"
 )
 
 //go:generate swagger generate server --target ../../external-types --name ExternalTypesDemo --spec ../example-external-types.yaml --principal any

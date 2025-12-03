@@ -8,7 +8,7 @@ import (
 
 	errors "github.com/go-openapi/errors"
 
-	models "github.com/go-swagger/go-swagger/examples/composed-auth/models"
+	models "github.com/allons-y/openapi/examples/composed-auth/models"
 )
 
 const (

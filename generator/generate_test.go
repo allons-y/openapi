@@ -17,7 +17,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-swagger/go-swagger/generator/internal/gentest"
+	"github.com/allons-y/openapi/generator/internal/gentest"
 )
 
 const testServerPkg = "nrcodegen-server"
@@ -75,7 +75,7 @@ func fixtureServer1943() generateFixture {
 				// rewrite imports for the relocated test program
 				rebasedContent := bytes.ReplaceAll(
 					input,
-					[]byte("github.com/go-swagger/go-swagger/fixtures/bugs/1943"),
+					[]byte("github.com/allons-y/openapi/fixtures/bugs/1943"),
 					[]byte(gentest.SanitizeGoModPath(opts.Target)),
 				)
 
@@ -290,7 +290,7 @@ func fixtureServerExternalModel() generateFixture {
 				t.Run("should generate external model", generateExternalModel(
 					opts,
 					filepath.Join("..", "fixtures", "bugs", "1897", "model.yaml"),  // the spec for the external model
-					"github.com/go-swagger/go-swagger/fixtures/bugs/1897/external", // the external package in imports
+					"github.com/allons-y/openapi/fixtures/bugs/1897/external", // the external package in imports
 				))
 
 				opts.IncludeMain = true
@@ -319,7 +319,7 @@ func fixtureServerExternalModelsHints() generateFixture {
 				t.Run("should generate external model", generateExternalModel(
 					opts,
 					filepath.Join("..", "fixtures", "enhancements", "2224", "fixture-2224-models.yaml"), // the spec for the external model
-					"github.com/go-swagger/go-swagger/fixtures/enhancements/2224/external",              // the external package in imports
+					"github.com/allons-y/openapi/fixtures/enhancements/2224/external",              // the external package in imports
 				))
 
 				t.Run("external models should be available", func(t *testing.T) {
@@ -565,7 +565,7 @@ func fixtureClientRoundTrip1083() generateFixture {
 					// Imports are rewritten such that there is no need for a replace directive in the generated go.mod
 					rebasedContent := bytes.ReplaceAll(
 						input,
-						[]byte("github.com/go-swagger/go-swagger/fixtures/bugs/1083/codegen"),
+						[]byte("github.com/allons-y/openapi/fixtures/bugs/1083/codegen"),
 						[]byte(targetImport),
 					)
 					rebasedContent = removeBuildTags(rebasedContent)
