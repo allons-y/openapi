@@ -750,6 +750,9 @@ func nullableBool(schema *spec.Schema, isRequired bool) bool {
 	if nullable := nullableExtension(schema.Extensions); nullable != nil {
 		return *nullable
 	}
+	if schema.Nullable != nil {
+		return *schema.Nullable
+	}
 	required := isRequired && schema.Default == nil && !schema.ReadOnly
 	optional := !isRequired && (schema.Default != nil || schema.ReadOnly)
 

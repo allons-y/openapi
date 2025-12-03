@@ -78,13 +78,13 @@ jobs:
           mkdir -p dist/build
 
           build_binary() {
-            LDFLAGS="-s -w -X github.com/$GITHUB_REPOSITORY/cmd/swagger/commands.Commit=${GITHUB_SHA}"
-            LDFLAGS="$LDFLAGS -X github.com/$GITHUB_REPOSITORY/cmd/swagger/commands.Version=${GITHUB_REF_NAME-dev}"
+            LDFLAGS="-s -w -X github.com/$GITHUB_REPOSITORY/cmd/openapi/commands.Commit=${GITHUB_SHA}"
+            LDFLAGS="$LDFLAGS -X github.com/$GITHUB_REPOSITORY/cmd/openapi/commands.Version=${GITHUB_REF_NAME-dev}"
             out="swagger_$1_$2"
             if [[ $1 == "windows" ]]; then
               out="${out}.exe"
             fi
-            GOOS=$1 GOARCH=$2 CGO_ENABLED=0 go build -ldflags "$LDFLAGS" -o "./dist/bin/$out" ./cmd/swagger
+            GOOS=$1 GOARCH=$2 CGO_ENABLED=0 go build -ldflags "$LDFLAGS" -o "./dist/bin/$out" ./cmd/openapi
           }
 
           go mod download

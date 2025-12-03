@@ -69,8 +69,8 @@ jobs:
           should_run_codegen:
             - '**/go.(mod,sum)'
             - 'cmd/**/*.go'
-            - '!cmd/swagger/commands/generate/spec*.go'
-            - '!cmd/swagger/commands/diff/*.go'
+            - '!cmd/openapi/commands/generate/spec*.go'
+            - '!cmd/openapi/commands/diff/*.go'
             - 'generator/**'
             # codegen test program and configuration
             - 'hack/codegen*.go'
@@ -230,7 +230,7 @@ jobs:
 
       - name: Build binary
         run: |
-          go install ./cmd/swagger
+          go install ./cmd/openapi
 
       - name: Verify that examples build
         run: |
@@ -358,7 +358,7 @@ jobs:
           go install -a \
              --ldflags "-s -w" \
              -cover -covermode=atomic -coverpkg=$(go list)/... \
-             ./cmd/swagger
+             ./cmd/openapi
 
       - name: Run codegen tests
         # TODO(fredbi): tests: nice to have - this test harness should output a json test report

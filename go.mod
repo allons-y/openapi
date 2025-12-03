@@ -6,10 +6,10 @@ toolchain go1.25.3
 
 require (
 	github.com/Masterminds/sprig/v3 v3.3.0
-	github.com/allons-y/openapi-analysis v0.0.0-20251203072822-fd7543c2993a
-	github.com/allons-y/openapi-loads v0.0.0-20251203072929-70729c0e75d6
-	github.com/allons-y/openapi-spec v0.0.0-20251203072342-56ee17cff694
-	github.com/allons-y/openapi-validate v0.0.0-20251203074037-bb7dfe27252b
+	github.com/allons-y/openapi-analysis v0.0.0-20251204071550-c411ed13b9c9
+	github.com/allons-y/openapi-loads v0.0.0-20251204071725-cd3c2a61023c
+	github.com/allons-y/openapi-spec v0.0.0-20251204071355-9801a15ee2d2
+	github.com/allons-y/openapi-validate v0.0.0-20251204073944-49e63e735f72
 	github.com/coreos/go-oidc/v3 v3.15.0
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
 	github.com/felixge/httpsnoop v1.0.4 // indirect

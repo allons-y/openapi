@@ -32,7 +32,7 @@ playground
 
 # Vscode files
 .vscode/*
-cmd/swagger/swagger.json.bak
+cmd/openapi/openapi.json.bak
 tags
 
 ### Vim
