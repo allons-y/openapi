@@ -1014,7 +1014,7 @@ func TestGenParameter_Issue909(t *testing.T) {
 		"2": {
 			"serverParameter": {
 				// expected code lines
-				`"github.com/go-openapi/validate"`,
+				`"github.com/allons-y/openapi-validate"`,
 				`IsAnOption2 []strfmt.UUID`,
 				`NotAnOption1 []strfmt.DateTime`,
 				`NotAnOption3 *models.ContainerConfig`,
@@ -1041,7 +1041,7 @@ func TestGenParameter_Issue909(t *testing.T) {
 		"3": {
 			"serverParameter": {
 				// expected code lines
-				`"github.com/go-openapi/validate"`,
+				`"github.com/allons-y/openapi-validate"`,
 				`"github.com/go-openapi/strfmt"`,
 				`IsAnOption2 [][]strfmt.UUID`,
 				`IsAnOption4 [][][]strfmt.UUID`,
@@ -1119,7 +1119,7 @@ func TestGenParameter_Issue909(t *testing.T) {
 		"4": {
 			"serverParameter": {
 				// expected code lines
-				`"github.com/go-openapi/validate"`,
+				`"github.com/allons-y/openapi-validate"`,
 				`"github.com/go-openapi/strfmt"`,
 				`IsAnOption2 [][]strfmt.UUID`,
 				`IsAnOption4 [][][]strfmt.UUID`,

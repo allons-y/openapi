@@ -8,10 +8,10 @@ import (
 	"encoding/json"
 	httpext "net/http"
 
+	validate "github.com/allons-y/openapi-validate"
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // TupleWithNoValidate A tuple of NoValidateExternal external types.

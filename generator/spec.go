@@ -12,13 +12,13 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/go-openapi/analysis"
+	analysis "github.com/allons-y/openapi-analysis"
+	loads "github.com/allons-y/openapi-loads"
+	spec "github.com/allons-y/openapi-spec"
+	validate "github.com/allons-y/openapi-validate"
 	swaggererrors "github.com/go-openapi/errors"
-	"github.com/go-openapi/loads"
-	"github.com/go-openapi/spec"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 
 	yamlv2 "gopkg.in/yaml.v2"
 )

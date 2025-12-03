@@ -12,7 +12,7 @@ import (
 
 	"golang.org/x/tools/go/ast/astutil"
 
-	"github.com/go-openapi/spec"
+	spec "github.com/allons-y/openapi-spec"
 )
 
 type responseTypable struct {

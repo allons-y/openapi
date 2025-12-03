@@ -14,8 +14,8 @@ import (
 
 	flags "github.com/jessevdk/go-flags"
 
-	"github.com/go-openapi/loads"
-	"github.com/go-openapi/spec"
+	loads "github.com/allons-y/openapi-loads"
+	spec "github.com/allons-y/openapi-spec"
 	"github.com/go-openapi/swag/yamlutils"
 )
 

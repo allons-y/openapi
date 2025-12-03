@@ -13,7 +13,7 @@ import (
 	flags "github.com/jessevdk/go-flags"
 	"github.com/spf13/viper"
 
-	"github.com/go-openapi/analysis"
+	analysis "github.com/allons-y/openapi-analysis"
 	"github.com/go-openapi/swag"
 
 	"github.com/go-swagger/go-swagger/generator"

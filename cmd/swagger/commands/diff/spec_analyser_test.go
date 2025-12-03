@@ -14,7 +14,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-openapi/loads"
+	loads "github.com/allons-y/openapi-loads"
 
 	"github.com/go-swagger/go-swagger/cmd/swagger/commands/internal/cmdtest"
 )

@@ -142,7 +142,7 @@ Full list of available options [here](../../usage/mixin.md).
 
 ### Roadmap
 
-This set of features is essentially provided by the `github.com/go-openapi/analysis` package.
+This set of features is essentially provided by the `github.com/allons-y/openapi-analysis` package.
 Feel free to contribute new features to this repo.
 
 Currently, here is a todo list of improvements planned to the spec preprocessing feature:

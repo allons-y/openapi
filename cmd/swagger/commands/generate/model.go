@@ -78,7 +78,7 @@ func (m Model) log(_ string) {
 
 For this generation to compile you need to have some packages in your go.mod:
 
-	* github.com/go-openapi/validate
+	* github.com/allons-y/openapi-validate
 	* github.com/go-openapi/strfmt
 
 You can get these now with: go mod tidy`)

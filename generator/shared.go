@@ -20,10 +20,10 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/go-openapi/analysis"
-	"github.com/go-openapi/loads"
+	analysis "github.com/allons-y/openapi-analysis"
+	loads "github.com/allons-y/openapi-loads"
+	spec "github.com/allons-y/openapi-spec"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/spec"
 	"github.com/go-openapi/swag"
 )
 

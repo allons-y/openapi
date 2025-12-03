@@ -13,10 +13,10 @@ Basically, here are the required packages:
 - [`github.com/go-openapi/errors`](https://www.github.com/go-openapi/errors)
 - [`github.com/go-openapi/loads`](https://www.github.com/go-openapi/loads)
 - [`github.com/go-openapi/runtime`](https://www.github.com/go-openapi/runtime)
-- [`github.com/go-openapi/spec`](https://www.github.com/go-openapi/spec)
+- [`github.com/allons-y/openapi-spec`](https://www.github.com/allons-y/openapi-spec)
 - [`github.com/go-openapi/strfmt`](https://www.github.com/go-openapi/strfmt)
 - [`github.com/go-openapi/swag`](https://www.github.com/go-openapi/swag)
-- [`github.com/go-openapi/validate`](https://www.github.com/go-openapi/validate)
+- [`github.com/allons-y/openapi-validate`](https://www.github.com/allons-y/openapi-validate)
 
 And depending on your generation options, a command line flags handling package:
 - [`github.com/jessevdk/go-flags`](https://www.github.com/jessevdk/go-flags), or

@@ -6,19 +6,19 @@ toolchain go1.25.3
 
 require (
 	github.com/Masterminds/sprig/v3 v3.3.0
+	github.com/allons-y/openapi-analysis v0.0.0-20251203072822-fd7543c2993a
+	github.com/allons-y/openapi-loads v0.0.0-20251203072929-70729c0e75d6
+	github.com/allons-y/openapi-spec v0.0.0-20251203072342-56ee17cff694
+	github.com/allons-y/openapi-validate v0.0.0-20251203074037-bb7dfe27252b
 	github.com/coreos/go-oidc/v3 v3.15.0
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
 	github.com/felixge/httpsnoop v1.0.4 // indirect
-	github.com/go-openapi/analysis v0.24.1
 	github.com/go-openapi/errors v0.22.4
 	github.com/go-openapi/inflect v0.21.3
-	github.com/go-openapi/loads v0.23.2
 	github.com/go-openapi/runtime v0.28.0
-	github.com/go-openapi/spec v0.22.1
 	github.com/go-openapi/strfmt v0.25.0
 	github.com/go-openapi/swag v0.25.4
 	github.com/go-openapi/swag/yamlutils v0.25.4
-	github.com/go-openapi/validate v0.24.0
 	github.com/go-swagger/scan-repo-boundary v0.0.0-20180623220736-973b3573c013
 	github.com/go-viper/mapstructure/v2 v2.4.0
 	github.com/golang-jwt/jwt/v5 v5.3.0
@@ -42,6 +42,8 @@ require (
 	gopkg.in/yaml.v3 v3.0.1
 )
 
+require k8s.io/kube-openapi v0.0.0-20251125145642-4e65d59e963e
+
 require (
 	dario.cat/mergo v1.0.1 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
@@ -52,8 +54,11 @@ require (
 	github.com/go-jose/go-jose/v4 v4.0.5 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
+	github.com/go-openapi/analysis v0.23.0 // indirect
 	github.com/go-openapi/jsonpointer v0.22.3 // indirect
 	github.com/go-openapi/jsonreference v0.21.3 // indirect
+	github.com/go-openapi/loads v0.22.0 // indirect
+	github.com/go-openapi/spec v0.21.0 // indirect
 	github.com/go-openapi/swag/cmdutils v0.25.4 // indirect
 	github.com/go-openapi/swag/conv v0.25.4 // indirect
 	github.com/go-openapi/swag/fileutils v0.25.4 // indirect
@@ -64,6 +69,8 @@ require (
 	github.com/go-openapi/swag/netutils v0.25.4 // indirect
 	github.com/go-openapi/swag/stringutils v0.25.4 // indirect
 	github.com/go-openapi/swag/typeutils v0.25.4 // indirect
+	github.com/go-openapi/validate v0.24.0 // indirect
+	github.com/google/gnostic-models v0.7.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
@@ -88,12 +95,6 @@ require (
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/mod v0.29.0 // indirect
 	golang.org/x/sync v0.18.0 // indirect
+	google.golang.org/protobuf v1.35.1 // indirect
+	k8s.io/utils v0.0.0-20240711033017-18e509b52bc8 // indirect
 )
-
-replace github.com/go-openapi/spec => github.com/allons-y/openapi-spec v0.0.0-20251202152022-df78cb0679ec
-
-replace github.com/go-openapi/analysis => github.com/allons-y/openapi-analysis v0.0.0-20251202152950-10f989869426
-
-replace github.com/go-openapi/loads => github.com/allons-y/openapi-loads v0.0.0-20251202153055-aa80596886fc
-
-replace github.com/go-openapi/validate => github.com/allons-y/openapi-validate v0.0.0-20251202153251-3e50c6108429

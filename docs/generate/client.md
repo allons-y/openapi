@@ -186,7 +186,7 @@ import (
 
   "github.com/myproject/client/operations"
   "github.com/go-openapi/strfmt"
-  "github.com/go-openapi/spec"
+  "github.com/allons-y/openapi-spec"
 
   apiclient "github.com/myproject/client"
   httptransport "github.com/go-openapi/runtime/client"
@@ -214,7 +214,7 @@ import (
 
   "github.com/myproject/client/operations"
   "github.com/go-openapi/strfmt"
-  "github.com/go-openapi/spec"
+  "github.com/allons-y/openapi-spec"
 
   apiclient "github.com/myproject/client"
   httptransport "github.com/go-openapi/runtime/client"
@@ -255,7 +255,7 @@ import (
 
   "github.com/myproject/client/operations"
   "github.com/go-openapi/strfmt"
-  "github.com/go-openapi/spec"
+  "github.com/allons-y/openapi-spec"
 
   apiclient "github.com/myproject/client"
   httptransport "github.com/go-openapi/runtime/client"

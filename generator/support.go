@@ -14,9 +14,9 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/go-openapi/analysis"
-	"github.com/go-openapi/loads"
-	"github.com/go-openapi/spec"
+	analysis "github.com/allons-y/openapi-analysis"
+	loads "github.com/allons-y/openapi-loads"
+	spec "github.com/allons-y/openapi-spec"
 	"github.com/go-openapi/swag"
 )
 

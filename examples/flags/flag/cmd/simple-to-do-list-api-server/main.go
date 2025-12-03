@@ -9,7 +9,7 @@ import (
 
 	"flag"
 
-	"github.com/go-openapi/loads"
+	loads "github.com/allons-y/openapi-loads"
 
 	"github.com/go-swagger/go-swagger/examples/flags/flag/restapi"
 	"github.com/go-swagger/go-swagger/examples/flags/flag/restapi/operations"

@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/go-openapi/loads"
+	loads "github.com/allons-y/openapi-loads"
+	validate "github.com/allons-y/openapi-validate"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/validate"
 )
 
 const (

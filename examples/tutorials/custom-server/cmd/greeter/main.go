@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/go-openapi/loads"
+	loads "github.com/allons-y/openapi-loads"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/swag"
 

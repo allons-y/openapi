@@ -8,8 +8,8 @@ import (
 
 	flags "github.com/jessevdk/go-flags"
 
-	"github.com/go-openapi/analysis"
-	"github.com/go-openapi/loads"
+	analysis "github.com/allons-y/openapi-analysis"
+	loads "github.com/allons-y/openapi-loads"
 
 	"github.com/go-swagger/go-swagger/cmd/swagger/commands/generate"
 )

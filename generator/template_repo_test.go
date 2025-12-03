@@ -11,8 +11,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-openapi/loads"
-	"github.com/go-openapi/spec"
+	loads "github.com/allons-y/openapi-loads"
+	spec "github.com/allons-y/openapi-spec"
 )
 
 func TestTemplates_CustomTemplates(t *testing.T) {

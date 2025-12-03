@@ -315,7 +315,7 @@ func init() {
 	}
 
 	goOpenAPIs := []string{
-		"github.com/go-openapi/loads/fmts",
+		"github.com/allons-y/openapi-loads/fmts",
 		"github.com/go-openapi/runtime",
 		"github.com/go-openapi/runtime/client",
 		"github.com/go-openapi/runtime/yamlpc",

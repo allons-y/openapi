@@ -1336,8 +1336,8 @@ type ObjectWithDescription struct {
 [runtime]: https://github.com/go-openapi/runtime
 [File]: https://github.com/go-openapi/runtime/blob/master/file.go#L20
 [Validatable]: https://github.com/go-openapi/runtime/blob/master/interfaces.go#L101
-[validate]: https://github.com/go-openapi/validate
-[validate-json]: https://godoc.org/github.com/go-openapi/validate#ex-AgainstSchema
+[validate]: https://github.com/allons-y/openapi-validate
+[validate-json]: https://godoc.org/github.com/allons-y/openapi-validate#ex-AgainstSchema
 [go-doc-model]: https://godoc.org/github.com/go-swagger/go-swagger/examples/generated/models
 [read-only]: https://github.com/OAI/OpenAPI-Specification/blob/old-v3.2.0-dev/versions/2.0.md#fixed-fields-13
 [all-formats]:  https://github.com/go-openapi/strfmt/blob/master/README.md

@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/spec"
+	spec "github.com/allons-y/openapi-spec"
 )
 
 // ArrayType const for array.

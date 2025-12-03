@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/go-openapi/loads"
-	"github.com/go-openapi/loads/fmts"
+	loads "github.com/allons-y/openapi-loads"
+	"github.com/allons-y/openapi-loads/fmts"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/runtime/middleware/untyped"

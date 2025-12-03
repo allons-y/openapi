@@ -10,7 +10,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
+	"k8s.io/kube-openapi/pkg/validation/validate"
 )
 
 // NewGetTaskCommentsParams creates a new GetTaskCommentsParams object

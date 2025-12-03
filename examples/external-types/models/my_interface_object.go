@@ -6,10 +6,10 @@ import (
 	"context"
 	jsonext "encoding/json"
 
+	validate "github.com/allons-y/openapi-validate"
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 	"github.com/go-swagger/go-swagger/examples/external-types/fred"
 )
 

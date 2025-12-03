@@ -15,8 +15,8 @@ import (
 	"github.com/jessevdk/go-flags"
 	"gopkg.in/yaml.v3"
 
-	"github.com/go-openapi/loads"
-	"github.com/go-openapi/spec"
+	loads "github.com/allons-y/openapi-loads"
+	spec "github.com/allons-y/openapi-spec"
 )
 
 // SpecFile command to generate a swagger spec from a go application.

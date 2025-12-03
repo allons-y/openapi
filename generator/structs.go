@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/go-openapi/analysis"
-	"github.com/go-openapi/spec"
+	analysis "github.com/allons-y/openapi-analysis"
+	spec "github.com/allons-y/openapi-spec"
 )
 
 // GenCommon contains common properties needed across

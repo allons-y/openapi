@@ -15,8 +15,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-openapi/analysis"
-	"github.com/go-openapi/loads"
+	analysis "github.com/allons-y/openapi-analysis"
+	loads "github.com/allons-y/openapi-loads"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/swag"
 	"github.com/go-swagger/go-swagger/generator/internal/gentest"

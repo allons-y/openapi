@@ -6,7 +6,7 @@ package codescan
 import (
 	"go/ast"
 
-	"github.com/go-openapi/spec"
+	spec "github.com/allons-y/openapi-spec"
 )
 
 func newSpecBuilder(input *spec.Swagger, sc *scanCtx, scanModels bool) *specBuilder {

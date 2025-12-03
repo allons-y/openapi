@@ -5,10 +5,10 @@ package customers
 import (
 	"net/http"
 
+	validate "github.com/allons-y/openapi-validate"
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/validate"
 
 	"github.com/go-swagger/go-swagger/examples/authentication/models"
 )

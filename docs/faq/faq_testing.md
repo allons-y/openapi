@@ -30,7 +30,7 @@ Go-swagger provides a Server, but not a configured handler.
 package restapi
 
 import (
-    loads "github.com/go-openapi/loads"
+    loads loads "github.com/allons-y/openapi-loads"
     "github.com/pim/pam/poum/restapi/operations"
     "net/http"
 )

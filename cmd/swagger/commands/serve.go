@@ -16,9 +16,9 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/toqueteos/webbrowser"
 
-	"github.com/go-openapi/loads"
+	loads "github.com/allons-y/openapi-loads"
+	spec "github.com/allons-y/openapi-spec"
 	"github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/spec"
 	"github.com/go-openapi/swag"
 )
 

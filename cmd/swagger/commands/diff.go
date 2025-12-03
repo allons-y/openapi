@@ -11,7 +11,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/go-openapi/loads"
+	loads "github.com/allons-y/openapi-loads"
 
 	"github.com/go-swagger/go-swagger/cmd/swagger/commands/diff"
 )

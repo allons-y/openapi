@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/go-openapi/loads"
+	loads "github.com/allons-y/openapi-loads"
 	"github.com/go-openapi/runtime/middleware"
 
 	"github.com/go-swagger/go-swagger/fixtures/bugs/1472/restapi"

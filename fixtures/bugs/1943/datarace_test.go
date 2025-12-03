@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-openapi/loads"
+	loads "github.com/allons-y/openapi-loads"
 	"github.com/go-swagger/go-swagger/fixtures/bugs/1943/restapi"
 	"github.com/go-swagger/go-swagger/fixtures/bugs/1943/restapi/operations"
 )

@@ -8,7 +8,7 @@ weight: 30
 ---
 ## Full features list
 
-- [x] An object model that serializes to swagger yaml or json (see the [spec package](https://github.com/go-openapi/spec))
+- [x] An object model that serializes to swagger yaml or json (see the [spec package](https://github.com/allons-y/openapi-spec))
 
 - [x] A tool to work with swagger
   - [x] Serve swagger UI for any swagger spec file
@@ -47,7 +47,7 @@ weight: 30
   - [x] JSON Pointer that knows about structs
   - [x] JSON Reference that knows about structs
   - [x] Supports most JSON schema features<sup>[1](#footnote1)</sup>
-  - [x] Validate JSON data against jsonschema (Draft 4), with full $ref support (see the [validate package](https://github.com/go-openapi/validate))
+  - [x] Validate JSON data against jsonschema (Draft 4), with full $ref support (see the [validate package](https://github.com/allons-y/openapi-validate))
     - passes current json schema test suite
 
 - [x] extended string and numeric formats (see: [strfmt package](https://github.com/go-openapi/strfmt))

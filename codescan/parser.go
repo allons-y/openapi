@@ -18,8 +18,8 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/go-openapi/loads/fmts"
-	"github.com/go-openapi/spec"
+	"github.com/allons-y/openapi-loads/fmts"
+	spec "github.com/allons-y/openapi-spec"
 )
 
 func shouldAcceptTag(tags []string, includeTags map[string]bool, excludeTags map[string]bool) bool {

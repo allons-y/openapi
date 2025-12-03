@@ -9,8 +9,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-openapi/analysis"
-	"github.com/go-openapi/loads"
+	analysis "github.com/allons-y/openapi-analysis"
+	loads "github.com/allons-y/openapi-loads"
 )
 
 func TestSpec_Issue1429(t *testing.T) {

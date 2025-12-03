@@ -26,10 +26,10 @@ The following required dependencies may be fetched by using `go get`:
 - [`github.com/go-openapi/errors`](https://github.com/go-openapi/errors)
 - [`github.com/go-openapi/loads`](https://github.com/go-openapi/loads)
 - [`github.com/go-openapi/runtime`](https://github.com/go-openapi/runtime)
-- [`github.com/go-openapi/spec`](https://github.com/go-openapi/spec)
+- [`github.com/allons-y/openapi-spec`](https://github.com/allons-y/openapi-spec)
 - [`github.com/go-openapi/strfmt`](https://github.com/go-openapi/strfmt)
 - [`github.com/go-openapi/swag`](https://github.com/go-openapi/swag)
-- [`github.com/go-openapi/validate`](https://github.com/go-openapi/validate)
+- [`github.com/allons-y/openapi-validate`](https://github.com/allons-y/openapi-validate)
 
 {{< hint "info" >}}
 The code generation process ends with a message indicating the packages required for your generated code.
@@ -55,7 +55,7 @@ The generated models only depend on:
 - [`github.com/go-openapi/errors`](https://www.github.com/go-openapi/errors)
 - [`github.com/go-openapi/strfmt`](https://www.github.com/go-openapi/strfmt)
 - [`github.com/go-openapi/swag`](https://www.github.com/go-openapi/swag)
-- [`github.com/go-openapi/validate`](https://www.github.com/go-openapi/validate)
+- [`github.com/allons-y/openapi-validate`](https://www.github.com/allons-y/openapi-validate)
 
 ## How about generating specs?
 

@@ -6,9 +6,9 @@ import (
 	"context"
 	httpext "net/http"
 
+	validate "github.com/allons-y/openapi-validate"
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/validate"
 )
 
 // ArrayWithNoValidate A slice of NoValidateExternal external types.

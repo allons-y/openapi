@@ -11,8 +11,8 @@ import (
 	"net/url"
 	"testing"
 
+	loads "github.com/allons-y/openapi-loads"
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/loads"
 	"github.com/go-openapi/runtime"
 	rtclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/runtime/middleware"

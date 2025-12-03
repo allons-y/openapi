@@ -21,8 +21,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/go-openapi/loads"
-	"github.com/go-openapi/loads/fmts"
+	loads "github.com/allons-y/openapi-loads"
+	"github.com/allons-y/openapi-loads/fmts"
 )
 
 func init() {

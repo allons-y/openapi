@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-openapi/loads"
+	loads "github.com/allons-y/openapi-loads"
 )
 
 func TestEnum_StringThing(t *testing.T) {

@@ -6,7 +6,7 @@ package codescan
 import (
 	"fmt"
 
-	"github.com/go-openapi/spec"
+	spec "github.com/allons-y/openapi-spec"
 )
 
 // opConsumesSetter is deprecated in OpenAPI v3 - content types moved to requestBody
