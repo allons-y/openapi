@@ -214,6 +214,10 @@ func (t *typeResolver) ResolveSchema(schema *spec.Schema, isAnonymous, isRequire
 	}
 
 	result.IsNullable = t.isNullable(schema) || isRequired
+	if schema.Nullable != nil {
+		// Explicitly set nullable
+		result.IsNullable = *schema.Nullable
+	}
 
 	switch tpe {
 	case array:
@@ -476,6 +480,9 @@ func (t *typeResolver) resolveFormat(schema *spec.Schema, isAnonymous bool, isRe
 //
 // The interpretation of Required as a mean to make a type nullable is carried out elsewhere.
 func (t *typeResolver) isNullable(schema *spec.Schema) bool {
+	if schema.Nullable != nil {
+		return *schema.Nullable
+	}
 	if nullable, ok := t.isNullableOverride(schema); ok {
 		return nullable
 	}
@@ -747,6 +754,9 @@ func (t *typeResolver) resolveObject(schema *spec.Schema, isAnonymous bool) (res
 // - it is a required property
 // - it has a default value.
 func nullableBool(schema *spec.Schema, isRequired bool) bool {
+	if schema.Nullable != nil {
+		return *schema.Nullable
+	}
 	if nullable := nullableExtension(schema.Extensions); nullable != nil {
 		return *nullable
 	}
@@ -768,6 +778,9 @@ func nullableBool(schema *spec.Schema, isRequired bool) bool {
 //   - there is a non-exclusive boundary set at the zero value of the type
 //   - the [min,max] range crosses the zero value of the type
 func nullableNumber(schema *spec.Schema, isRequired bool) bool {
+	if schema.Nullable != nil {
+		return *schema.Nullable
+	}
 	if nullable := nullableExtension(schema.Extensions); nullable != nil {
 		return *nullable
 	}
@@ -828,6 +841,9 @@ func (t *typeResolver) shortCircuitResolveExternal(tpe, pkg, alias string, extTy
 // - it has a MinLength property set to 0
 // - it has a default other than "" (the zero for strings) and no MinLength or zero MinLength.
 func nullableString(schema *spec.Schema, isRequired bool) bool {
+	if schema.Nullable != nil {
+		return *schema.Nullable
+	}
 	if nullable := nullableExtension(schema.Extensions); nullable != nil {
 		return *nullable
 	}
@@ -841,6 +857,9 @@ func nullableString(schema *spec.Schema, isRequired bool) bool {
 }
 
 func nullableStrfmt(schema *spec.Schema, isRequired bool) bool {
+	if schema.Nullable != nil {
+		return *schema.Nullable
+	}
 	notBinary := schema.Format != binary
 	if nullable := nullableExtension(schema.Extensions); nullable != nil && notBinary {
 		return *nullable

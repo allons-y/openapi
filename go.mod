@@ -6,10 +6,6 @@ toolchain go1.25.3
 
 require (
 	github.com/Masterminds/sprig/v3 v3.3.0
-	github.com/allons-y/openapi-analysis v0.0.0-20251204071550-c411ed13b9c9
-	github.com/allons-y/openapi-loads v0.0.0-20251204071725-cd3c2a61023c
-	github.com/allons-y/openapi-spec v0.0.0-20251204071355-9801a15ee2d2
-	github.com/allons-y/openapi-validate v0.0.0-20251204073944-49e63e735f72
 	github.com/coreos/go-oidc/v3 v3.15.0
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
 	github.com/felixge/httpsnoop v1.0.4 // indirect
@@ -42,7 +38,13 @@ require (
 	gopkg.in/yaml.v3 v3.0.1
 )
 
-require k8s.io/kube-openapi v0.0.0-20251125145642-4e65d59e963e
+require (
+	github.com/allons-y/openapi-analysis v0.0.0-20251204071550-c411ed13b9c9
+	github.com/allons-y/openapi-loads v0.0.0-20251204071725-cd3c2a61023c
+	github.com/allons-y/openapi-spec v0.0.0-20251204071355-9801a15ee2d2
+	github.com/allons-y/openapi-validate v0.0.0-20251204073944-49e63e735f72
+	k8s.io/kube-openapi v0.0.0-20251125145642-4e65d59e963e
+)
 
 require (
 	dario.cat/mergo v1.0.1 // indirect
