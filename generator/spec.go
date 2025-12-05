@@ -242,6 +242,15 @@ func WithAutoXOrder(specPath string) string {
 		}
 	}
 
+	// OpenAPI 3.0 uses components/schemas instead of definitions
+	if components, ok := lookFor(yamlDoc, "components"); ok {
+		if schemas, ok := lookFor(components, "schemas"); ok {
+			for _, schema := range schemas {
+				addXOrder(schema.Value)
+			}
+		}
+	}
+
 	addXOrder(yamlDoc)
 
 	out, err := yamlv2.Marshal(yamlDoc)
