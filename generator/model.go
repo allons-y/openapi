@@ -779,6 +779,11 @@ func (sg *schemaGenContext) buildProperties() error {
 				emprop.GenSchema.IsAliased = true
 			}
 
+			// if the property has no description, use the referenced schema's description
+			if emprop.GenSchema.Description == "" && sch.Description != "" {
+				emprop.GenSchema.Description = trimBOM(sch.Description)
+			}
+
 			// lift validations
 			hv := hasValidations(sch, false)
 

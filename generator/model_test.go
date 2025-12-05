@@ -2760,3 +2760,25 @@ func TestIssue2597(t *testing.T) {
 		})
 	})
 }
+
+func TestGenModel_RefPropertyDescriptionPropagation(t *testing.T) {
+	// Test that description is propagated from referenced schema to property
+	specDoc, err := loads.Spec("../fixtures/bugs/ref-description/swagger.yml")
+	require.NoError(t, err)
+
+	definitions := specDoc.Spec().Definitions
+	opts := opts()
+
+	genModel, err := makeGenDefinition("ContainerType", "models", definitions["ContainerType"], specDoc, opts)
+	require.NoError(t, err)
+
+	// Test that ref_prop inherits description from ReferencedType
+	refProp := getDefinitionProperty(genModel, "ref_prop")
+	require.NotNil(t, refProp, "ref_prop should exist")
+	assert.Equal(t, "A type that has a description", refProp.Description, "ref_prop should inherit description from referenced schema")
+
+	// Test that ref_prop_with_own_desc keeps its own description (doesn't override with ref's)
+	refPropWithOwnDesc := getDefinitionProperty(genModel, "ref_prop_with_own_desc")
+	require.NotNil(t, refPropWithOwnDesc, "ref_prop_with_own_desc should exist")
+	assert.Equal(t, "This property has its own description", refPropWithOwnDesc.Description, "ref_prop_with_own_desc should keep its own description")
+}

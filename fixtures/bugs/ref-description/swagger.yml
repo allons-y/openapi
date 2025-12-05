@@ -1,0 +1,27 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Test ref description propagation
+paths:
+  "/test":
+    get:
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
+    ReferencedType:
+      type: object
+      description: A type that has a description
+      properties:
+        value:
+          type: string
+    ContainerType:
+      type: object
+      properties:
+        ref_prop:
+          $ref: "#/components/schemas/ReferencedType"
+        ref_prop_with_own_desc:
+          description: This property has its own description
+          allOf:
+            - $ref: "#/components/schemas/ReferencedType"

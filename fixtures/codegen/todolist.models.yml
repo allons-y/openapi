@@ -41,6 +41,7 @@ components:
           Pattern: "[A-Za-z0-9][\\w- ]+"
     Notable:
       type: object
+      description: A notable item with notes
       properties:
         notes:
           type: string
